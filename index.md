@@ -26,14 +26,7 @@ Here I share insights, notes, and reflections on cloud computing, technology, an
 <!-- ARTICLES LIST -->
 ### 📝 Latest Articles
 
-<ul>
-{% assign articles = site.static_files | where:"extname",".md" %}
-{% for article in articles %}
-  {% if article.path != "/index.md" %}
-    <li><a href="{{ article.path | remove_first:'/' }}">{{ article.name | remove:'.md' | replace:'-',' ' | capitalize }}</a></li>
-  {% endif %}
-{% endfor %}
-</ul>
+- [My First Technical Article](my-first-article.md)
 
 ---
 
