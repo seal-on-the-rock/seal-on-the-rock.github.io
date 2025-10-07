@@ -1,10 +1,15 @@
 ---
 layout: post
-title: "我的第一篇 AWS 技术笔记"
+title: "My First Technical Article"
 date: 2025-10-07
 author: Seal
 ---
 
-# ☁️ 我的第一篇 AWS 技术笔记
+# ☁️ My First Technical Article
 
-今天正式开始写我的技术博客。  
+
+I decided to start sharing what I’ve learned through my work and study in technology.
+This space will be where I record insights, summarize knowledge, and reflect on ideas related to system engineering, cloud computing, and accounting systems.
+
+Rather than being a tutorial site, this blog is meant to document my own learning process and how I apply these concepts in real projects.
+I hope it can also help others who are exploring similar paths.
