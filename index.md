@@ -25,6 +25,6 @@ You'll find notes, tutorials, and reflections on cloud computing and technology.
 
 <p align="center">
   <a href="https://github.com/seal-on-the-rock">🐙 GitHub</a> |
-  <a href="https://www.linkedin.com/in/%E6%B5%B7%E8%B1%B9-%E6%B1%AA-435a41294/">💼 LinkedIn</a> |
+  <a href="https://www.linkedin.com/in/wanghaibao/">💼 LinkedIn</a> |
   <a href="https://twitter.com/">🐦 Twitter</a>
 </p>
