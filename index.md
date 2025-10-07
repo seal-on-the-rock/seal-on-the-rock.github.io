@@ -1,5 +1,5 @@
-<p align="center">
-  <img src="/assets/images/logo.png" alt="Seal on the Rock logo" width="200" style="border-radius:50%;"/>
+<p align="center" style="margin: 40px 0;">
+  <img src="/assets/images/logo.png" alt="Seal on the Rock logo" width="300" style="object-fit:contain;"/>
 </p>
 
 <h1 align="center">Seal on the Rock 🌊</h1>
