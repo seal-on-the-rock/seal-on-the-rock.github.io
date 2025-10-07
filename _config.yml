@@ -1,3 +1,26 @@
+# 博客标题与描述
 title: Seal on the Rock
 description: Learning AWS, one wave at a time
+
+# 主题
 theme: jekyll-theme-cayman
+
+# 作者信息
+author:
+  name: Seal
+  email: your-email@example.com
+
+# 首页欢迎文字（可以在 README.md 或 index.md 中显示）
+welcome_message: >
+  Welcome to my personal tech blog!  
+  I'm a beginner learning AWS and sharing my journey.  
+  Here you'll find notes, tutorials, and reflections on cloud computing.
+
+# 社交链接（可选，方便以后加链接）
+social_links:
+  github: https://github.com/seal-on-the-rock
+  linkedin: https://www.linkedin.com/in/yourprofile
+  twitter: https://twitter.com/yourprofile
+
+# Jekyll 配置
+markdown: kramdown
