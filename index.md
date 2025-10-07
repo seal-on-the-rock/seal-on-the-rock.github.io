@@ -26,7 +26,7 @@ Here I share insights, notes, and reflections on cloud computing, technology, an
 <!-- ARTICLES LIST -->
 ### 📝 Latest Articles
 
-- [My First Technical Article](2025-10-07-my-first-aws-article.md)
+- [My First Technical Article](_posts/2025-10-07-my-first-article.md)
 
 ---
 
