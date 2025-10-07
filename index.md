@@ -18,5 +18,5 @@ You'll find notes, tutorials, and reflections on cloud computing and technology.
 ### 🔗 Connect
 
 - 🐙 [GitHub](https://github.com/seal-on-the-rock)
-- 💼 [LinkedIn](https://www.linkedin.com/in/yourprofile)
-- 🐦 [Twitter](https://twitter.com/yourprofile)
+- 💼 [LinkedIn](https://www.linkedin.com/in/%E6%B5%B7%E8%B1%B9-%E6%B1%AA-435a41294/)
+- 🐦 [Twitter]
