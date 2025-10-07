@@ -1,6 +1,8 @@
 # 博客标题与描述
 title: Seal on the Rock
-description: Learning AWS, one wave at a time
+description: >-
+  A personal journey through cloud computing, creation, and reflection.
+logo: /assets/images/logo.png
 
 # 主题
 theme: jekyll-theme-cayman
