@@ -15,7 +15,7 @@
 ### 👋 Welcome
 
 Welcome to my personal tech blog!  
-I'm a beginner learning AWS and sharing my journey here.  
+I'm a AWS learner and sharing my journey here.  
 You'll find notes, tutorials, and reflections on cloud computing and technology.
 
 ---
