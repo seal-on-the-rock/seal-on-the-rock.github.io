@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "0001"
+title: "article0001"
 date: 2025-10-10
 author: Seal
 ---
 
-# ☁️ 0001　AWSのネットワーク
+# ☁️ article0001　AWSのネットワーク
 
 
 初めてAWSを勉強する人は、多分よく困っているのはネットワークに関するものですよね。
