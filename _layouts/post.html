@@ -5,7 +5,7 @@
   <title>{{ page.title }}</title>
   <link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
   <style>
-    /* 全局背景渐变 */
+    /* ------------------- 全局 ------------------- */
     body {
       font-family: "Helvetica Neue", Arial, sans-serif;
       line-height: 1.6;
@@ -15,31 +15,44 @@
       padding: 0;
     }
 
-    /* 主体容器 */
-    .main {
-      display: flex;
-      gap: 20px;
-      padding: 20px;
-      margin: 30px auto;
-      max-width: 1600px;
+    a {
+      color: #007cf0;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
     }
 
-    /* 文章内容 */
+    /* ------------------- 主体 ------------------- */
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+
     .content {
-      flex: 1 1 70%;
-      min-width: 700px;
       background: #ffffff;
       padding: 30px;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
-    /* 左右栏 */
-    .toc, .author {
-      flex: 0 0 150px;
+    /* ------------------- 标题 ------------------- */
+    .content h1 {
+      background: linear-gradient(90deg, #007cf0, #00dfd8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 2em;
+      margin-top: 0;
+      margin-bottom: 0.6em;
+    }
+    .content h2, .content h3 {
+      color: #007cf0;
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
     }
 
-    /* 图片自适应并加圆角 */
+    /* ------------------- 图片 ------------------- */
     .content img {
       width: 100%;
       height: auto;
@@ -47,22 +60,19 @@
       margin: 20px 0;
     }
 
-    /* 表格美化 */
+    /* ------------------- 表格 ------------------- */
     .content table {
       width: 100%;
       border-collapse: collapse;
       margin: 20px 0;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
-
     .content table th,
     .content table td {
       border: 1px solid #ccc;
       padding: 10px 14px;
       text-align: center;
     }
-
-    /* 表格隔行变色 */
     .content table tr:nth-child(even) {
       background-color: #f7f7f7;
     }
@@ -70,50 +80,60 @@
       background-color: #ffffff;
     }
 
-    /* 标题渐变 */
-    .content h1 {
-      background: linear-gradient(90deg, #007cf0, #00dfd8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-size: 2.2em;
-      margin-top: 0;
-      margin-bottom: 0.6em;
-    }
-
-    .content h2, .content h3 {
-      color: #007cf0;
-      margin-top: 1.5em;
-      margin-bottom: 0.5em;
-    }
-
-    /* 文字和段落 */
+    /* ------------------- 段落 ------------------- */
     .content p {
       margin: 12px 0;
     }
 
-    /* 作者信息卡片 */
-    .author {
+    /* ------------------- 底部作者和导航 ------------------- */
+    .post-footer {
+      margin-top: 40px;
+      border-top: 1px solid #ddd;
+      padding-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .post-footer .author {
       font-size: 0.9em;
       color: #555;
-      padding: 10px;
-      background: #f0f4f8;
-      border-radius: 8px;
+    }
+    .post-footer .nav-links a {
+      margin-left: 15px;
     }
 
+    /* ------------------- 移动端 ------------------- */
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+      .content {
+        padding: 20px;
+      }
+      .post-footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .post-footer .nav-links {
+        margin-top: 10px;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="main">
+  <div class="container">
     <div class="content">
       {{ content }}
-    </div>
-    <div class="toc">
-      {% if page.toc %}
-        {{ page.toc }}
-      {% endif %}
-    </div>
-    <div class="author">
-      <p>Author: {{ page.author.name }}</p>
+
+      <div class="post-footer">
+        <div class="author">
+          Author: {{ page.author.name }}
+        </div>
+        <div class="nav-links">
+          <a href="{{ '/' | relative_url }}">🏠 Home</a>
+          <a href="{{ '/posts/' | relative_url }}">📝 All Articles</a>
+        </div>
+      </div>
     </div>
   </div>
 </body>
