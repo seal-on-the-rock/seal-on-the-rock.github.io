@@ -1,6 +1,7 @@
 ---
 layout: all_posts
 title: "All Articles"
+permalink: /all-articles/
 ---
 
 # 📝 All Articles
