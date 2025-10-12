@@ -5,28 +5,33 @@
   <title>{{ page.title }}</title>
   <link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
   <style>
-    /* 整体布局 */
+    /* 全局背景渐变 */
     body {
       font-family: "Helvetica Neue", Arial, sans-serif;
       line-height: 1.6;
-      background: #fdfdfd;
+      background: linear-gradient(to bottom, #f0f4f8, #ffffff);
       color: #333;
       margin: 0;
       padding: 0;
     }
 
+    /* 主体容器 */
     .main {
       display: flex;
       gap: 20px;
-      padding: 10px 20px;
+      padding: 20px;
       margin: 30px auto;
-      max-width: 1600px; /* 页面最大宽度 */
+      max-width: 1600px;
     }
 
-    /* 文章主体 */
+    /* 文章内容 */
     .content {
       flex: 1 1 70%;
       min-width: 700px;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
     /* 左右栏 */
@@ -34,11 +39,11 @@
       flex: 0 0 150px;
     }
 
-    /* 图片自适应 */
+    /* 图片自适应并加圆角 */
     .content img {
       width: 100%;
       height: auto;
-      border-radius: 5px;
+      border-radius: 8px;
       margin: 20px 0;
     }
 
@@ -47,12 +52,13 @@
       width: 100%;
       border-collapse: collapse;
       margin: 20px 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
 
     .content table th,
     .content table td {
       border: 1px solid #ccc;
-      padding: 8px 12px;
+      padding: 10px 14px;
       text-align: center;
     }
 
@@ -60,16 +66,40 @@
     .content table tr:nth-child(even) {
       background-color: #f7f7f7;
     }
-
     .content table tr:nth-child(odd) {
       background-color: #ffffff;
     }
 
-    /* 标题 */
-    .content h1, .content h2, .content h3 {
+    /* 标题渐变 */
+    .content h1 {
+      background: linear-gradient(90deg, #007cf0, #00dfd8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 2.2em;
+      margin-top: 0;
+      margin-bottom: 0.6em;
+    }
+
+    .content h2, .content h3 {
+      color: #007cf0;
       margin-top: 1.5em;
       margin-bottom: 0.5em;
     }
+
+    /* 文字和段落 */
+    .content p {
+      margin: 12px 0;
+    }
+
+    /* 作者信息卡片 */
+    .author {
+      font-size: 0.9em;
+      color: #555;
+      padding: 10px;
+      background: #f0f4f8;
+      border-radius: 8px;
+    }
+
   </style>
 </head>
 <body>
