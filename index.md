@@ -26,7 +26,13 @@ Here I share insights, notes, and reflections on cloud computing, technology, an
 <!-- ARTICLES LIST -->
 ### 📝 Latest Articles
 
-- [article0001](article0001.md)
+<ul>
+{% for post in site.posts %}
+  <li>
+    <a href="{{ post.url }}">{{ post.title }}</a> - {{ post.date | date: "%Y-%m-%d" }}
+  </li>
+{% endfor %}
+</ul>
 
 ---
 
