@@ -1,0 +1,23 @@
+/* 表格基础样式 */
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+}
+
+/* 表头背景色 */
+th {
+  background-color: #e2e6ea;
+}
+
+/* 交替行背景色 */
+tr:nth-child(even) td {
+  background-color: #f0f8ff;
+}
+
+tr:nth-child(odd) td {
+  background-color: #ffffff;
+}
