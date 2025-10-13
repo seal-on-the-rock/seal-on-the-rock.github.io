@@ -15,8 +15,8 @@ title: Seal on the Rock
 
 ---
 
-<div class="about-section">
-# 👋 About Me
+
+### 👋 About Me
 こんにちは！I'm **Seal**, a system engineer (SE) at  
 [株式会社テンダ](https://www.tenda.co.jp/) 
 
@@ -24,7 +24,7 @@ I’m deeply passionate about **AWS** ☁️
 Self-learning cloud architecture and infrastructure design.  
 Recently earned **AWS Certified Solutions Architect – Professional (SAP-C02)**   
 👉 [View my certification](https://www.credly.com/badges/88bcf2eb-cf09-433e-9a8f-e89660985f8c/public_url)
-</div>
+
 
 ---
 
