@@ -50,3 +50,21 @@ pre {
   background-color: #005bb5;
 }
 
+.about-section {
+  background-color: #f7f9fc;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 30px auto;
+  max-width: 700px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.about-section h1 {
+  text-align: center;
+  color: #333;
+}
+
+.about-section p {
+  line-height: 1.7;
+  text-align: center;
+}
