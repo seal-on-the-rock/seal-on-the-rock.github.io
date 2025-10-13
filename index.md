@@ -25,6 +25,10 @@ Self-learning cloud architecture and infrastructure design.
 Recently earned **AWS Certified Solutions Architect – Professional (SAP-C02)**   
 👉 [View my certification](https://www.credly.com/badges/88bcf2eb-cf09-433e-9a8f-e89660985f8c/public_url)
 
+<p align="center" style="margin: 40px 0;">
+  <img src="/assets/images/aws-certified-solutions-architect-professional.png" alt="AWS Certified Solutions Architect - Professional certificate" 
+       style="max-width: 20%; height: auto; border-radius: 12px;">
+</p>
 
 ---
 
