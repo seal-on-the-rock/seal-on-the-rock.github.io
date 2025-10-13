@@ -1,0 +1,183 @@
+---
+layout: post
+title: "article0003"
+date: 2025-10-13
+author: Seal
+---
+
+
+# ☁️ article0002　AWSのネットワーク３
+
+
+今回はAWSネットワークの最終回です！
+
+先ずは、質問が1つあります。S3とか、DynamoDBとかのPaaSサービスがどこにありますか？プライベートサブネット？パブリックネットワーク？どっちですか？
+
+答えは、パブリックネットワークです！
+
+S3やDynamoDBは「Public　Service」であり、自分専属のVPC内ではなく、AWSの共有インフラ上に存在しています。
+
+つまり、これはVPCに所属しないサービスです。
+
+プライベートサブネットのEC2がS3にアクセスするために、NATGW→IGWを経由します。
+
+ただし、実際の通信はAWSの内部バックボーンを通っており、安全かつ高速です。
+
+それは、Gateway　Endpointです。
+
+S3とDynamoDBは特別で、Gateway　Endpointを使えばNAT経由せず、通信料金も不要です。
+
+下図を参照してください。
+
+![AWS　Endpoint]( /assets/images/0003-1.png )
+
+
+補充説明：
+
+ ⑴ S3とDynamoDBはENIが作成されない、プライベートIPも持っていない。
+
+　　　S3とDynamoDBはPaaS（Platform as a Service）に分類されます。
+
+ ⑵ PaaSサービスはユーザーのVPC内ではなく、AWSが管理する共通基盤上で動作します。（AWS内部ネットワークを経由して通信する）
+
+| 層 | 代表的なサービス | 動作場所 | 通信ネットワーク |
+|:------------------------|:------------------------|:----------------------------|:----------------------------|
+| IaaS | EC2、VPC、EBS | 自分専属のVPC内|ENI・Private IPを持つ、完全にプライベート|
+| PaaS | S3、DynamoDB、RDS、Lambda | AWS管理の共通基盤　|VPC外、デフォルトでPublic Endpoint経由、AWS EndpointでPrivate Endpoint経由|
+| SaaS  | WorkMail、QuickSight、Chime | AWSまたは外部サービス |完全マネージド、ネットワーク制御不可|
+
+
+ ⑶ PaaSサービスはVPC内に存在しないため、デフォルトではPublic Endpoint経由でアクセスします。（EC2　→　NATGW　→　IGW　→　S3パブリックエンドポイント）
+
+　   しかし、通信自体はAWSの内部ネットワークを通っており、安全で隔離されています。
+
+ ⑷ PaaS　＝　AWSが用意した共通のプラットフォームです。VPC外にあるが、Private Endpointを使えば完全に閉じた通信もできます。（EC2　→　Gateway　Endpoint　→　S3プライベートエンドポイント）
+
+<br><br>
+---
+<br><br>
+
+ 
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+１．プライベートサブネットのEC2はどうやってインターネットにアクセスしますか？
+
+答えはNAT Gatewayです。
+
+下記のイメージの通り、
+
+先ずは、パブリックサブネットにNATGWを設置します。
+
+　　PS：NATGWを設置するときは、必ずEIPを割り当てる必要があります。
+  
+　　　　EIPはNATGWに固定パブリックIPを提供します。
+    
+　　　　このパブリックIPは外部ユーザーが見ているIPです。
+
+後は、プライベートサブネットのRoute Tableに「インターネットへアクセスするためのターゲットがNATGWである」を設定します。
+
+そうしたら、プライベートサブネットのEC2がインターネットにアクセスすることが可能になります。
+
+![プライベートサブネットのEC2の通信フロー]( /assets/images/0002-1.png )
+
+補充説明：
+SGとNACLの比較
+
+| Security　Group | Network ACL |
+|:------------------------|:--------------------------|
+| Firewall for EC2 （１～１）| Firewall for Subnet （１～N）| 
+| Default:Block EVERYTHING | Default:Allow EVERYTHING | 
+| stateful  | stateless | 
+| - | INBOUNDとOUTBOUND両方とも定義する必要 | 
+
+（複数のサブネットは1つのNACLを共用することができるんですが、1つのサブネットには1つのNACLしか割り当てられない。）
+
+<br><br>
+
+もし文字トポロジー図でEC2がインターネットにアクセスすることを表示すれば、下記のようになります。
+
+
+```text
+「Private Subnet」
+      EC2     
+       （ENI：10.0.2.1）    
+           (Route Table   :　0.0.0.0/0　→　NATGW)           
+      ↓     
+「Public　Subnet」
+　　　NATGW
+　　　　（ENI：10.0.1.100）
+        　　（Elastic　IP　：　52.20.20.20）
+　　　　　　（Route Table   :　0.0.0.0/0　→　IGW） 
+      ↓
+　　　IGW
+      ↓
+　　Internet
+```
+
+
+補充説明：
+
+⑴　ENIの説明：
+
+　　AWSの色んなリソース（EC2,NATGW,ALBなど）はSubnetと繋がるのは必ずENIが必要です。
+  
+　　ENIはAWSが提供した専有名前です。
+  
+　　ENI　＝　Elastic　Network　Intarface
+
+　　そもそもNetwork　Intarface　Cardという概念があるですよね。
+  
+　　AWSはそれに基づいてENI（つまり、ElasticなNetwork　Intarface　Card）を提出しました。
+  
+  （PS：ENIがAWSブランドのNICだという理解すればいいと思います。また類似なものですが、Route53がAWSブランドのDNSです。）
+
+⑵　Route Tableの説明：
+
+　　・プライベートサブネットのRoute Tableに「インターネットにアクセスしたくければ、ターゲットがNATGWです」を書いております。
+  
+　　　　0.0.0.0/0 → nat-xxxxxxxx
+
+　　・パブリックサブネットのRoute Tableに「インターネットにアクセスしたくければ、ターゲットがIGWです」を書いております。
+  
+　　　　0.0.0.0/0 → igw-xxxxxxxx
+
+⑶　EIPの説明：
+
+　　固定IPを提供するサービスです。NATGWを作成するときは、必ずEIPを割り当てることが必要です。
+  
+　　AWSの他のリソースとEIPの関係については、下表を参照できます。
+
+| AWSリソース | EIP | 説明 | 
+|:------------------------|:----------------|:---------------------------------------------------------|
+| NAT Gateway | 必須 | EIPがなければ、インターネットにアクセスできない|
+| EC2（Public　Subnet） | 任意 | EIPがない場合、AWSが任意パブリックIPを割り当てる。EIPがある場合、EIPが固定なパブリックIPを割り当てる。　|
+| EC2（Private　Subnet）  | ✖ | インターネットにアクセスするときに必ずNATGWに頼る |
+| ALB/IGW/Route53 | ✖ | 独自のパブリックネットワーク機構やホスティング層を持つ |
+
+
+⑷　IGWの説明：
+
+　　VPC（Virtual Private Cloud）とインターネット（Internet）を接続するゲートウェイ（Gateway）であり、
+  
+　　パブリックIP（Public　IP）のトラフィック（Traffic）しか認識出来ません。
