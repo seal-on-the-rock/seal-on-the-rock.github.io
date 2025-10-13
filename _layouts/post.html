@@ -138,3 +138,20 @@
   </div>
 </body>
 </html>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll("pre").forEach(function(block) {
+    const button = document.createElement("button");
+    button.innerText = "Copy";
+    button.className = "copy-btn";
+    button.onclick = () => {
+      navigator.clipboard.writeText(block.innerText)
+        .then(() => {
+          button.innerText = "Copied!";
+          setTimeout(() => button.innerText = "Copy", 1000);
+        });
+    };
+    block.appendChild(button);
+  });
+});
+</script>
