@@ -6,106 +6,21 @@ author: Seal
 ---
 
 
-# ☁️ article0003　AWSのネットワーク３
+# ☁️ article0003　AWS SDK
 
 
-今回はAWSネットワークの最終回です！
+今日はAWS SDKを紹介します。
 
-先ずは、質問が1つあります。S3とか、DynamoDBとかのPaaSサービスがどこにありますか？プライベートサブネット？パブリックネットワーク？どっちですか？
+AWS SDKを説明するために、先にAPI、WEB API、SDKという三つのものを紹介します。
 
-答えは、パブリックネットワークです！
+先ずは、APIは何ですか？
 
-S3やDynamoDBは「Public　Service」であり、自分専属のVPC内ではなく、AWSの共有インフラ上に存在しています。
+API　＝　Application Programming Intarfaceということによって、実はこれがインタフェースなのです。
 
-つまり、これはVPCに所属しないサービスです。
+そうしたら、下記の例を見ましょう。
 
-プライベートサブネットのEC2がS3にアクセスするために、NATGW→IGWを経由します。
-
-ただし、実際の通信はAWSの内部バックボーンを通っており、安全かつ高速です。
-
-それは、Gateway　Endpointです。
-
-S3とDynamoDBは特別で、Gateway　Endpointを使えばNAT経由せず、通信料金も不要です。
-
-下図を参照してください。
-
-![AWS　Endpoint]( /assets/images/0003-1.png )
-
-
-補充説明：
-
- ⑴ S3とDynamoDBはENIが作成されない、プライベートIPも持っていない。
-
-　　　S3とDynamoDBはPaaS（Platform as a Service）に分類されます。
-
- ⑵ PaaSサービスはユーザーのVPC内ではなく、AWSが管理する共通基盤上で動作します。（AWS内部ネットワークを経由して通信する）
-
-| 層 | 代表的なサービス | 動作場所 | 通信ネットワーク |
-|:------------------------|:------------------------|:----------------------------|:----------------------------|
-| IaaS | EC2、VPC、EBS | 自分専属のVPC内|ENI・Private IPを持つ、完全にプライベート|
-| PaaS | S3、DynamoDB、RDS、Lambda | AWS管理の共通基盤　|VPC外、デフォルトでPublic Endpoint経由、AWS EndpointでPrivate Endpoint経由|
-| SaaS  | WorkMail、QuickSight、Chime | AWSまたは外部サービス |完全マネージド、ネットワーク制御不可|
-
-
- ⑶ PaaSサービスはVPC内に存在しないため、デフォルトではPublic Endpoint経由でアクセスします。（EC2　→　NATGW　→　IGW　→　S3パブリックエンドポイント）
-
-　   しかし、通信自体はAWSの内部ネットワークを通っており、安全で隔離されています。
-
- ⑷ PaaS　＝　AWSが用意した共通のプラットフォームです。VPC外にあるが、Private Endpointを使えば完全に閉じた通信もできます。（EC2　→　Gateway　Endpoint　→　S3プライベートエンドポイント）
-
-<br><br>
 ---
-<br><br>
 
-最後に、残っているAWSが提供するネットワーク関連のサービスを紹介します。
-
-⑴　Direct　Connect
-
-それを紹介する時に、別の三つのものと一緒に紹介します。Direct　Connectと共に全部ローカルサーバーとクラウドVPCとの連接方法なのです。
-
-![AWS　VPN CD-WAN MPLS]( /assets/images/0003-2.png )
+ケース：
 
 
-MPLS：「貴族専用の回線」
-
-  　　高価だが、安全で安定した企業専用線。
-
-VPN：「暗号化されたトンネル」
-
-　　　安価で使いやすいが、通信品質はインターネット依存。
-
-SD‐WAN：「賢いマルチ回線ナビゲーション」
-
-　　　複数の回線を自動で最適化し、コストを抑えつつ高品質な通信を実現。
-
-Direct　Connect：「AWSへのVIP専用線ゲート」
-
-      AWSのVPCに直接接続できる専用の高速回線。
-
-
-では、具体的にDirect　Connectというサービスはどういう仕組みを紹介します。下図を参照してください。
-
-![Direct　Connect]( /assets/images/0003-3.png )
-
-補充説明：BGP　＝　Border　Gateway　Protocol
-
-<br><br>
-
-(2) Peering , Transit Gateway
-
-Peeringというのは二つのVPCを接続するサービスです。しかし、Peeringは1対1の接続しかできません。
-
-あるVPCを仲介して、他の二つのVPCを接続することはできません。
-
-![Direct　Connect]( /assets/images/0003-4.png )
-
-そしたら、Transit Gatewayが登場しました。
-
-Transit Gatewayを仲介して、複数のVPCの相互接続することが可能になりました。
-しかも、VPCに限らず、DX（Direct　Connect）、VPNなども接続できます。（AWSが提供したHubみたいですね）
-
-<br><br>
-
-⑶　AWS Wavelength
-
-5G関連のサービスです。
