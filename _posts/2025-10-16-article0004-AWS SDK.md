@@ -42,6 +42,8 @@ API　＝　Application Programming Intarfaceということによって、実�
 
 ⑶　フロー図
 
+![AWS　Endpoint]( /assets/images/0004-1.png )
+
 
 
 
