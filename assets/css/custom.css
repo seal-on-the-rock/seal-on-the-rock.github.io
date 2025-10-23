@@ -50,3 +50,15 @@ pre {
   background-color: #005bb5;
 }
 
+.responsive-img {
+  width: 50%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .responsive-img {
+    width: 100%;
+  }
+}
