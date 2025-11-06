@@ -50,15 +50,16 @@ pre {
   background-color: #005bb5;
 }
 
-.content img.half-responsive-img {
+.content img.responsive-img {
   width: 50% !important;
   height: auto;
   display: block;
-  margin: 0 auto;
+  margin-left: 0;
+  margin-right: auto;
 }
 
 @media (max-width: 768px) {
-  .content img.half-responsive-img {
+  .content img.responsive-img {
     width: 100%;
   }
 }
