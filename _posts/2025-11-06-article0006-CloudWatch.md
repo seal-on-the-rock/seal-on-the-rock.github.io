@@ -58,16 +58,16 @@ CASE４　分散トレーシング監視（X-Ray + CloudWatch Logs + ServiceLens
 
 X-Rayの仕組み：
 
-<img src="/assets/images/0006-5.png" alt="X-Rayの仕組み">
+<img src="/assets/images/0006-5.png" alt="X-Rayの仕組み" class="responsive-img">
 
 ServiceLensの仕組み：
 
-<img src="/assets/images/0006-6.png" alt="ServiceLensの仕組み">
+<img src="/assets/images/0006-6.png" alt="ServiceLensの仕組み" class="responsive-img">
 
 
 CASE５　総合可観測性プラットフォーム（Dashboard　＋　Logs　＋　Metrics Explorer）
 
-<img src="/assets/images/0006-7.png" alt="case5">
+<img src="/assets/images/0006-7.png" alt="case5" class="responsive-img">
 
 一言でまとめると
 
