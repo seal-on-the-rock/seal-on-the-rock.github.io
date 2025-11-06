@@ -51,7 +51,7 @@ pre {
 }
 
 .responsive-img {
-  width: 50%;
+  width: 50%  !important;
   height: auto;
   display: block;
   margin: 0 auto;
