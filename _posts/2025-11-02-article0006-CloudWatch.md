@@ -46,7 +46,7 @@ CASE２　ログ駆動型モニタリング（Agent　→　Logs　→　Metric 
 
 CASE３　自動修復システム（Alarm　→　EventBridge　→　Lambda）
 
-<img src="/assets/images/0006-3.png" alt="case3">
+<img src="/assets/images/0006-3.png" alt="case3" class="responsive-img">
 
 説明：前のケースに基づいて、自動的に対応する仕組みも導入しています。
 
@@ -54,7 +54,7 @@ CASE３　自動修復システム（Alarm　→　EventBridge　→　Lambda）
 
 CASE４　分散トレーシング監視（X-Ray + CloudWatch Logs + ServiceLens）
 
-<img src="/assets/images/0006-4.png" alt="case4">
+<img src="/assets/images/0006-4.png" alt="case4" class="responsive-img">
 
 X-Rayの仕組み：
 
