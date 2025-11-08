@@ -18,9 +18,9 @@ author: Seal
 
 構成図（トポロジー）
 
-´´´text
+```text
 User　→　Route53　→　CloudFront　→　S3　Bucket（Static　Website）
-´´´
+```
 
 役割
 
@@ -67,9 +67,9 @@ User　→　Route53　→　CloudFront　→　S3　Bucket（Static　Website�
 
 構成図
 
-´´´text
+```text
 User　→　Route53　→　CloudFront　→　ALB　→　EC2（アプリケーションサーバー）
-´´´
+```
 
 主な役割：
 
@@ -114,11 +114,11 @@ APIサーバー側で「このドメインからのアクセスを許可する�
 
 構成図
 
-´´´text
+```text
 User　→　Route53（Latenncy　Based　Routing）
 　　　　　├──CloudFront　→　ALB（東京）
     　　　├── CloudFront　→　ALB（シンガポール）
-´´´
+```
 
 主な役割：
 
@@ -144,9 +144,9 @@ User　→　Route53（Latenncy　Based　Routing）
 
 構成図
 
-´´´text
+```text
 Client Domain（CNAME　→　）CloudFront　Distribution　→　ALB
-´´´
+```
 
 主な役割：
 
@@ -169,7 +169,161 @@ Client Domain（CNAME　→　）CloudFront　Distribution　→　ALB
 
 ケース⑤　：セキュリティ＆コスト最適化構成（CloudFront　＋　WAF　＋　S3）
 
-背景：
+背景：S3に大量の静的コンテンツをホスティングしている企業が、S3直アクセスの防止と攻撃対策を目的とする構成。
+
+構成図：
+
+```text
+User　→　Route53　→　CloudFront（＋WAF）→　S3（Origin　Access　Control）
+```
+
+主な役割：
+
+•　CloudFrontにWAFを組み込み、不正アクセスを遮断（しゃだん）。
+
+•　S3はCloudFront経由アクセスのみ許可。
+
+•　Route53はわかりやすい独自ドメインを提供。
+
+•　CloudFrontログをCloudWatch　＋　Athena　で分析。
+
+実務ポイント：
+
+•　WAFと組み合わせてDDoS防御を実現。
+
+•　ログ活用でセキュリティとコストの最適化。
+
+補充説明：
+
+コスト最適化については？
+
+A. CloudFrontレイヤーでの最適化
+
+CloudFrontはCDNとして、ユーザーのリクエストを受けて必要に応じてS3（オリジン）からコンテンツを取得します。
+
+この「S3への取得（Origin　Fetch）」が多いと、S3リクエスト課金やデータ転送料金が増加します。
+
+特に、
+
+•　ボット（bot）やクローラーによる不要アクセス
+
+•　同じファイルを何度も取得する無駄なリクエストがあると、無駄なコストが発生します。
+
+効果（ログ活用のポイント）：
+
+１．CloudFrontアクセスログをAthenaで分析
+
+  •　アクセス頻度が異常に高いIP
+
+  •　同一URLを短時間で繰り返すアクセス
+
+  •　国や地域ごとのアクセス傾向を特定します。
+
+２．WAFで不正·不要アクセスを遮断
+
+　•　頻繫なbotアクセスや国外からの異常トラフィックをブロック
+
+３．キャッシュTTLの調整
+
+　•　CloudFrontでキャッシュ時間を延ばし、S3へのリクエスト数を削減。
+
+ →　結果：S3リクエスト回数とデータ転送量が減り、配信コストが低下します。
+
+<br><br>
+
+B. S3レイヤーでの最適化
+
+S3に保存している静的コンテンツの中には、「ほとんどアクセスされない古いファイル」も存在します。
+
+効果：
+
+CloudFrontログやS3アクセスログをAthenaで集計し、過去何日間アクセスがなかったオブジェクトを特定。
+
+それらをGlacierやIntelligent‐Tiering（自動階層化）に移行します。
+
+→　保存コストの最適化（長期保管コストを大幅削減）
+
+<br><br>
+
+C.　WAFレイヤーでの最適化（セキュリティ＋コスト）
+
+DDoSやクローラーなどの攻撃的トラフィックも、実際にはCloudFront　→　S3への通信を発生させるため、「セキュリティ問題＋無駄な通信コスト」を引き起こします。
+
+効果：
+
+•　WAFログをAthenaで分析し、攻撃元IPや異常パターンを抽出。
+
+•　CloudFrontで同様のパターンを早期遮断（WAFルール更新）。
+
+→　攻撃対策（セキュリティ向上）と同時に、無駄な課金トラフィックを削減できます。
+
+---
+
+Route53とCloudFrontの典型的な役割まとめ
+
+| サービス | 主な役割 |設定の重点ポイント |
+|:-------------|:----------------------|:----------------------------------|
+| Route53| DNS解決、トラフィック制御　| レコード設定、ルーティングポリシー、チェック　| 
+| CloudFront | コンテンツ配信、キャッシュ、セキュリティ強化 | キャッシュ動作、Origin　Access　Control、WAF、HTTPS|
+
+---
+
+CloudFrontの本質的な理解
+
+「Distribution」とは何か？
+
+AWSにおける“Distribution”は「ファイルの配布」ではなく、
+
+“CloudFrontが外部へ公開する統一的な入口設定”を指します。
+
+つまり、Distributionとは：
+
+•　グローバルなアクセス入口（エッジ層）
+
+•　どのオリジン（S3、ALB、API　Gateway）へ転送するかを制御
+
+•　複数ドメイン（CNAME）を統合
+
+•　HTTPS証明書（ACM）やセキュリティルールを集中管理
+
+•　Lambda＠Edge/CloudFront　Functionsで動的処理
+
+---
+
+CloudFrontの多層構造（イメージ）
+
+補充説明：
+
+①　APIレスポンスをキャッシュ？
+
+②　ヘッダー書き換え？
+
+③　認証？
+
+④　ABテスト？
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
 
 
 
