@@ -8,6 +8,8 @@ author: Seal
 
 # ☁️ article0007　Route53とCloudFront
 
+<img src="/assets/images/0007-1.png" alt="Route53とCloudFront" class="responsive-img">
+
 今日は、CloudWatchと同じように五つのケースを通じてRoute53とCloudFrontを併せて解説します。
 
 ケース①：企業公式サイト·静的ウェブサイトの公開
@@ -147,6 +149,8 @@ User　→　Route53（Latenncy　Based　Routing）
 ```text
 Client Domain（CNAME　→　）CloudFront　Distribution　→　ALB
 ```
+
+<img src="/assets/images/0007-2.png" alt="Route53とCloudFront" class="responsive-img">
 
 主な役割：
 
@@ -291,6 +295,8 @@ AWSにおける“Distribution”は「ファイルの配布」ではなく、
 ---
 
 CloudFrontの多層構造（イメージ）
+
+<img src="/assets/images/0007-3.png" alt="Route53とCloudFront" class="responsive-img">
 
 補充説明：
 
