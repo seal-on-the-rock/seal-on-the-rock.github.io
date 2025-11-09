@@ -3,6 +3,11 @@ layout: default
 title: Seal on the Rock
 ---
 
+<!-- ======= FAVICON ======= -->
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<!-- ======================= -->
+
 <!-- LOGO -->
 <p align="center" style="margin: 40px 0;">
   <img src="/assets/images/logo.png" alt="Seal on the Rock logo" 
