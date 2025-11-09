@@ -8,6 +8,12 @@ title: Seal on the Rock
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <!-- ======================= -->
 
+<!-- ======= iOS / Android ======= -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#ffffff">
+<!-- ========================================== -->
+
 <!-- LOGO -->
 <p align="center" style="margin: 40px 0;">
   <img src="/assets/images/logo.png" alt="Seal on the Rock logo" 
