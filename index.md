@@ -33,11 +33,13 @@ title: Seal on the Rock
 
 I’m deeply passionate about **AWS** ☁️  
 Self-learning cloud architecture and infrastructure design.  
-Recently earned **AWS Certified Solutions Architect – Professional (SAP-C02)**   
-👉 [View my certification](https://www.credly.com/badges/88bcf2eb-cf09-433e-9a8f-e89660985f8c/public_url)
+Recently earned **AWS Certified Solutions Architect – Professional**   and  **AWS-Certified-Security - Specialty**
+👉 [View my certification](https://www.credly.com/users/wang-haibao/badges#credly)
 
 <p align="center" style="margin: 40px 0;">
   <img src="/assets/images/aws-certified-solutions-architect-professional.png" alt="AWS Certified Solutions Architect - Professional certificate" 
+       style="max-width: 20%; height: auto; border-radius: 12px;">
+  <img src="/assets/images/aws-certified-security-specialty.png" alt="AWS Certified Security - Specialty certificate"
        style="max-width: 20%; height: auto; border-radius: 12px;">
 </p>
 
