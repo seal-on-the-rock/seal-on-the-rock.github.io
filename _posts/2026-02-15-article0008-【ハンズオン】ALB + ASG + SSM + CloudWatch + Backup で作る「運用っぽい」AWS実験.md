@@ -12,12 +12,19 @@ author: Seal
 # ゴールは以下です：
 
 - ✅ ALB の DNS で Web ページにアクセスできる
+  ![1]( /assets/images/0008-1.png )
 - ✅ Target Group に EC2 が 2 台登録され、Healthy になる
+  ![2]( /assets/images/0008-2.png )
 - ✅ Session Manager で EC2 に入れる（SSH 不要）
+  ![3]( /assets/images/0008-3.png )
 - ✅ CloudWatch Alarm を作成でき、メール通知が届く
+  ![4]( /assets/images/0008-4.png )
 - ✅ CloudWatch Logs に nginx の access/error が集約される
+  ![5]( /assets/images/0008-5.png )
 - ✅ CloudTrail で操作ログが追える
+  ![6]( /assets/images/0008-6.png )
 - ✅ AWS Backup でバックアッププラン作成＋少なくとも 1 回バックアップ実行履歴が残る
+  ![7]( /assets/images/0008-7.png )
 
 ---
 
