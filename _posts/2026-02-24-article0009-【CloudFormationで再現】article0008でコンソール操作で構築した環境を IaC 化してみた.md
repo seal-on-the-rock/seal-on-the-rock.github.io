@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "article0009-CloudFormationで再現する運用構成ハンズオン(article0008でコンソール操作で構築した環境を IaC 化してみた)"
+title: "article0009-【CloudFormationで再現】article0008でコンソール操作で構築した環境を IaC 化してみた"
 date: 2026-02-24
 author: Seal
 ---
 
-
+# ☁️ article0009　【CloudFormationで再現】article0008でコンソール操作で構築した環境を IaC 化してみた
 
 こんにちは。
 
