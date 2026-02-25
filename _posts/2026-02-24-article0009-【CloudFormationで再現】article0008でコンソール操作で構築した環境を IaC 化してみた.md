@@ -38,6 +38,8 @@ CloudFormation を使ってコード化（IaC 化）してみました。
 「IaC に挑戦したいけど何から始めればいいかわからない」
 
 そんな方の参考になれば嬉しいです。
+
+---
   
   ![1]( /assets/images/0009-1.png )
   ![2]( /assets/images/0009-2.png )
