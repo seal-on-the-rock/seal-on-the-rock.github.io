@@ -4,6 +4,7 @@ title: "article0008-【ハンズオン】ALB + ASG + SSM + CloudWatch + Backup �
 date: 2026-02-15
 author: Seal
 ---
+# ☁️ article0008　【ハンズオン】ALB + ASG + SSM + CloudWatch + Backup で作る「運用っぽい」AWS実験
 
 こんにちは。今回は AWS の基本サービスを使って、運用に必要な要素を一通り揃えた小さな実験環境を作りました。
 
