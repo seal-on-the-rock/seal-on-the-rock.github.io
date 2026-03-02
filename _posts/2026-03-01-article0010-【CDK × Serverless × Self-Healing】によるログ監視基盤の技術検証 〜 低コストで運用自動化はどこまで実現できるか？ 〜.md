@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "article0010-【CDK × Serverless】によるログ監視基盤の技術検証 〜 マネージドサービスのみで運用自動化はどこまで実現できるか 〜"
+title: "article0010-【CDK × Serverless × Self-Healing】によるログ監視基盤の技術検証 〜 マネージドサービスのみで運用自動化はどこまで実現できるか 〜"
 date: 2026-03-01
 author: Seal
 ---
-# ☁️ article0010　【CDK × Serverless】によるログ監視基盤の技術検証 〜 マネージドサービスのみで運用自動化はどこまで実現できるか 〜
+# ☁️ article0010　【CDK × Serverless × Self-Healing】によるログ監視基盤の技術検証 〜 マネージドサービスのみで運用自動化はどこまで実現できるか 〜
 
 こんにちは。
 
@@ -209,7 +209,7 @@ PutObject イベントで即時実行
 
 ## 実装
 
-4xx エラー数カウント
+4xx/5xx エラー数カウント
 カスタムメトリクス送信
 
 📎log-parser.py
@@ -256,7 +256,7 @@ def lambda_handler(event, context):
             except ValueError:
                 continue
 
-    print(f"4XX count = {total_error_count}")
+    print(f"4XX/5xx count = {total_error_count}")
 
     cloudwatch.put_metric_data(
         Namespace='CFLog',
@@ -290,7 +290,7 @@ CloudWatch 上でグラフ化を確認
 
 ## 条件
 
-4xx > 閾値
+4xx/5xx > 閾値
 
 ![163]( /assets/images/0010-11.png )
 
@@ -348,7 +348,7 @@ gzip で解凍処理を追加することで、正しくログ解析が可能に
 
 ## ③　CloudWatch にメトリクス送信できない（PutMetricData 権限不足）
 
-4XX のカウントはできているのに、CloudWatch にメトリクスが表示されない問題が発生しました。
+4XX/5XX のカウントはできているのに、CloudWatch にメトリクスが表示されない問題が発生しました。
 
 ログを確認すると、PutMetricData が AccessDenied になっていました。
 
@@ -366,15 +366,35 @@ Lambda ロールに cloudwatch:PutMetricData 権限を追加することで、
 
 ## 1.Athena でログ分析　→　S3 のログを Athena で SQL 分析可能
 
-article0011を見ましょう！
+![Athena]( /assets/images/0010-17.png )
 
 ## 2.ダッシュボード可視化　→　Observability
 
-## 3.【超重要!!!】Step Functions 連携　→　異常時は Step Functions で自動復旧フローを実行　→　Auto Remediation/Self-Healing　
+![Observability]( /assets/images/0010-18.png )
 
-article0012を見ましょう！
+## 3.Security Hub 連携　→　Security Hub にセキュリティイベントを集約
 
-## 4.Security Hub 連携　→　Security Hub にセキュリティイベントを集約
+## 4.【超重要!!!Self-Healing】Step Functions 連携　→　異常時は Step Functions で自動復旧フローを実行　→　Auto Remediation
+
+Alarm をトリガーに Step Functions を起動し、
+
+Athena による自動原因分析と自動復旧処理（キャッシュ削除・再実行・通知）まで
+
+Runbook を完全自動化しました。
+
+いわゆる Self-Healing / Auto Remediation の仕組みです。
+
+![Observability]( /assets/images/0010-19.png )
+
+![Observability]( /assets/images/0010-20.png )
+
+
+
+
+
+
+
+
 
 
 
