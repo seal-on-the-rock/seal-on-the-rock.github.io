@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "article0007-Route53とCloudFront"
-date: 2025-11-06
+date: 2025-10-06
 author: Seal
 ---
 
