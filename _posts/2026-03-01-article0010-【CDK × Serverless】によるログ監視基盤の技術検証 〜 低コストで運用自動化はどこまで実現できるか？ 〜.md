@@ -275,7 +275,7 @@ def lambda_handler(event, context):
     }
 ```
 
-📸 Metrics 画面
+![MetricData]( /assets/images/0010-13.png )
 
 
 ✅ 結果
