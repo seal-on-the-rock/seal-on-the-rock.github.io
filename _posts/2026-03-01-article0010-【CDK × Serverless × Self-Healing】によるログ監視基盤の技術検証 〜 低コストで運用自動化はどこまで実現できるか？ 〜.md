@@ -384,9 +384,9 @@ Runbook を完全自動化しました。
 
 いわゆる Self-Healing / Auto Remediation の仕組みです。
 
-![Observability]( /assets/images/0010-19.png )
+![Self-Healing1]( /assets/images/0010-19.png )
 
-![Observability]( /assets/images/0010-20.png )
+![Self-Healing2]( /assets/images/0010-20.png )
 
 
 
