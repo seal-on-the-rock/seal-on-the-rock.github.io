@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "article0010-【CDK × Serverless】によるログ監視基盤の技術検証 〜 マネージドサービスのみで運用自動化はどこまで実現できるか 〜"
-date: 2026-02-15
+date: 2026-03-01
 author: Seal
 ---
 # ☁️ article0010　【CDK × Serverless】によるログ監視基盤の技術検証 〜 マネージドサービスのみで運用自動化はどこまで実現できるか 〜
