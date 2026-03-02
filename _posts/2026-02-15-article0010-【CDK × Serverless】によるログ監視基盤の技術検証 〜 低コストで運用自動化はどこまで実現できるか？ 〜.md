@@ -82,6 +82,7 @@ import * as sns from 'aws-cdk-lib/aws-sns';
 import * as subs from 'aws-cdk-lib/aws-sns-subscriptions';
 import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch';
 import * as cloudwatch_actions from 'aws-cdk-lib/aws-cloudwatch-actions';
+import * as iam from 'aws-cdk-lib/aws-iam';
 
 interface Props extends cdk.StackProps {
   alertEmail: string;
@@ -111,6 +112,13 @@ export class MonitoringStack extends cdk.Stack {
       code: lambda.Code.fromAsset('lambda'),
       timeout: cdk.Duration.seconds(60),
     });
+
+    parserFn.addToRolePolicy(
+      new iam.PolicyStatement({
+      actions: ['cloudwatch:PutMetricData'],
+      resources: ['*'], 
+       })
+    );
 
     logBucket.addEventNotification(
       s3.EventType.OBJECT_CREATED,
@@ -183,16 +191,11 @@ export class MonitoringStack extends cdk.Stack {
 
 2.S3 にログ生成
 
-![CloudFront 経由でアクセス]( /assets/images/0010-05.png )
+![S3 にログ生成]( /assets/images/0010-05.png )
 
 3.Lambda 実行ログ確認
 
-
-
-
-
-
-
+![Lambda 実行ログ確認]( /assets/images/0010-15.png )
 
 
 ✅ 結果
@@ -214,38 +217,63 @@ PutObject イベントで即時実行
 
 ```
 import boto3
+import gzip
+import io
 
+
+s3 = boto3.client('s3')
 cloudwatch = boto3.client('cloudwatch')
 
+
 def lambda_handler(event, context):
-    error_count = 0
+    total_error_count = 0
 
     for record in event['Records']:
         bucket = record['s3']['bucket']['name']
         key = record['s3']['object']['key']
 
-        s3 = boto3.client('s3')
+        print(f"Processing: {bucket}/{key}")
+
+
         obj = s3.get_object(Bucket=bucket, Key=key)
-        body = obj['Body'].read().decode('utf-8')
+
+
+        with gzip.GzipFile(fileobj=io.BytesIO(obj['Body'].read())) as f:
+            body = f.read().decode('utf-8')
+
 
         for line in body.splitlines():
             parts = line.split()
-            if len(parts) > 8:
-                try:
-                    status = int(parts[8])
-                    if status >= 500:
-                        error_count += 1
-                except:
-                    continue
+
+            if len(parts) <= 8:
+                continue
+
+            try:
+                status = int(parts[8])
+
+                if status >= 400:
+                    total_error_count += 1
+
+            except ValueError:
+                continue
+
+    print(f"4XX count = {total_error_count}")
 
     cloudwatch.put_metric_data(
         Namespace='CFLog',
-        MetricData=[{
-            'MetricName': 'ErrorCount',
-            'Value': error_count,
-            'Unit': 'Count'
-        }]
+        MetricData=[
+            {
+                'MetricName': 'ErrorCount',
+                'Value': total_error_count,
+                'Unit': 'Count'
+            }
+        ]
     )
+
+    return {
+        "statusCode": 200,
+        "errorCount": total_error_count
+    }
 ```
 
 📸 Metrics 画面
@@ -263,13 +291,11 @@ CloudWatch 上でグラフ化を確認
 
 ## 条件
 
-5xx > 閾値
+4xx > 閾値
 
-📸
+![163]( /assets/images/0010-11.png )
 
-Alarm 状態
-
-SNS 通知メール
+![mail]( /assets/images/0010-14.png )
 
 ✅ 結果
 
@@ -286,21 +312,73 @@ ALARM → 通知まで自動化成功
 4.イベント駆動でスケール自動化　→　Lambdaが自動スケールできる
 ```
 
+# 失敗からの勉強
+
+本構成はシンプルに見えますが、実際にはいくつかの技術的な壁にぶつかりました。
+それぞれ原因を調査しながら一つずつ解決していきました。
+
+## Lambda から S3 ログを読み取れない（IAM 権限不足）
+
+最初に発生した問題は、Lambda がログファイルを取得できないことでした。
+CloudWatch Logs を確認すると AccessDenied エラーが出力されていました。
+
+![AccessDenied]( /assets/images/0010-07.png )
+
+原因は、Lambda 実行ロールに S3 の GetObject 権限が付与されていなかったことでした。
+
+![GetObject]( /assets/images/0010-09.png )
+
+IAM ポリシーを追加することで、正常にログを取得できるようになりました。
+
+👉 学び：サーバーレス構成でも IAM 設計は最重要ポイント
+
+## ログファイルが gzip 圧縮されており読み込めない
+
+次に、ログ取得後に文字化け（UnicodeDecodeError）が発生しました。
+
+![UnicodeDecodeError]( /assets/images/0010-08.png )
+
+調査したところ、CloudFront のアクセスログは gzip 形式（.gz）で保存されており、
+そのまま UTF-8 として decode しようとしていたのが原因でした。
+
+![decode]( /assets/images/0010-16.png )
+
+gzip で解凍処理を追加することで、正しくログ解析が可能になりました。
+
+👉 学び：ログ形式・データ形式の理解が不可欠
+
+③ CloudWatch にメトリクス送信できない（PutMetricData 権限不足）
+
+4XX のカウントはできているのに、CloudWatch にメトリクスが表示されない問題が発生しました。
+
+ログを確認すると、PutMetricData が AccessDenied になっていました。
+
+![PutMetricData1]( /assets/images/0010-06.png )
+
+![PutMetricData2]( /assets/images/0010-10.png )
+
+Lambda ロールに cloudwatch:PutMetricData 権限を追加することで、
+カスタムメトリクスの送信とアラーム連携が正常に動作しました。
+
+👉 学び： IAM 権限 を　忘れないで！！！
+
+
 # 改善・拡張アイデア
 
 ## 1.Athena でログ分析　→　S3 のログを Athena で SQL 分析可能
 
-
+article0011を見ましょう！
 
 ## 2.ダッシュボード可視化　→　Observability
 
+## 【超重要!!!】3.Step Functions 連携　→　異常時は Step Functions で自動復旧フローを実行　→　Auto Remediation/Self-Healing　
 
-
-## 3.Step Functions 連携　→　異常時は Step Functions で自動復旧フローを実行　→　Auto Remediation/Self-Healing　超重要!!
-
-
+article0012を見ましょう！
 
 ## 4.Security Hub 連携　→　Security Hub にセキュリティイベントを集約
+
+
+
 
 
 
