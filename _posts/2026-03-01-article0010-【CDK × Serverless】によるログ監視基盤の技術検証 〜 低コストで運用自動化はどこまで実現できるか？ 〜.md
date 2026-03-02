@@ -370,7 +370,7 @@ article0011を見ましょう！
 
 ## 2.ダッシュボード可視化　→　Observability
 
-## 【超重要!!!】3.Step Functions 連携　→　異常時は Step Functions で自動復旧フローを実行　→　Auto Remediation/Self-Healing　
+## 3.【超重要!!!】Step Functions 連携　→　異常時は Step Functions で自動復旧フローを実行　→　Auto Remediation/Self-Healing　
 
 article0012を見ましょう！
 
