@@ -390,7 +390,32 @@ Runbook を完全自動化しました。
 
 
 
+CloudFront キャッシュ削除のLambdaソース参照：
+```
+import boto3
+import os
+import time
 
+cf = boto3.client('cloudfront')
+
+def handler(event, context):
+    dist_id = os.environ['DISTRIBUTION_ID']
+
+    print("Creating invalidation...")
+
+    cf.create_invalidation(
+        DistributionId=dist_id,
+        InvalidationBatch={
+            'Paths': {
+                'Quantity': 1,
+                'Items': ['/*']
+            },
+            'CallerReference': str(time.time())
+        }
+    )
+
+    print("Invalidation done")
+```
 
 
 
