@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "article0010-【Terraformで再現】article0010でCDKで構築した環境をローカル IaC化してみた"
+title: "article0011-【Terraformで再現】article0010でCDKで構築した環境をローカル IaC化してみた"
 date: 2026-03-03
 author: Seal
 ---
-# ☁️ article0010　【Terraformで再現】article0010でCDKで構築した環境をローカル IaC化してみた
+# ☁️ article0011　【Terraformで再現】article0010でCDKで構築した環境をローカル IaC化してみた
 
 
 こんにちは～ 👋
@@ -12,10 +12,8 @@ author: Seal
 悲報がありますが、
 AWS Organizations を作った瞬間、無料クレジットが消えた… 😇💸
 
-すべては**「多アカウント統制」**のためだった。
-
-今回はちょっと真面目に、
-「マルチアカウント構成での統制実験」をやろうと思っていました 💪
+昨日はちょっと真面目に、
+「**マルチアカウント構成での統制実験**」をやろうと思っていました 💪
 
 やりたかったことは：
 
@@ -291,12 +289,47 @@ resource "aws_cloudwatch_metric_alarm" "error_alarm" {
 ```
 
 📎versions.tf
-ここは重要！
 
-For local development, I disable AWS credential validation using skip flags, so I can run terraform plan offline.
+ローカルでやるので、ここは重要！
+
+![0011-4]( /assets/images/0011-04.png )
+
+## terraform graphとGraphvizでリソース依存関係を可視化して、作成順序と依存構造を事前に検証できます。
+
+実際の流れ
+1️⃣ グラフを出力
+
+```
+terraform graph > graph.dot
+```
+
+2️⃣ 画像に変換
+
+```
+dot -Tpng graph.dot -o graph.png
+```
+
+✅apply なし。
+✅AWS 接続なし。
+✅課金リスクゼロ。
+
+graph.png
+
+![0011-5]( /assets/images/0011-05.png )
 
 
+CDKと比べると、ちょっと気になるのは
 
+**Terraform によるデプロイ自動化**
 
+```
+aws_lambda_function.parser
+↓
+data.archive_file.parser_zip
+```
 
+archive_file データソースを利用して、Lambda のソースコードを zip 形式に自動圧縮し、
+その成果物を aws_lambda_function に渡してデプロイしている。
 
+これにより、ビルドからデプロイまでを Terraform 内で自動化でき、
+手動操作なしで IaC ベースの運用が可能となる。
