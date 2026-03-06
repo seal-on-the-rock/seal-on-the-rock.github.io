@@ -33,6 +33,10 @@ third party logが分散 　　　　→ 　個別ログイン操作が面倒
 
 AWSは最近、CloudWatchを中心にログ分析を統合する方向に進んでいます。
 
+## 2025.12の新機能！！！
+
+![0012-7]( /assets/images/0012-7.png )
+
 キーワードは
 
 **CloudWatch Pipelines**
