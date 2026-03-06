@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【Terraformで再現】article0010でCDKで構築した環境をローカル IaC化してみた"
+title: "article0011-【Terraformで再現】article0010でCDKで構築した環境をローカル IaC化してみた"
 date: 2026-03-03
 author: Seal
 ---
