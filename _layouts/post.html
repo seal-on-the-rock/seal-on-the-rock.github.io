@@ -37,6 +37,41 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
+    /* ------------------- Post Header ------------------- */
+      
+      .post-header{
+        margin-bottom:40px;
+        padding-bottom:20px;
+        border-bottom:1px solid #eee;
+      }
+      
+      .post-title{
+        font-size:2.2em;
+        margin:10px 0 8px 0;
+      }
+      
+      .post-meta{
+        color:#777;
+        font-size:0.9em;
+      }
+      
+      /* 顶部导航 */
+      
+      .top-nav{
+        display:flex;
+        gap:20px;
+        font-size:0.9em;
+        margin-bottom:10px;
+      }
+      
+      .top-nav a{
+        color:#666;
+      }
+      
+      .top-nav a:hover{
+        color:#007cf0;
+      }
+
     /* ------------------- 标题 ------------------- */
     .content h1 {
       background: linear-gradient(90deg, #007cf0, #00dfd8);
@@ -123,6 +158,20 @@
 <body>
   <div class="container">
     <div class="content">
+      <div class="post-header">
+            <div class="top-nav">
+              <a href="{{ '/' | relative_url }}">🏠 Home</a>
+              <a href="{{ '/all-articles/' | relative_url }}">📝 All Articles</a>
+            </div>
+          
+            <h1 class="post-title">{{ page.title }}</h1>
+          
+            <div class="post-meta">
+              <span>Author: {{ page.author }}</span>
+              <span> | </span>
+              <span>{{ page.date | date: "%Y-%m-%d" }}</span>
+            </div>
+          </div>
       {{ content }}
 
       <div class="post-footer">
