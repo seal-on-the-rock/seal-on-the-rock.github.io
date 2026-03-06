@@ -5,8 +5,6 @@ date: 2026-02-24
 author: Seal
 ---
 
-# ☁️ article0009　【CloudFormationで再現】article0008でコンソール操作で構築した環境を IaC 化してみた
-
 こんにちは。
 
 今回は、AWS の主要な運用サービスを一通り含んだ Web インフラ構成を、
