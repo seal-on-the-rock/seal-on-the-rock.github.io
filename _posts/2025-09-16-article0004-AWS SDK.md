@@ -6,9 +6,6 @@ author: Seal
 ---
 
 
-# ☁️ article0003　AWS SDK
-
-
 今日はAWS SDKを紹介します。
 
 AWS SDKを説明するために、先にAPI、WEB API、SDKという三つのものを紹介します。
