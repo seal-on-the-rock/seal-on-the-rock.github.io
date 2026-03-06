@@ -23,6 +23,7 @@ CloudWatch → OpenSearch → Athena → Okta Console
 
 従来のログ分析の問題点
 従来はログ用途ごとにツールが分かれていました。
+
 ![0012-6]( /assets/images/0012-6.png )
     
 third party logが分散 　　　　→ 　個別ログイン操作が面倒
@@ -56,9 +57,13 @@ Structured Logs は Unified Data Store に集約されます。
 ![0012-2]( /assets/images/0012-2.png )
 
 各種ログを一元的に管理
-検索・集計・分析を一箇所で可能に
+
+検索・集計・分析を一箇所で可能になります。
+
 外部SaaSログも Pipelines 経由で同じ形式に変換可能
+
 個人的な理解：まさに **ログ版のデータレイク**。
+
 すべてのログが同じ土台に載ることで、分析の障壁が大幅に下がります。
 
 ## 3. Facetによる一元化分析
@@ -67,7 +72,9 @@ Unified Data Store 上のログは Facet分析 によって、多次元で瞬時
 ![0012-3]( /assets/images/0012-3.png )
 
 複数ログソースを意識せずに集計可能
+
 エンジニアは Unified Data Store + Facet の画面だけで解析完結
+
 従来必要だった OpenSearch / Athena / Logs Insights / SaaS コンソールを行き来するストレスが解消
 
 ## 4. Unified Queryでさらに統一
