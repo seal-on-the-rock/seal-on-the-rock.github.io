@@ -5,9 +5,6 @@ date: 2025-10-02
 author: Seal
 ---
 
-
-# ☁️ article0006　CloudWatch
-
 <img src="/assets/images/0006-10.png" alt="CloudWatch" class="responsive-img">
 
 久しぶりです。
