@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "CloudWatch"
+title: "article0006-CloudWatch"
 date: 2025-10-02
 author: Seal
 ---
