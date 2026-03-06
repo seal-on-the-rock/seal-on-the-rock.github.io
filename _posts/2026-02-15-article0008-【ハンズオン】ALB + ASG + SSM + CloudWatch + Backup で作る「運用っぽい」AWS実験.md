@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "article0008-【ハンズオン】ALB + ASG + SSM + CloudWatch + Backup で作る「運用っぽい」AWS実験"
+title: "【ハンズオン】ALB + ASG + SSM + CloudWatch + Backup で作る「運用っぽい」AWS実験"
 date: 2026-02-15
 author: Seal
 ---
