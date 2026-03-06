@@ -5,9 +5,6 @@ date: 2025-10-06
 author: Seal
 ---
 
-
-# ☁️ article0007　Route53とCloudFront
-
 <img src="/assets/images/0007-1.png" alt="Route53とCloudFront" class="responsive-img">
 
 今日は、CloudWatchと同じように五つのケースを通じてRoute53とCloudFrontを併せて解説します。
