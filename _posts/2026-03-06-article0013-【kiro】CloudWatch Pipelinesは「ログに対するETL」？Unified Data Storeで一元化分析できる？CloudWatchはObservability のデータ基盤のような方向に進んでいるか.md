@@ -1,0 +1,137 @@
+---
+layout: post
+title: "article0012-【2025.12新機能！！！】CloudWatch Pipelinesは「ログに対するETL」？Unified Data Storeで一元化分析できる？CloudWatchはObservability のデータ基盤のような方向に進んでいるか"
+date: 2026-03-06
+author: Seal
+---
+
+運用において避けて通れないテーマの一つが **ログ分析** です。
+
+AWSのシステム運用では、ログはさまざまな場所に存在します。
+
+　·アプリケーションログ
+ 
+　·ALBアクセスログ
+ 
+　·Lambdaログ
+ 
+　·セキュリティログ
+ 
+　·**外部SaaSログ（Oktaなど）**　
+ 
+障害調査では、多くの場合こうなります。
+
+CloudWatch → OpenSearch → Athena → Okta Console　→　ほか外部SaaS Console
+
+複数の画面を行き来する必要があり、調査効率が悪い のが現状です。
+
+<img src="/assets/images/0012-6.png" alt="0012-6" class="responsive-img">
+    
+third party logが分散 　　　　→ 　個別ログイン操作が面倒
+
+ログの形式が統一されていない 　→ 　総合分析為の解析が手間
+
+障害調査　　　　　　　　　　 　→ 　結局行ったり来たり
+
+最近のAWSの方向性：**Unified Data Store + Pipelines + Facet**
+
+AWSは最近、CloudWatchを中心にログ分析を統合する方向に進んでいます。
+
+## 2025.12の新機能！！！
+
+![0012-7]( /assets/images/0012-7.png )
+
+キーワードは
+
+**CloudWatch Pipelines**
+
+**Unified Data Store**
+
+**Facet / Unified Query**
+
+## 1. CloudWatch Pipelines：ログに対するETL
+
+Pipelinesは、ログを保存前に 整形・変換・補強 する仕組みです。
+
+機械学習のETLと比較しましょう～
+
+![0012-1]( /assets/images/0012-1.png )
+
+この構造化ログがあることで、ログ形式が統一され、後続の分析が容易になります。
+
+## 2. Unified Data Store：ログの一元化
+
+Structured Logs は Unified Data Store に集約されます。
+
+<img src="/assets/images/0012-2.png" alt="0012-2" class="responsive-img">
+
+各種ログを一元的に管理
+
+検索・集計・分析を一箇所で可能になります。
+
+外部SaaSログも Pipelines 経由で同じ形式に変換可能
+
+個人的な理解：まさに **ログ版のデータレイク**。
+
+すべてのログが同じ土台に載ることで、分析の障壁が大幅に下がります。
+
+## 3. Facetによる一元化分析
+
+Unified Data Store 上のログは Facet分析 によって、多次元で瞬時に集計できます。
+
+<img src="/assets/images/0012-3.png" alt="0012-3" class="responsive-img">
+
+複数ログソースを意識せずに集計可能
+
+エンジニアは Unified Data Store + Facet の画面だけで解析完結
+
+従来必要だった OpenSearch / Athena / Logs Insights / SaaS コンソールを行き来するストレスが解消
+
+## 4. Unified Queryでさらに統一
+Unified Query によって、ログ・メトリクス・トレースを一つのインターフェースで検索できます。すごくない?!!
+
+<img src="/assets/images/0012-4.png" alt="0012-4" class="responsive-img">
+
+将来的には 観測データを一元検索できるプラットフォーム に
+
+障害解析、性能分析、監査ログ調査などを 同じワークフローで完結可能（おそらく）
+
+## 5. まとめ
+全体を文字で整理すると次の通りです。
+
+<img src="/assets/images/0012-5.png" alt="0012-5" class="responsive-img">
+
+ポイント：
+
+- ✅Pipelines = ログ版ETL
+
+- ✅Unified Data Store = すべてのログを同じ土台に集約
+
+- ✅Facet / Unified Query = 一箇所で多次元分析・可視化
+
+## 6. 最後
+
+私は新しい技術を見るのが好きで、
+
+最近 CloudWatch の新しい動きにちょっと興味を持っています。
+
+去年の12月に CloudWatch Pipelines や Unified Data Store が出たと思うんですが、
+
+それを見ていて、CloudWatch が単なるログ監視ツールというより、
+
+**ログデータを集めて分析する基盤**、いわゆる **Data Lake** に近い方向に進んでいるのかなと感じました。
+<br><br>
+
+しかも Pipelines でログの加工もできるので、
+ 
+少し **ETL** のような役割も持ち始めているのかなと思っていて、
+ 
+個人的にはすごく面白い動きだなと思いました。
+<br><br>
+
+これまでは CloudWatch というと Logs Insights でクエリを書くイメージが強かったんですが、
+ 
+最近は Pipelines でデータを加工して Unified Data Store に集約する流れを見ると、
+ 
+**Observability のデータ基盤**のような方向に進んでいるのかなという印象を持っています。
+
