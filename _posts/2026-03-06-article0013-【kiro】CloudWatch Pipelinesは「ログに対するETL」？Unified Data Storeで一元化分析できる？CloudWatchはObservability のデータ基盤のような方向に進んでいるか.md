@@ -1,137 +1,550 @@
 ---
 layout: post
-title: "article0012-【2025.12新機能！！！】CloudWatch Pipelinesは「ログに対するETL」？Unified Data Storeで一元化分析できる？CloudWatchはObservability のデータ基盤のような方向に進んでいるか"
+title: "article0012-【kiroで】ECS + Fargateで3層Webアーキテクチャを構築してみた（実践記録）"
 date: 2026-03-06
 author: Seal
 ---
 
-運用において避けて通れないテーマの一つが **ログ分析** です。
+# 🚀 
 
-AWSのシステム運用では、ログはさまざまな場所に存在します。
+## 📌 はじめに
 
-　·アプリケーションログ
- 
-　·ALBアクセスログ
- 
-　·Lambdaログ
- 
-　·セキュリティログ
- 
-　·**外部SaaSログ（Oktaなど）**　
- 
-障害調査では、多くの場合こうなります。
+今回はAIコーディングツール「Kiro」を使って、AWS上に3層Webアーキテクチャを構築してみました。
 
-CloudWatch → OpenSearch → Athena → Okta Console　→　ほか外部SaaS Console
+従来のEC2ベース構成ではなく、コンテナ × サーバーレスの構成を採用し、よりモダンなクラウドアーキテクチャを体験することが目的です。
 
-複数の画面を行き来する必要があり、調査効率が悪い のが現状です。
+---
 
-<img src="/assets/images/0012-6.png" alt="0012-6" class="responsive-img">
-    
-third party logが分散 　　　　→ 　個別ログイン操作が面倒
+## 🏗️ アーキテクチャ概要
 
-ログの形式が統一されていない 　→ 　総合分析為の解析が手間
+今回構築した構成は以下の通りです。
 
-障害調査　　　　　　　　　　 　→ 　結局行ったり来たり
+```
+Internet
+   ↓
+ALB（Public Subnet）
+   ↓
+ECS Service（Private Subnet）
+   ↓
+Fargate Tasks
+```
 
-最近のAWSの方向性：**Unified Data Store + Pipelines + Facet**
+---
 
-AWSは最近、CloudWatchを中心にログ分析を統合する方向に進んでいます。
+---
 
-## 2025.12の新機能！！！
+下記のpromptで簡単に構築リソースを作成してくれました
 
-![0012-7]( /assets/images/0012-7.png )
+```
+Create an AWS CDK TypeScript project that deploys:
+- A VPC with public and private subnets
+- An ECS cluster
+- A Fargate service running nginx
+- An Application Load Balancer to expose the service
+Generate the full project structure and CDK code.Create the project files in my folder.
+```
 
-キーワードは
+しかも、下記のpromptで構築図も生成できます。
 
-**CloudWatch Pipelines**
+```
+Generate an AWS architecture diagram for my CDK stack.
+```
 
-**Unified Data Store**
+一旦に下記のような構築図になりました。
 
-**Facet / Unified Query**
+![AWS11]( /assets/images/AWS11.png )
 
-## 1. CloudWatch Pipelines：ログに対するETL
+## 🔥 ポイント①：EC2を使わない構成
 
-Pipelinesは、ログを保存前に 整形・変換・補強 する仕組みです。
+従来の構成：
 
-機械学習のETLと比較しましょう～
+```
+ALB → EC2（Auto Scaling）
+```
 
-![0012-1]( /assets/images/0012-1.png )
+今回の構成：
 
-この構造化ログがあることで、ログ形式が統一され、後続の分析が容易になります。
+```
+ALB → ECS（Fargate Tasks）
+```
 
-## 2. Unified Data Store：ログの一元化
+つまり、サーバー（EC2）を管理する必要がなくなり、
 
-Structured Logs は Unified Data Store に集約されます。
+* OS管理不要
+* パッチ適用不要
+* スケーリング簡略化
 
-<img src="/assets/images/0012-2.png" alt="0012-2" class="responsive-img">
+といったメリットがあります。
 
-各種ログを一元的に管理
 
-検索・集計・分析を一箇所で可能になります。
+## ⚖️ ポイント②：Auto Scalingの対象が変わる
 
-外部SaaSログも Pipelines 経由で同じ形式に変換可能
+EC2構成では：
 
-個人的な理解：まさに **ログ版のデータレイク**。
+```
+2〜10台のEC2
+```
 
-すべてのログが同じ土台に載ることで、分析の障壁が大幅に下がります。
+Fargateでは：
 
-## 3. Facetによる一元化分析
+```
+2〜10個のTask
+```
 
-Unified Data Store 上のログは Facet分析 によって、多次元で瞬時に集計できます。
+つまりスケーリング単位が「サーバー」から「コンテナ」に変わります。
 
-<img src="/assets/images/0012-3.png" alt="0012-3" class="responsive-img">
+---
 
-複数ログソースを意識せずに集計可能
+## 🔐 ポイント③：Private Subnetでもアクセス可能な理由
 
-エンジニアは Unified Data Store + Facet の画面だけで解析完結
+ECS TaskはPrivate Subnetに配置していますが、外部からアクセス可能です。
 
-従来必要だった OpenSearch / Athena / Logs Insights / SaaS コンソールを行き来するストレスが解消
+その理由は：
 
-## 4. Unified Queryでさらに統一
-Unified Query によって、ログ・メトリクス・トレースを一つのインターフェースで検索できます。すごくない?!!
+👉 ALBがリクエストを転送しているため
 
-<img src="/assets/images/0012-4.png" alt="0012-4" class="responsive-img">
+```
+ユーザー → ALB → ECS Task
+```
 
-将来的には 観測データを一元検索できるプラットフォーム に
+直接Taskにアクセスしているわけではありません。
 
-障害解析、性能分析、監査ログ調査などを 同じワークフローで完結可能（おそらく）
+また、Security Groupで以下のように制御されています：
 
-## 5. まとめ
-全体を文字で整理すると次の通りです。
+* ALB：0.0.0.0/0 からアクセス許可
+* ECS：ALBからの通信のみ許可
 
-<img src="/assets/images/0012-5.png" alt="0012-5" class="responsive-img">
+これによりセキュリティが向上します。
 
-ポイント：
+---
 
-- ✅Pipelines = ログ版ETL
+## 🧠 ポイント④：IAM Task Role
 
-- ✅Unified Data Store = すべてのログを同じ土台に集約
+ECSでは2種類のIAM Roleがあります：
 
-- ✅Facet / Unified Query = 一箇所で多次元分析・可視化
+### ① Task Role
 
-## 6. 最後
+アプリケーション用
 
-私は新しい技術を見るのが好きで、
+例：
 
-最近 CloudWatch の新しい動きにちょっと興味を持っています。
+* S3アクセス
+* DynamoDBアクセス
 
-去年の12月に CloudWatch Pipelines や Unified Data Store が出たと思うんですが、
+### ② Execution Role
 
-それを見ていて、CloudWatch が単なるログ監視ツールというより、
+ECS実行用
 
-**ログデータを集めて分析する基盤**、いわゆる **Data Lake** に近い方向に進んでいるのかなと感じました。
-<br><br>
+例：
 
-しかも Pipelines でログの加工もできるので、
- 
-少し **ETL** のような役割も持ち始めているのかなと思っていて、
- 
-個人的にはすごく面白い動きだなと思いました。
-<br><br>
+* ECRからイメージ取得
+* CloudWatch Logs出力
 
-これまでは CloudWatch というと Logs Insights でクエリを書くイメージが強かったんですが、
- 
-最近は Pipelines でデータを加工して Unified Data Store に集約する流れを見ると、
- 
-**Observability のデータ基盤**のような方向に進んでいるのかなという印象を持っています。
+---
+
+## 🌐 ポイント⑤：NAT Gatewayの役割
+
+Private Subnet内のTaskが外部通信するためには：
+
+* Dockerイメージ取得（ECR）
+* API通信
+
+などが必要になります。
+
+そのために：
+
+👉 NAT Gateway を利用します
+
+（コスト削減のため1つだけ配置）
+
+---
+
+## 🔒 ポイント⑥：HTTPのみ構成について
+
+今回の構成ではALBはPort 80（HTTP）のみ使用しています。
+
+本番環境では：
+
+* ACMで証明書発行
+* HTTPS（443）を有効化
+
+するのが一般的です。
+
+---
+
+
+しかし、ACMとかCloudFrontなどが表現していない気がします。
+
+これから、promptを追加します。
+
+ACMの追加：
+
+```
+Please modify the CDK stack to support HTTPS.
+Requirements:
+- Request an SSL certificate using AWS Certificate Manager (ACM)
+- Add an HTTPS listener on port 443 to the Application Load Balancer
+- Attach the ACM certificate to the listener
+- Redirect HTTP (port 80) to HTTPS
+- Keep the ECS Fargate service unchanged
+Explain what you added.
+```
+
+次はauto scalingの具体な規則を明記：
+
+```
+Add auto scaling to the ECS Fargate
+service.Requirements:
+- Configure ECS Service Auto Scaling- Minimum tasks: 2- Maximum tasks: 6
+- Scale out when average CPU utilization > 70%
+- Scale in when CPU utilization < 30%
+- Use AWS best practicesExplain the scaling policy you configured.
+```
+
+後はもっと本番のようなECRも登場します：
+
+```
+Update the ECS task definition to use a Docker image stored in Amazon ECR instead of pulling nginx from Docker Hub.
+Requirements:
+- Create an Amazon ECR repository
+- Reference the ECR image in the task definition
+- Keep the rest of the architecture unchanged
+Explain how to push a Docker image to ECR.
+```
+
+次にCloudFrontを追加します（これはEdge Tierに重要な存在ですよね）：
+
+```
+Update the ECS task definition to use a Docker image stored in Amazon ECR instead of pulling nginx from Docker Hub.
+Requirements:
+- Create an Amazon ECR repository
+- Reference the ECR image in the task definition
+- Keep the rest of the architecture unchanged
+Explain how to push a Docker image to ECR.
+```
+
+最後に、CI/CD　pipeline を追加します。
+
+```
+Add a CI/CD pipeline for deploying this CDK application.
+Requirements:
+- Use AWS CodePipeline
+- Source from GitHub
+- Build using CodeBuild
+- Deploy using CDK
+- Follow AWS best practices
+Explain the pipeline stages.
+```
+
+リソースを修正してもらったら、もう一回下記のpromptで構築図生成しました。
+
+```
+Generate an AWS architecture diagram for my CDK stack.
+```
+
+こういう感じです。
+
+![AWS21]( /assets/images/AWS21.png )
+![AWS22]( /assets/images/AWS22.png )
+
+とても凄いでしょう？！
+
+でもね、二つのAZは分けて表示すればいいと思います。
+
+後は、Route53がちゃんと表示すればもっといいと思います。
+
+そうしたら、下記のpromptでRoute53を追加します。
+
+```
+Enhance the existing ECS + Fargate 3-tier architecture by adding a custom domain with Route 53 and HTTPS support.
+Requirements:
+1. Create a Route 53 hosted zone for a custom domain (e.g., example.com).
+2. Create an A record (Alias) pointing to the Application Load Balancer.
+3. Request an ACM certificate for the domain (e.g., www.example.com).
+4. Validate the certificate using DNS validation in Route 53.
+5. Update the ALB to support HTTPS (port 443) using the ACM certificate.
+6. Keep HTTP (port 80) but redirect all traffic to HTTPS.
+7. Ensure security groups allow HTTPS traffic.
+```
+
+もう一回構築図を生成すれば：
+
+![AWS31]( /assets/images/AWS31.png )
+
+めちゃくちゃいいですよね！！
+
+本アーキテクチャは以下の特徴を持つ：
+
+- フルマネージドなコンテナ実行環境（Fargate）
+- 高可用性（Multi-AZ）
+- セキュアな通信（HTTPS + Secrets管理）
+- CI/CDによる自動デプロイ
+- ログ・監視の一元管理
+
+---
+
+# 全体構成
+
+本構成は大きく以下の5レイヤーで構成される：
+
+1. エッジレイヤー（Route53 / CloudFront）
+2. ネットワーク（VPC / Subnet）
+3. コンピュート（ECS Fargate）
+4. ストレージ & ログ
+5. CI/CDパイプライン
+
+---
+
+# ① エッジレイヤー
+
+## Route53（DNS）
+- `example.com` の名前解決を担当
+- CloudFrontへルーティング
+
+### 設計意図
+- CDNを経由することでパフォーマンス向上
+- セキュリティ強化
+
+---
+
+## ACM（証明書管理）
+- TLS証明書を発行
+- CloudFront用は us-east-1 で管理
+
+---
+
+## CloudFront（CDN）
+- HTTPS終端
+- HTTP/2・HTTP/3対応
+- コンテンツキャッシュ
+- 圧縮（gzip / brotli）
+
+### メリット
+- レイテンシ削減
+- DDoS耐性向上
+- ALBを直接公開しない設計
+
+---
+
+## CloudFront Logs
+- S3にアクセスログを保存
+- Athena等で分析可能
+
+---
+
+# ② ネットワーク設計（VPC）
+
+## Multi-AZ構成
+- AZ-a / AZ-b に分散配置
+- 高可用性を確保
+
+---
+
+## Subnet構成
+
+### Public Subnet
+- Application Load Balancer配置
+
+### Private Subnet
+- ECS Fargate配置（Public IPなし）
+
+### 設計ポイント
+- アプリケーションは外部公開しない
+- ALB経由のみアクセス可能
+
+---
+
+# ③ ALB（Application Load Balancer）
+
+## 主な設定
+- HTTP → HTTPS リダイレクト
+- HTTPS（443）
+- TLSポリシー適用
+- 無効ヘッダの除外
+
+---
+
+## ヘルスチェック
+- `GET /` → 200
+
+---
+
+## 証明書
+- ACMで管理（DNS検証）
+- 自動更新対応
+
+---
+
+# ④ ECS Fargate（コンテナ実行環境）
+
+## ECS Cluster
+- Container Insights有効化
+- CloudWatchと連携
+
+---
+
+## Fargate Task
+
+### コンテナ
+- nginx
+- ポート: 80
+
+### リソース
+- CPU: 256
+- Memory: 512MB
+
+---
+
+## セキュリティ
+- Security GroupでALBからの通信のみ許可
+- Public IPなし
+
+---
+
+## ログ
+- CloudWatch Logsに送信
+- 保持期間：30日
+
+---
+
+## Auto Scaling
+
+### スケールアウト
+- CPU > 70% → +2タスク
+
+### スケールイン
+- CPU < 30% → -1タスク
+
+---
+
+## デプロイ戦略
+- minimumHealthyPercent: 100%
+- maximumPercent: 200%
+- ローリングアップデート
+
+---
+
+# ⑤ ECR（コンテナレジストリ）
+
+## 設定
+- イメージpush時スキャン
+- タグ保持数：10
+- 未使用イメージ：7日後削除
+
+---
+
+# ⑥ ログ設計
+
+## CloudWatch Logs
+- アプリケーションログ保存
+
+## S3
+- ALB / CloudFrontアクセスログ保存
+
+---
+
+## ログ使い分け
+
+| 種類 | 保存先 |
+|------|--------|
+| アプリログ | CloudWatch |
+| アクセスログ | S3 |
+
+---
+
+# ⑦ Secrets管理
+
+## Secrets Manager
+- GitHub OAuthトークン管理
+
+### ポイント
+- 認証情報のハードコードを防止
+- セキュリティ向上
+
+---
+
+# ⑧ CI/CD パイプライン
+
+## フロー
+
+```
+GitHub → CodePipeline → CodeBuild → ECS Deploy
+```
+
+---
+
+## Stage 1：Source
+- GitHub pushでトリガー
+- OAuth認証（Secrets Manager）
+
+---
+
+## Stage 2：Build
+- Docker build
+- ECRへpush
+- CDK synth実行
+
+※ privileged mode 必須
+
+---
+
+## Stage 3：Approve
+- 手動承認ステージ
+
+---
+
+## Stage 4：Deploy
+- CDKでインフラ更新
+- CloudFormation経由でECSデプロイ
+
+---
+
+## Artifact管理
+- S3（バージョニング有効）
+- CloudWatch Logs（30日保存）
+
+---
+
+# セキュリティ設計まとめ
+
+- 外部公開はCloudFrontのみ
+- ECSはPrivate Subnetに配置
+- Security Groupで通信制御
+- Secrets Managerで機密情報管理
+
+---
+
+# 本構成のメリット
+
+## 1. フルマネージド
+- Fargateによりサーバ管理不要
+
+## 2. 高可用性
+- Multi-AZ構成
+
+## 3. セキュリティ
+- HTTPS強制
+- Public IP未使用
+
+## 4. スケーラビリティ
+- Auto Scaling対応
+
+## 5. DevOps対応
+- CI/CDパイプライン完備
+
+---
+
+# 改善ポイント（上級者向け）
+
+- AWS WAFの導入
+- AWS X-Rayによるトレーシング
+- Blue/Greenデプロイ（CodeDeploy）
+- PrivateLinkの活用
+
+---
+
+
+
+
+
 
