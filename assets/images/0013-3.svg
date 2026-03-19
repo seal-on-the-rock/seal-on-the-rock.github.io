@@ -1,0 +1,366 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1020" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1a73e8"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2e7d32"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e65100"/>
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#00000022"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1400" height="1020" fill="#f8f9fa" rx="12"/>
+
+  <!-- Title -->
+  <text x="700" y="38" text-anchor="middle" font-size="22" font-weight="bold" fill="#1a1a2e">AWS ECS Fargate Architecture</text>
+  <text x="700" y="58" text-anchor="middle" font-size="12" fill="#666">EcsFargateStack + PipelineStack</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- INTERNET / USER -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="30" y="75" width="120" height="70" rx="10" fill="#fff" stroke="#1a73e8" stroke-width="2" filter="url(#shadow)"/>
+  <text x="90" y="100" text-anchor="middle" font-size="28">🌐</text>
+  <text x="90" y="120" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Internet</text>
+  <text x="90" y="134" text-anchor="middle" font-size="10" fill="#555">User Traffic</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- ROUTE 53 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="210" y="75" width="140" height="70" rx="10" fill="#fff" stroke="#8B4513" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="210" y="75" width="140" height="22" rx="10" fill="#8B4513"/>
+  <rect x="210" y="86" width="140" height="11" fill="#8B4513"/>
+  <text x="280" y="90" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Route 53</text>
+  <text x="280" y="112" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Public Hosted Zone</text>
+  <text x="280" y="126" text-anchor="middle" font-size="10" fill="#555">example.com</text>
+  <text x="280" y="138" text-anchor="middle" font-size="10" fill="#555">www.example.com</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- ACM CLOUDFRONT CERT -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="420" y="75" width="150" height="70" rx="10" fill="#fff" stroke="#c62828" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="420" y="75" width="150" height="22" rx="10" fill="#c62828"/>
+  <rect x="420" y="86" width="150" height="11" fill="#c62828"/>
+  <text x="495" y="90" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">ACM Certificate</text>
+  <text x="495" y="112" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">CloudFront Cert</text>
+  <text x="495" y="126" text-anchor="middle" font-size="10" fill="#555">us-east-1</text>
+  <text x="495" y="140" text-anchor="middle" font-size="10" fill="#555">example.com + www</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- CLOUDFRONT -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="640" y="60" width="200" height="100" rx="10" fill="#fff" stroke="#e65100" stroke-width="2.5" filter="url(#shadow)"/>
+  <rect x="640" y="60" width="200" height="24" rx="10" fill="#e65100"/>
+  <rect x="640" y="73" width="200" height="11" fill="#e65100"/>
+  <text x="740" y="77" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">CloudFront Distribution</text>
+  <text x="740" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">CDN Edge</text>
+  <text x="740" y="117" text-anchor="middle" font-size="10" fill="#555">HTTPS-only · TLS 1.2+ · HTTP/2+3</text>
+  <text x="740" y="131" text-anchor="middle" font-size="10" fill="#555">Gzip/Brotli · Security Headers</text>
+  <text x="740" y="145" text-anchor="middle" font-size="10" fill="#555">Price Class 100 (US/CA/EU)</text>
+
+  <!-- CF Logs bucket -->
+  <rect x="900" y="75" width="140" height="70" rx="10" fill="#fff" stroke="#1565c0" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="900" y="75" width="140" height="22" rx="10" fill="#1565c0"/>
+  <rect x="900" y="86" width="140" height="11" fill="#1565c0"/>
+  <text x="970" y="90" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">S3 Bucket</text>
+  <text x="970" y="112" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">CloudFront Logs</text>
+  <text x="970" y="126" text-anchor="middle" font-size="10" fill="#555">Access logs</text>
+  <text x="970" y="140" text-anchor="middle" font-size="10" fill="#555">Auto-created</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- VPC BOX -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="30" y="200" width="1060" height="530" rx="14" fill="#e3f2fd" stroke="#1a73e8" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="50" y="222" font-size="13" font-weight="bold" fill="#1a73e8">VPC  (2 Availability Zones)</text>
+
+  <!-- PUBLIC SUBNETS -->
+  <rect x="50" y="232" width="460" height="200" rx="10" fill="#fff9c4" stroke="#FFC107" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="70" y="252" font-size="11" font-weight="bold" fill="#e65100">Public Subnets  (AZ-a · AZ-b)</text>
+
+  <!-- ALB -->
+  <rect x="80" y="262" width="390" height="150" rx="10" fill="#fff" stroke="#e65100" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="80" y="262" width="390" height="24" rx="10" fill="#e65100"/>
+  <rect x="80" y="275" width="390" height="11" fill="#e65100"/>
+  <text x="275" y="279" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">Application Load Balancer</text>
+  <text x="275" y="305" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">ALB  (internet-facing)</text>
+  <text x="275" y="320" text-anchor="middle" font-size="10" fill="#555">HTTP :80 → redirect HTTPS :443</text>
+  <text x="275" y="335" text-anchor="middle" font-size="10" fill="#555">HTTPS :443 → ECS targets</text>
+  <text x="275" y="350" text-anchor="middle" font-size="10" fill="#555">TLS: RECOMMENDED_TLS policy</text>
+  <text x="275" y="365" text-anchor="middle" font-size="10" fill="#c62828">SG: CloudFront prefix list only</text>
+  <text x="275" y="380" text-anchor="middle" font-size="10" fill="#555">Deletion protection · Drop invalid headers</text>
+  <text x="275" y="395" text-anchor="middle" font-size="10" fill="#555">Health check: GET / → 200</text>
+
+  <!-- ACM ALB Cert -->
+  <rect x="50" y="450" width="460" height="60" rx="10" fill="#fff" stroke="#c62828" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="50" y="450" width="460" height="20" rx="10" fill="#c62828"/>
+  <rect x="50" y="460" width="460" height="10" fill="#c62828"/>
+  <text x="280" y="464" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">ACM Certificate (ALB) — DNS validated via Route 53</text>
+  <text x="280" y="484" text-anchor="middle" font-size="10" fill="#1a1a2e">example.com + www.example.com  ·  stack region</text>
+  <text x="280" y="498" text-anchor="middle" font-size="10" fill="#555">Auto-renewed · Attached to HTTPS listener</text>
+
+  <!-- PRIVATE SUBNETS -->
+  <rect x="540" y="232" width="530" height="480" rx="10" fill="#e8f5e9" stroke="#4CAF50" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="560" y="252" font-size="11" font-weight="bold" fill="#2e7d32">Private Subnets  (AZ-a · AZ-b)  —  no public IPs</text>
+
+  <!-- ECS CLUSTER BOX -->
+  <rect x="560" y="262" width="490" height="430" rx="10" fill="#f3e5f5" stroke="#9C27B0" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="580" y="282" font-size="11" font-weight="bold" fill="#6a1b9a">ECS Cluster  (Container Insights enabled)</text>
+
+  <!-- Fargate Task 1 -->
+  <rect x="575" y="295" width="210" height="160" rx="8" fill="#fff" stroke="#9C27B0" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="575" y="295" width="210" height="22" rx="8" fill="#9C27B0"/>
+  <rect x="575" y="306" width="210" height="11" fill="#9C27B0"/>
+  <text x="680" y="311" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Fargate Task (AZ-a)</text>
+  <text x="680" y="334" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">nginx Container</text>
+  <text x="680" y="349" text-anchor="middle" font-size="10" fill="#555">Image: ECR nginx-app:latest</text>
+  <text x="680" y="363" text-anchor="middle" font-size="10" fill="#555">CPU: 256  Memory: 512 MB</text>
+  <text x="680" y="377" text-anchor="middle" font-size="10" fill="#555">Port: 80  (read-only FS: off)</text>
+  <text x="680" y="391" text-anchor="middle" font-size="10" fill="#555">Health: curl localhost/ → 200</text>
+  <text x="680" y="405" text-anchor="middle" font-size="10" fill="#555">Logs → /ecs/nginx (CW)</text>
+  <text x="680" y="419" text-anchor="middle" font-size="10" fill="#c62828">SG: ALB SG → :80 only</text>
+  <text x="680" y="433" text-anchor="middle" font-size="10" fill="#555">No public IP</text>
+
+  <!-- Fargate Task 2 -->
+  <rect x="805" y="295" width="210" height="160" rx="8" fill="#fff" stroke="#9C27B0" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="805" y="295" width="210" height="22" rx="8" fill="#9C27B0"/>
+  <rect x="805" y="306" width="210" height="11" fill="#9C27B0"/>
+  <text x="910" y="311" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Fargate Task (AZ-b)</text>
+  <text x="910" y="334" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">nginx Container</text>
+  <text x="910" y="349" text-anchor="middle" font-size="10" fill="#555">Image: ECR nginx-app:latest</text>
+  <text x="910" y="363" text-anchor="middle" font-size="10" fill="#555">CPU: 256  Memory: 512 MB</text>
+  <text x="910" y="377" text-anchor="middle" font-size="10" fill="#555">Port: 80  (read-only FS: off)</text>
+  <text x="910" y="391" text-anchor="middle" font-size="10" fill="#555">Health: curl localhost/ → 200</text>
+  <text x="910" y="405" text-anchor="middle" font-size="10" fill="#555">Logs → /ecs/nginx (CW)</text>
+  <text x="910" y="419" text-anchor="middle" font-size="10" fill="#c62828">SG: ALB SG → :80 only</text>
+  <text x="910" y="433" text-anchor="middle" font-size="10" fill="#555">No public IP</text>
+
+  <!-- Auto Scaling -->
+  <rect x="575" y="470" width="440" height="80" rx="8" fill="#fff" stroke="#ff6f00" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="575" y="470" width="440" height="22" rx="8" fill="#ff6f00"/>
+  <rect x="575" y="481" width="440" height="11" fill="#ff6f00"/>
+  <text x="795" y="486" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Application Auto Scaling</text>
+  <text x="795" y="508" text-anchor="middle" font-size="10" fill="#1a1a2e">Min: 2 tasks  ·  Max: 6 tasks</text>
+  <text x="795" y="522" text-anchor="middle" font-size="10" fill="#555">Scale-out: CPU &gt; 70% → +2 tasks  |  CPU &gt; 85% → +2 more  (cooldown 60s)</text>
+  <text x="795" y="536" text-anchor="middle" font-size="10" fill="#555">Scale-in:  CPU &lt; 30% → -1 task  (cooldown 300s)</text>
+
+  <!-- Deployment config -->
+  <rect x="575" y="565" width="440" height="60" rx="8" fill="#fff" stroke="#546e7a" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="795" y="583" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a1a2e">Deployment Config</text>
+  <text x="795" y="598" text-anchor="middle" font-size="10" fill="#555">Circuit breaker + rollback  ·  minHealthy 100%  ·  maxHealthy 200%</text>
+  <text x="795" y="612" text-anchor="middle" font-size="10" fill="#555">desiredCount: 2  ·  Deregistration delay: 30s</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SUPPORTING SERVICES ROW (below VPC) -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
+  <!-- ECR -->
+  <rect x="30" y="760" width="180" height="100" rx="10" fill="#fff" stroke="#e65100" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="30" y="760" width="180" height="22" rx="10" fill="#e65100"/>
+  <rect x="30" y="771" width="180" height="11" fill="#e65100"/>
+  <text x="120" y="776" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">ECR Repository</text>
+  <text x="120" y="800" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">nginx-app</text>
+  <text x="120" y="815" text-anchor="middle" font-size="10" fill="#555">Scan on push</text>
+  <text x="120" y="829" text-anchor="middle" font-size="10" fill="#555">Keep last 10 tagged</text>
+  <text x="120" y="843" text-anchor="middle" font-size="10" fill="#555">Expire untagged: 7d</text>
+
+  <!-- CloudWatch Logs -->
+  <rect x="230" y="760" width="180" height="100" rx="10" fill="#fff" stroke="#1565c0" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="230" y="760" width="180" height="22" rx="10" fill="#1565c0"/>
+  <rect x="230" y="771" width="180" height="11" fill="#1565c0"/>
+  <text x="320" y="776" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">CloudWatch Logs</text>
+  <text x="320" y="800" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">/ecs/nginx</text>
+  <text x="320" y="815" text-anchor="middle" font-size="10" fill="#555">Retention: 30 days</text>
+  <text x="320" y="829" text-anchor="middle" font-size="10" fill="#555">Driver: awslogs</text>
+  <text x="320" y="843" text-anchor="middle" font-size="10" fill="#555">Prefix: nginx</text>
+
+  <!-- ALB Log Bucket -->
+  <rect x="430" y="760" width="180" height="100" rx="10" fill="#fff" stroke="#1565c0" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="430" y="760" width="180" height="22" rx="10" fill="#1565c0"/>
+  <rect x="430" y="771" width="180" height="11" fill="#1565c0"/>
+  <text x="520" y="776" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">S3 Bucket</text>
+  <text x="520" y="800" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">ALB Access Logs</text>
+  <text x="520" y="815" text-anchor="middle" font-size="10" fill="#555">Prefix: alb-logs/</text>
+  <text x="520" y="829" text-anchor="middle" font-size="10" fill="#555">Lifecycle: expire 90d</text>
+  <text x="520" y="843" text-anchor="middle" font-size="10" fill="#555">Block public · SSL enforced</text>
+
+  <!-- Secrets Manager -->
+  <rect x="630" y="760" width="180" height="100" rx="10" fill="#fff" stroke="#c62828" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="630" y="760" width="180" height="22" rx="10" fill="#c62828"/>
+  <rect x="630" y="771" width="180" height="11" fill="#c62828"/>
+  <text x="720" y="776" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Secrets Manager</text>
+  <text x="720" y="800" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">github-token</text>
+  <text x="720" y="815" text-anchor="middle" font-size="10" fill="#555">GitHub OAuth token</text>
+  <text x="720" y="829" text-anchor="middle" font-size="10" fill="#555">Used by CodePipeline</text>
+  <text x="720" y="843" text-anchor="middle" font-size="10" fill="#555">Manual creation required</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- CI/CD PIPELINE (right column) -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="1110" y="75" width="260" height="785" rx="14" fill="#fce4ec" stroke="#c62828" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="1240" y="97" text-anchor="middle" font-size="13" font-weight="bold" fill="#c62828">CI/CD Pipeline</text>
+  <text x="1240" y="113" text-anchor="middle" font-size="10" fill="#555">PipelineStack</text>
+
+  <!-- GitHub -->
+  <rect x="1130" y="125" width="220" height="70" rx="8" fill="#fff" stroke="#333" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="1130" y="125" width="220" height="20" rx="8" fill="#24292e"/>
+  <rect x="1130" y="135" width="220" height="10" fill="#24292e"/>
+  <text x="1240" y="139" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">GitHub</text>
+  <text x="1240" y="160" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Source Repository</text>
+  <text x="1240" y="175" text-anchor="middle" font-size="10" fill="#555">Webhook trigger on push</text>
+  <text x="1240" y="188" text-anchor="middle" font-size="10" fill="#555">Branch: main</text>
+
+  <!-- Stage 1 Source -->
+  <rect x="1130" y="215" width="220" height="60" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="1130" y="215" width="220" height="20" rx="8" fill="#1565c0"/>
+  <rect x="1130" y="225" width="220" height="10" fill="#1565c0"/>
+  <text x="1240" y="229" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Stage 1 — Source</text>
+  <text x="1240" y="249" text-anchor="middle" font-size="10" fill="#1a1a2e">GitHubSourceAction</text>
+  <text x="1240" y="263" text-anchor="middle" font-size="10" fill="#555">OAuth via Secrets Manager</text>
+
+  <!-- Stage 2 Build -->
+  <rect x="1130" y="295" width="220" height="90" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="1130" y="295" width="220" height="20" rx="8" fill="#1565c0"/>
+  <rect x="1130" y="305" width="220" height="10" fill="#1565c0"/>
+  <text x="1240" y="309" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Stage 2 — Build</text>
+  <text x="1240" y="330" text-anchor="middle" font-size="10" fill="#1a1a2e">CodeBuild (Standard 7.0)</text>
+  <text x="1240" y="344" text-anchor="middle" font-size="10" fill="#555">buildspec.yml</text>
+  <text x="1240" y="358" text-anchor="middle" font-size="10" fill="#555">docker build + push to ECR</text>
+  <text x="1240" y="372" text-anchor="middle" font-size="10" fill="#555">cdk synth · privileged mode</text>
+
+  <!-- Stage 3 Approve -->
+  <rect x="1130" y="405" width="220" height="60" rx="8" fill="#fff" stroke="#ff6f00" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="1130" y="405" width="220" height="20" rx="8" fill="#ff6f00"/>
+  <rect x="1130" y="415" width="220" height="10" fill="#ff6f00"/>
+  <text x="1240" y="419" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Stage 3 — Approve</text>
+  <text x="1240" y="440" text-anchor="middle" font-size="10" fill="#1a1a2e">Manual Approval Gate</text>
+  <text x="1240" y="454" text-anchor="middle" font-size="10" fill="#555">Human review required</text>
+
+  <!-- Stage 4 Deploy -->
+  <rect x="1130" y="485" width="220" height="80" rx="8" fill="#fff" stroke="#2e7d32" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="1130" y="485" width="220" height="20" rx="8" fill="#2e7d32"/>
+  <rect x="1130" y="495" width="220" height="10" fill="#2e7d32"/>
+  <text x="1240" y="499" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Stage 4 — Deploy</text>
+  <text x="1240" y="520" text-anchor="middle" font-size="10" fill="#1a1a2e">CodeBuild (Standard 7.0)</text>
+  <text x="1240" y="534" text-anchor="middle" font-size="10" fill="#555">cdk deploy EcsFargateStack</text>
+  <text x="1240" y="548" text-anchor="middle" font-size="10" fill="#555">--require-approval never</text>
+
+  <!-- Artifact Bucket -->
+  <rect x="1130" y="585" width="220" height="70" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="1130" y="585" width="220" height="20" rx="8" fill="#1565c0"/>
+  <rect x="1130" y="595" width="220" height="10" fill="#1565c0"/>
+  <text x="1240" y="599" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">S3 Artifact Bucket</text>
+  <text x="1240" y="620" text-anchor="middle" font-size="10" fill="#1a1a2e">Versioned · S3-managed enc.</text>
+  <text x="1240" y="634" text-anchor="middle" font-size="10" fill="#555">Block public · SSL enforced</text>
+  <text x="1240" y="648" text-anchor="middle" font-size="10" fill="#555">Lifecycle: expire 30d</text>
+
+  <!-- Build Logs -->
+  <rect x="1130" y="675" width="220" height="60" rx="8" fill="#fff" stroke="#1565c0" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="1130" y="675" width="220" height="20" rx="8" fill="#1565c0"/>
+  <rect x="1130" y="685" width="220" height="10" fill="#1565c0"/>
+  <text x="1240" y="689" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">CloudWatch Logs</text>
+  <text x="1240" y="710" text-anchor="middle" font-size="10" fill="#1a1a2e">/codebuild/ecs-fargate-cdk</text>
+  <text x="1240" y="724" text-anchor="middle" font-size="10" fill="#555">Retention: 30 days</text>
+
+  <!-- CloudFormation -->
+  <rect x="1130" y="755" width="220" height="60" rx="8" fill="#fff" stroke="#8B4513" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="1130" y="755" width="220" height="20" rx="8" fill="#8B4513"/>
+  <rect x="1130" y="765" width="220" height="10" fill="#8B4513"/>
+  <text x="1240" y="769" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">CloudFormation</text>
+  <text x="1240" y="790" text-anchor="middle" font-size="10" fill="#1a1a2e">EcsFargateStack</text>
+  <text x="1240" y="804" text-anchor="middle" font-size="10" fill="#555">Deployed by Stage 4</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- ARROWS — Application traffic flow -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
+  <!-- User → Route 53 -->
+  <line x1="150" y1="110" x2="208" y2="110" stroke="#1a73e8" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="179" y="105" text-anchor="middle" font-size="9" fill="#1a73e8">DNS</text>
+
+  <!-- Route 53 → CloudFront -->
+  <line x1="350" y1="110" x2="638" y2="110" stroke="#1a73e8" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="494" y="105" text-anchor="middle" font-size="9" fill="#1a73e8">Alias record</text>
+
+  <!-- ACM CF Cert → CloudFront -->
+  <line x1="570" y1="110" x2="638" y2="110" stroke="#c62828" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+
+  <!-- CloudFront → CF Logs -->
+  <line x1="840" y1="110" x2="898" y2="110" stroke="#1565c0" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+  <text x="869" y="105" text-anchor="middle" font-size="9" fill="#1565c0">logs</text>
+
+  <!-- CloudFront → ALB (HTTPS origin) -->
+  <line x1="740" y1="160" x2="740" y2="220" stroke="#e65100" stroke-width="2.5" marker-end="url(#arrow-orange)"/>
+  <text x="755" y="195" font-size="9" fill="#e65100">HTTPS</text>
+
+  <!-- ALB → Fargate Task 1 -->
+  <line x1="470" y1="340" x2="573" y2="370" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="510" y="348" font-size="9" fill="#2e7d32">:80</text>
+
+  <!-- ALB → Fargate Task 2 -->
+  <line x1="470" y1="355" x2="803" y2="370" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+  <!-- Tasks → ECR (pull image) -->
+  <line x1="680" y1="455" x2="200" y2="758" stroke="#e65100" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow)"/>
+  <text x="390" y="620" font-size="9" fill="#e65100">pull image</text>
+
+  <!-- Tasks → CloudWatch Logs -->
+  <line x1="795" y1="455" x2="370" y2="758" stroke="#1565c0" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow)"/>
+  <text x="540" y="640" font-size="9" fill="#1565c0">stream logs</text>
+
+  <!-- ALB → ALB Log Bucket -->
+  <line x1="275" y1="412" x2="490" y2="758" stroke="#1565c0" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow)"/>
+  <text x="340" y="600" font-size="9" fill="#1565c0">access logs</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- ARROWS — Pipeline flow -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
+  <!-- GitHub → Stage 1 -->
+  <line x1="1240" y1="195" x2="1240" y2="213" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="1255" y="208" font-size="9" fill="#333">webhook</text>
+
+  <!-- Stage 1 → Stage 2 -->
+  <line x1="1240" y1="275" x2="1240" y2="293" stroke="#1565c0" stroke-width="2" marker-end="url(#arrow-blue)"/>
+
+  <!-- Stage 2 → Stage 3 -->
+  <line x1="1240" y1="385" x2="1240" y2="403" stroke="#1565c0" stroke-width="2" marker-end="url(#arrow-blue)"/>
+
+  <!-- Stage 3 → Stage 4 -->
+  <line x1="1240" y1="465" x2="1240" y2="483" stroke="#ff6f00" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="1255" y="478" font-size="9" fill="#ff6f00">approved</text>
+
+  <!-- Stage 4 → CloudFormation -->
+  <line x1="1240" y1="565" x2="1240" y2="753" stroke="#2e7d32" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrow-green)"/>
+  <text x="1255" y="665" font-size="9" fill="#2e7d32">cdk deploy</text>
+
+  <!-- Stage 2 → ECR (docker push) -->
+  <line x1="1130" y1="340" x2="212" y2="800" stroke="#e65100" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+  <text x="660" y="760" font-size="9" fill="#e65100">docker push</text>
+
+  <!-- Secrets Manager → Stage 1 -->
+  <line x1="720" y1="760" x2="1128" y2="245" stroke="#c62828" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+  <text x="940" y="490" font-size="9" fill="#c62828">OAuth token</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- LEGEND -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="830" y="760" width="260" height="100" rx="8" fill="#fff" stroke="#999" stroke-width="1.5"/>
+  <text x="960" y="778" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a2e">Legend</text>
+  <line x1="848" y1="795" x2="888" y2="795" stroke="#1a73e8" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="895" y="799" font-size="10" fill="#333">User / DNS traffic</text>
+  <line x1="848" y1="813" x2="888" y2="813" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="895" y="817" font-size="10" fill="#333">Application traffic</text>
+  <line x1="848" y1="831" x2="888" y2="831" stroke="#555" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+  <text x="895" y="835" font-size="10" fill="#333">Supporting / async</text>
+  <line x1="848" y1="849" x2="888" y2="849" stroke="#c62828" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+  <text x="895" y="853" font-size="10" fill="#333">Security / secrets</text>
+
+</svg>

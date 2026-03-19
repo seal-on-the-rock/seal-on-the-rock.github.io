@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720" font-family="Arial, sans-serif" font-size="12">
+
+  <!-- Background -->
+  <rect width="960" height="720" fill="#f8f9fa" rx="12"/>
+
+  <!-- Title -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a2e">ECS Fargate Stack — AWS Architecture</text>
+
+  <!-- ── AWS Cloud border ── -->
+  <rect x="20" y="55" width="920" height="645" rx="10" fill="none" stroke="#e8873a" stroke-width="2" stroke-dasharray="8,4"/>
+  <rect x="20" y="45" width="110" height="22" rx="4" fill="#e8873a"/>
+  <text x="75" y="60" text-anchor="middle" font-size="11" font-weight="bold" fill="white">AWS Cloud</text>
+
+  <!-- ── VPC border ── -->
+  <rect x="40" y="85" width="880" height="595" rx="8" fill="none" stroke="#8c4fff" stroke-width="2" stroke-dasharray="6,3"/>
+  <rect x="40" y="75" width="130" height="20" rx="4" fill="#8c4fff"/>
+  <text x="105" y="89" text-anchor="middle" font-size="11" font-weight="bold" fill="white">VPC (2 AZs)</text>
+
+  <!-- ════════════════════════════════════
+       PUBLIC SUBNETS ROW
+  ════════════════════════════════════ -->
+
+  <!-- Public Subnet AZ-1 -->
+  <rect x="60" y="108" width="380" height="160" rx="6" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5"/>
+  <text x="250" y="126" text-anchor="middle" font-size="11" font-weight="bold" fill="#2e7d32">Public Subnet — AZ 1</text>
+
+  <!-- Public Subnet AZ-2 -->
+  <rect x="460" y="108" width="440" height="160" rx="6" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5"/>
+  <text x="680" y="126" text-anchor="middle" font-size="11" font-weight="bold" fill="#2e7d32">Public Subnet — AZ 2</text>
+
+  <!-- ALB box spanning both public subnets -->
+  <!-- ALB icon background -->
+  <rect x="290" y="138" width="360" height="110" rx="8" fill="#fff8e1" stroke="#f9a825" stroke-width="2"/>
+  <text x="470" y="158" text-anchor="middle" font-size="12" font-weight="bold" fill="#e65100">Application Load Balancer</text>
+
+  <!-- ALB icon -->
+  <rect x="440" y="165" width="60" height="40" rx="4" fill="#f9a825"/>
+  <text x="470" y="190" text-anchor="middle" font-size="20" fill="white">⚖</text>
+
+  <text x="470" y="222" text-anchor="middle" font-size="10" fill="#555">Port 80 · SG: AlbSg (0.0.0.0/0 → :80)</text>
+  <text x="470" y="236" text-anchor="middle" font-size="10" fill="#555">deletionProtection · dropInvalidHeaders</text>
+
+  <!-- NAT Gateway AZ-1 -->
+  <rect x="70" y="148" width="130" height="70" rx="6" fill="#e3f2fd" stroke="#1e88e5" stroke-width="1.5"/>
+  <text x="135" y="168" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">NAT Gateway</text>
+  <text x="135" y="184" text-anchor="middle" font-size="22">🔀</text>
+  <text x="135" y="208" text-anchor="middle" font-size="10" fill="#555">AZ 1</text>
+
+  <!-- NAT Gateway AZ-2 -->
+  <rect x="760" y="148" width="130" height="70" rx="6" fill="#e3f2fd" stroke="#1e88e5" stroke-width="1.5"/>
+  <text x="825" y="168" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">NAT Gateway</text>
+  <text x="825" y="184" text-anchor="middle" font-size="22">🔀</text>
+  <text x="825" y="208" text-anchor="middle" font-size="10" fill="#555">AZ 2</text>
+
+  <!-- Internet Gateway -->
+  <rect x="390" y="58" width="160" height="38" rx="6" fill="#fce4ec" stroke="#e91e63" stroke-width="1.5"/>
+  <text x="470" y="72" text-anchor="middle" font-size="11" font-weight="bold" fill="#880e4f">Internet Gateway</text>
+  <text x="470" y="88" text-anchor="middle" font-size="10" fill="#555">Public internet access</text>
+
+  <!-- Internet → IGW arrow -->
+  <line x1="470" y1="30" x2="470" y2="56" stroke="#e91e63" stroke-width="2" marker-end="url(#arrow-pink)"/>
+  <text x="490" y="48" font-size="10" fill="#e91e63">Internet</text>
+
+  <!-- IGW → ALB arrow -->
+  <line x1="470" y1="96" x2="470" y2="136" stroke="#e91e63" stroke-width="2" marker-end="url(#arrow-pink)"/>
+
+  <!-- ════════════════════════════════════
+       PRIVATE SUBNETS ROW
+  ════════════════════════════════════ -->
+
+  <!-- Private Subnet AZ-1 -->
+  <rect x="60" y="295" width="380" height="230" rx="6" fill="#fce4ec" stroke="#e53935" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="250" y="313" text-anchor="middle" font-size="11" font-weight="bold" fill="#b71c1c">Private Subnet — AZ 1</text>
+
+  <!-- Private Subnet AZ-2 -->
+  <rect x="460" y="295" width="440" height="230" rx="6" fill="#fce4ec" stroke="#e53935" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="680" y="313" text-anchor="middle" font-size="11" font-weight="bold" fill="#b71c1c">Private Subnet — AZ 2</text>
+
+  <!-- ECS Cluster border -->
+  <rect x="75" y="320" width="810" height="190" rx="8" fill="none" stroke="#00897b" stroke-width="2" stroke-dasharray="4,3"/>
+  <rect x="75" y="310" width="160" height="20" rx="4" fill="#00897b"/>
+  <text x="155" y="324" text-anchor="middle" font-size="11" font-weight="bold" fill="white">ECS Cluster (Container Insights)</text>
+
+  <!-- Fargate Task AZ-1 -->
+  <rect x="90" y="335" width="340" height="155" rx="6" fill="#e0f2f1" stroke="#00897b" stroke-width="1.5"/>
+  <text x="260" y="355" text-anchor="middle" font-size="11" font-weight="bold" fill="#004d40">Fargate Task (AZ 1)</text>
+  <text x="260" y="370" text-anchor="middle" font-size="10" fill="#555">SG: EcsSg (AlbSg → :80 only)</text>
+
+  <!-- nginx container AZ-1 -->
+  <rect x="110" y="378" width="300" height="95" rx="5" fill="white" stroke="#26a69a" stroke-width="1.5"/>
+  <text x="260" y="396" text-anchor="middle" font-size="11" font-weight="bold" fill="#00695c">nginx:1.27-alpine</text>
+  <text x="260" y="412" text-anchor="middle" font-size="10" fill="#555">Port 80 · 256 CPU · 512 MB</text>
+  <text x="260" y="426" text-anchor="middle" font-size="10" fill="#555">Health: curl http://localhost/</text>
+  <text x="260" y="440" text-anchor="middle" font-size="10" fill="#555">Circuit breaker + auto-rollback</text>
+  <text x="260" y="454" text-anchor="middle" font-size="10" fill="#555">Auto-scale: 2–10 tasks @ 60% CPU</text>
+  <text x="260" y="468" text-anchor="middle" font-size="10" fill="#555">Logs → /ecs/nginx (30d retention)</text>
+
+  <!-- Fargate Task AZ-2 -->
+  <rect x="475" y="335" width="380" height="155" rx="6" fill="#e0f2f1" stroke="#00897b" stroke-width="1.5"/>
+  <text x="665" y="355" text-anchor="middle" font-size="11" font-weight="bold" fill="#004d40">Fargate Task (AZ 2)</text>
+  <text x="665" y="370" text-anchor="middle" font-size="10" fill="#555">SG: EcsSg (AlbSg → :80 only)</text>
+
+  <!-- nginx container AZ-2 -->
+  <rect x="495" y="378" width="340" height="95" rx="5" fill="white" stroke="#26a69a" stroke-width="1.5"/>
+  <text x="665" y="396" text-anchor="middle" font-size="11" font-weight="bold" fill="#00695c">nginx:1.27-alpine</text>
+  <text x="665" y="412" text-anchor="middle" font-size="10" fill="#555">Port 80 · 256 CPU · 512 MB</text>
+  <text x="665" y="426" text-anchor="middle" font-size="10" fill="#555">Health: curl http://localhost/</text>
+  <text x="665" y="440" text-anchor="middle" font-size="10" fill="#555">Circuit breaker + auto-rollback</text>
+  <text x="665" y="454" text-anchor="middle" font-size="10" fill="#555">Auto-scale: 2–10 tasks @ 60% CPU</text>
+  <text x="665" y="468" text-anchor="middle" font-size="10" fill="#555">Logs → /ecs/nginx (30d retention)</text>
+
+  <!-- ALB → Task AZ-1 arrow -->
+  <line x1="380" y1="248" x2="260" y2="333" stroke="#f9a825" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrow-orange)"/>
+
+  <!-- ALB → Task AZ-2 arrow -->
+  <line x1="560" y1="248" x2="665" y2="333" stroke="#f9a825" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrow-orange)"/>
+
+  <!-- NAT GW AZ-1 → internet (egress) -->
+  <line x1="135" y1="218" x2="135" y2="295" stroke="#1e88e5" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-blue)"/>
+
+  <!-- NAT GW AZ-2 → internet (egress) -->
+  <line x1="825" y1="218" x2="825" y2="295" stroke="#1e88e5" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-blue)"/>
+
+  <!-- ════════════════════════════════════
+       OBSERVABILITY ROW
+  ════════════════════════════════════ -->
+
+  <!-- CloudWatch Logs -->
+  <rect x="60" y="545" width="200" height="80" rx="6" fill="#e8eaf6" stroke="#3949ab" stroke-width="1.5"/>
+  <text x="160" y="565" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a237e">CloudWatch Logs</text>
+  <text x="160" y="582" text-anchor="middle" font-size="22">📋</text>
+  <text x="160" y="608" text-anchor="middle" font-size="10" fill="#555">/ecs/nginx · 30-day retention</text>
+
+  <!-- S3 ALB Logs -->
+  <rect x="290" y="545" width="200" height="80" rx="6" fill="#fff3e0" stroke="#fb8c00" stroke-width="1.5"/>
+  <text x="390" y="565" text-anchor="middle" font-size="11" font-weight="bold" fill="#e65100">S3 Bucket</text>
+  <text x="390" y="582" text-anchor="middle" font-size="22">🪣</text>
+  <text x="390" y="608" text-anchor="middle" font-size="10" fill="#555">ALB access logs · 90-day lifecycle</text>
+
+  <!-- Application Auto Scaling -->
+  <rect x="520" y="545" width="200" height="80" rx="6" fill="#f3e5f5" stroke="#8e24aa" stroke-width="1.5"/>
+  <text x="620" y="565" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a148c">Auto Scaling</text>
+  <text x="620" y="582" text-anchor="middle" font-size="22">📈</text>
+  <text x="620" y="608" text-anchor="middle" font-size="10" fill="#555">CPU target 60% · 2–10 tasks</text>
+
+  <!-- IAM / Task Role note -->
+  <rect x="750" y="545" width="170" height="80" rx="6" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5"/>
+  <text x="835" y="565" text-anchor="middle" font-size="11" font-weight="bold" fill="#1b5e20">IAM Task Role</text>
+  <text x="835" y="582" text-anchor="middle" font-size="22">🔐</text>
+  <text x="835" y="608" text-anchor="middle" font-size="10" fill="#555">Least-privilege · CDK managed</text>
+
+  <!-- Task → CloudWatch arrow -->
+  <line x1="200" y1="490" x2="160" y2="543" stroke="#3949ab" stroke-width="1.5" marker-end="url(#arrow-indigo)"/>
+
+  <!-- ALB → S3 arrow -->
+  <line x1="430" y1="248" x2="390" y2="543" stroke="#fb8c00" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-amber)"/>
+
+  <!-- Task → AutoScaling arrow -->
+  <line x1="430" y1="490" x2="580" y2="543" stroke="#8e24aa" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-purple)"/>
+
+  <!-- ── Arrow marker defs ── -->
+  <defs>
+    <marker id="arrow-pink" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#e91e63"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#f9a825"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#1e88e5"/>
+    </marker>
+    <marker id="arrow-indigo" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#3949ab"/>
+    </marker>
+    <marker id="arrow-amber" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#fb8c00"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#8e24aa"/>
+    </marker>
+  </defs>
+
+</svg>
