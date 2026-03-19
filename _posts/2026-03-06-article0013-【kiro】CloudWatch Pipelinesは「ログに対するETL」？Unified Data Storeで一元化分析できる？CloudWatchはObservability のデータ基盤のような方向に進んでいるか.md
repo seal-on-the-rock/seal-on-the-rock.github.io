@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "article0012-【kiroで】ECS + Fargate + CI/CD pipelineのアーキテクチャを構築してみた（実践記録）"
-date: 2026-03-06
+title: "article0013-【kiroで】ECS + Fargate + CI/CD pipelineのアーキテクチャを構築してみた（実践記録）"
+date: 2026-03-19
 author: Seal
 ---
 
@@ -52,7 +52,7 @@ Generate an AWS architecture diagram for my CDK stack.
 
 一旦に下記のような構築図になりました。
 
-![AWS1]( /assets/images/0013-1.png)
+![AWS1]( /assets/images/0013-1.svg)
 
 ## 🔥 ポイント①：EC2を使わない構成
 
@@ -268,7 +268,7 @@ Requirements:
 
 もう一回構築図を生成すれば：
 
-![AWS3]( /assets/images/0013-3.png)
+![AWS3]( /assets/images/0013-3.svg)
 
 めちゃくちゃいいですよね！！
 
