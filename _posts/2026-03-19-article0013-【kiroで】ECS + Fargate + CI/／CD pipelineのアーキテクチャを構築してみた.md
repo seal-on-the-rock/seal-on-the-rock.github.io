@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "article0013-【kiroで】ECS + Fargate + CI/CD pipelineのアーキテクチャを構築してみた（実践記録）"
+title: "article0013-【kiroで】ECS + Fargate + CI/CD pipelineのアーキテクチャを構築してみた"
 date: 2026-03-19
 author: Seal
 ---
