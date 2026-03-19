@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "article0012-【kiroで】ECS + Fargateで3層Webアーキテクチャを構築してみた（実践記録）"
+title: "article0012-【kiroで】ECS + Fargate + CI/CD pipelineのアーキテクチャを構築してみた（実践記録）"
 date: 2026-03-06
 author: Seal
 ---
@@ -52,7 +52,7 @@ Generate an AWS architecture diagram for my CDK stack.
 
 一旦に下記のような構築図になりました。
 
-![AWS11]( /assets/images/AWS11.png )
+![AWS1]( /assets/images/0013-1.png)
 
 ## 🔥 ポイント①：EC2を使わない構成
 
@@ -244,8 +244,7 @@ Generate an AWS architecture diagram for my CDK stack.
 
 こういう感じです。
 
-![AWS21]( /assets/images/AWS21.png )
-![AWS22]( /assets/images/AWS22.png )
+![AWS2]( /assets/images/0013-2.jpg)
 
 とても凄いでしょう？！
 
@@ -269,7 +268,7 @@ Requirements:
 
 もう一回構築図を生成すれば：
 
-![AWS31]( /assets/images/AWS31.png )
+![AWS3]( /assets/images/0013-3.png)
 
 めちゃくちゃいいですよね！！
 
@@ -534,7 +533,7 @@ GitHub → CodePipeline → CodeBuild → ECS Deploy
 
 ---
 
-# 改善ポイント（上級者向け）
+# 改善ポイント
 
 - AWS WAFの導入
 - AWS X-Rayによるトレーシング
