@@ -36,17 +36,19 @@ Self-learning cloud architecture and infrastructure design.
 👉 [View my certification](https://www.credly.com/users/wang-haibao/badges#credly)
 
 <p align="center" style="margin: 40px 0;">
-  <img src="/assets/images/aws-certified-solutions-architect-associate.png" alt="AWS Certified Developer - associate certificate"
+  <img src="/assets/images/aws-certified-solutions-architect-associate.png" alt="SAA"
        style="max-width: 20%; height: auto; border-radius: 12px;">
-  <img src="/assets/images/aws-certified-developer-associate.png" alt="AWS Certified Developer - associate certificate"
+  <img src="/assets/images/aws-certified-developer-associate.png" alt="DVA"
        style="max-width: 20%; height: auto; border-radius: 12px;">
-  <img src="/assets/images/aws-certified-solutions-architect-professional.png" alt="AWS Certified Solutions Architect - Professional certificate" 
+  <img src="/assets/images/aws-certified-solutions-architect-professional.png" alt="SAP" 
        style="max-width: 20%; height: auto; border-radius: 12px;">
-  <img src="/assets/images/aws-certified-devops-engineer-professional.png" alt="AWS Certified DevOps Engineer – Professional certificate" 
+  <img src="/assets/images/aws-certified-devops-engineer-professional.png" alt="DOP" 
        style="max-width: 20%; height: auto; border-radius: 12px;">
-  <img src="/assets/images/aws-certified-security-specialty.png" alt="AWS Certified Security - Specialty certificate"
+  <img src="/assets/images/aws-certified-security-specialty.png" alt="SCS"
        style="max-width: 20%; height: auto; border-radius: 12px;">
-  <img src="/assets/images/aws-certified-machine-learning-specialty.png" alt="AWS Certified Developer - associate certificate"
+  <img src="/assets/images/aws-certified-machine-learning-specialty.png" alt="MLS"
+       style="max-width: 20%; height: auto; border-radius: 12px;">
+  <img src="/assets/images/aws-certified-advanced-networking-specialty.png" alt="ANS"
        style="max-width: 20%; height: auto; border-radius: 12px;">
 </p>
 
