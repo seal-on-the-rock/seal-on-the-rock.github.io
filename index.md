@@ -44,6 +44,10 @@ Self-learning cloud architecture and infrastructure design.
        style="max-width: 20%; height: auto; border-radius: 12px;">
   <img src="/assets/images/aws-certified-devops-engineer-professional.png" alt="DOP" 
        style="max-width: 20%; height: auto; border-radius: 12px;">
+  <img src="/assets/images/aws-certified-generative-ai-developer-professional.png" alt="DOP" 
+       style="max-width: 20%; height: auto; border-radius: 12px;">
+  <img src="/assets/images/aws-certified-generative-ai-developer-professional-.png" alt="AIP EARLY" 
+       style="max-width: 20%; height: auto; border-radius: 12px;">
   <img src="/assets/images/aws-certified-security-specialty.png" alt="SCS"
        style="max-width: 20%; height: auto; border-radius: 12px;">
   <img src="/assets/images/aws-certified-machine-learning-specialty.png" alt="MLS"
