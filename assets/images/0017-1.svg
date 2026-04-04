@@ -1,0 +1,235 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1020" width="1200" height="1020" font-family="'Segoe UI', Arial, sans-serif">
+
+  <defs>
+    <marker id="arrowBlue"   markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#4a90d9"/></marker>
+    <marker id="arrowBlue2"  markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#1565c0"/></marker>
+    <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#e67e22"/></marker>
+    <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#8e24aa"/></marker>
+    <marker id="arrowPink"   markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#c2185b"/></marker>
+    <marker id="arrowTeal"   markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#00796b"/></marker>
+    <marker id="arrowTealR"  markerWidth="8" markerHeight="8" refX="2" refY="3" orient="auto"><path d="M8,0 L8,6 L0,3 z" fill="#00796b"/></marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="1020" fill="#f0f4f8" rx="12"/>
+
+  <!-- ── Title ── -->
+  <text x="600" y="36" text-anchor="middle" font-size="20" font-weight="bold" fill="#1a2b4a">AWS Transit Gateway — Hub &amp; Spoke + PrivateLink (Centralized Egress)</text>
+  <text x="600" y="56" text-anchor="middle" font-size="11" fill="#5a6a7a">Dev VPC (10.1.0.0/16)  |  Prod VPC (10.0.0.0/16)  |  Security VPC (10.2.0.0/16)  |  PrivateLink: Dev → Prod Service</text>
+
+  <!-- ════════════════════════════════════════════════════════════
+       INTERNET
+  ════════════════════════════════════════════════════════════ -->
+  <rect x="420" y="70" width="300" height="48" rx="10" fill="#d1e8ff" stroke="#4a90d9" stroke-width="2"/>
+  <text x="570" y="90" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a4a8a">🌐  Internet</text>
+  <text x="570" y="108" text-anchor="middle" font-size="10" fill="#2a5a9a">Public Network</text>
+
+  <!-- ════════════════════════════════════════════════════════════
+       SECURITY VPC
+  ════════════════════════════════════════════════════════════ -->
+  <rect x="330" y="138" width="480" height="252" rx="12" fill="#fff8e1" stroke="#f5a623" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <text x="570" y="160" text-anchor="middle" font-size="13" font-weight="bold" fill="#b36a00">Security VPC  —  10.2.0.0/16</text>
+  <text x="570" y="376" text-anchor="middle" font-size="10" fill="#b36a00" font-style="italic">Centralized Egress Hub</text>
+
+  <!-- Public Subnet -->
+  <rect x="348" y="170" width="200" height="108" rx="8" fill="#ffe0b2" stroke="#e65100" stroke-width="1.5"/>
+  <text x="448" y="188" text-anchor="middle" font-size="11" font-weight="bold" fill="#bf360c">Public Subnet  10.2.1.0/24</text>
+  <rect x="362" y="196" width="76" height="28" rx="6" fill="#4a90d9" stroke="#1a5fa8" stroke-width="1"/>
+  <text x="400" y="215" text-anchor="middle" font-size="10" fill="white" font-weight="bold">IGW</text>
+  <rect x="452" y="196" width="82" height="28" rx="6" fill="#e67e22" stroke="#a04000" stroke-width="1"/>
+  <text x="493" y="211" text-anchor="middle" font-size="10" fill="white" font-weight="bold">NAT GW</text>
+  <rect x="354" y="232" width="186" height="38" rx="4" fill="#fff3e0" stroke="#e65100" stroke-width="1"/>
+  <text x="447" y="247" text-anchor="middle" font-size="9" fill="#4a2800">RT: 0.0.0.0/0 → IGW</text>
+  <text x="447" y="262" text-anchor="middle" font-size="9" fill="#4a2800">local: 10.2.0.0/16</text>
+
+  <!-- Private Subnet (TGW) -->
+  <rect x="572" y="170" width="218" height="108" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.5"/>
+  <text x="681" y="188" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a148c">Private Subnet ★TGW</text>
+  <text x="681" y="202" text-anchor="middle" font-size="10" fill="#6a1b9a">10.2.2.0/24</text>
+  <rect x="586" y="208" width="190" height="26" rx="6" fill="#8e24aa" stroke="#4a148c" stroke-width="1"/>
+  <text x="681" y="225" text-anchor="middle" font-size="9" fill="white" font-weight="bold">TGW Attachment  (attachment-security)</text>
+  <rect x="580" y="242" width="202" height="28" rx="4" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1"/>
+  <text x="681" y="255" text-anchor="middle" font-size="9" fill="#4a148c">RT: 0.0.0.0/0 → NAT GW</text>
+  <text x="681" y="267" text-anchor="middle" font-size="9" fill="#4a148c">10.1/16 &amp; 10.0/16 → TGW</text>
+
+  <!-- Internet ↔ IGW -->
+  <line x1="490" y1="118" x2="430" y2="170" stroke="#4a90d9" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <line x1="420" y1="170" x2="480" y2="118" stroke="#4a90d9" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <!-- NAT ↔ IGW internal -->
+  <line x1="452" y1="210" x2="438" y2="210" stroke="#e67e22" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
+
+  <!-- Security Private ↔ TGW (vertical) -->
+  <line x1="685" y1="278" x2="685" y2="428" stroke="#8e24aa" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowPurple)"/>
+  <line x1="675" y1="428" x2="675" y2="278" stroke="#8e24aa" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowPurple)"/>
+
+  <!-- ════════════════════════════════════════════════════════════
+       TRANSIT GATEWAY
+  ════════════════════════════════════════════════════════════ -->
+  <rect x="280" y="428" width="580" height="168" rx="12" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+  <text x="570" y="450" text-anchor="middle" font-size="14" font-weight="bold" fill="#1b5e20">Transit Gateway  (hub-spoke-tgw)</text>
+
+  <!-- Spoke-RT -->
+  <rect x="298" y="460" width="256" height="126" rx="8" fill="#c8e6c9" stroke="#388e3c" stroke-width="1.5"/>
+  <text x="426" y="478" text-anchor="middle" font-size="11" font-weight="bold" fill="#1b5e20">TGW RT: Spoke-RT</text>
+  <text x="426" y="492" text-anchor="middle" font-size="9" fill="#2e7d32">Association: Dev, Prod</text>
+  <line x1="303" y1="498" x2="549" y2="498" stroke="#81c784" stroke-width="1"/>
+  <text x="426" y="511" text-anchor="middle" font-size="9" fill="#1b5e20">0.0.0.0/0  →  attachment-security</text>
+  <text x="426" y="525" text-anchor="middle" font-size="9" fill="#1b5e20">10.2.0.0/16  →  attachment-security</text>
+  <text x="426" y="539" text-anchor="middle" font-size="9" fill="#c62828">✗  10.0.0.0/16  →  (REMOVED — PrivateLink)</text>
+  <text x="426" y="553" text-anchor="middle" font-size="9" fill="#c62828">✗  10.1.0.0/16  →  (no entry = DROP)</text>
+  <text x="426" y="575" text-anchor="middle" font-size="8" fill="#888" font-style="italic">Dev→Prod now via PrivateLink only</text>
+
+  <!-- Security-RT -->
+  <rect x="586" y="460" width="256" height="126" rx="8" fill="#c8e6c9" stroke="#388e3c" stroke-width="1.5"/>
+  <text x="714" y="478" text-anchor="middle" font-size="11" font-weight="bold" fill="#1b5e20">TGW RT: Security-RT</text>
+  <text x="714" y="492" text-anchor="middle" font-size="9" fill="#2e7d32">Association: Security</text>
+  <line x1="591" y1="498" x2="837" y2="498" stroke="#81c784" stroke-width="1"/>
+  <text x="714" y="511" text-anchor="middle" font-size="9" fill="#1b5e20">10.1.0.0/16  →  attachment-dev</text>
+  <text x="714" y="525" text-anchor="middle" font-size="9" fill="#1b5e20">10.0.0.0/16  →  attachment-prod</text>
+  <text x="714" y="539" text-anchor="middle" font-size="9" fill="#888">(no default route needed)</text>
+
+  <!-- ════════════════════════════════════════════════════════════
+       DEV VPC
+  ════════════════════════════════════════════════════════════ -->
+  <rect x="30" y="650" width="340" height="290" rx="12" fill="#e3f2fd" stroke="#1565c0" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <text x="200" y="672" text-anchor="middle" font-size="13" font-weight="bold" fill="#0d47a1">Dev VPC  —  10.1.0.0/16</text>
+
+  <!-- Dev Private Subnet -->
+  <rect x="50" y="682" width="300" height="220" rx="8" fill="#bbdefb" stroke="#1976d2" stroke-width="1.5"/>
+  <text x="200" y="700" text-anchor="middle" font-size="11" font-weight="bold" fill="#0d47a1">Private Subnet  10.1.1.0/24</text>
+
+  <!-- EC2 -->
+  <rect x="64" y="710" width="64" height="28" rx="5" fill="#1976d2" stroke="#0d47a1" stroke-width="1"/>
+  <text x="96" y="729" text-anchor="middle" font-size="10" fill="white" font-weight="bold">EC2</text>
+
+  <!-- TGW attachment -->
+  <rect x="144" y="710" width="192" height="28" rx="5" fill="#42a5f5" stroke="#1565c0" stroke-width="1"/>
+  <text x="240" y="725" text-anchor="middle" font-size="9" fill="white" font-weight="bold">attachment-dev  (10.1.1.0/24)</text>
+
+  <!-- Interface Endpoint box -->
+  <rect x="64" y="752" width="272" height="56" rx="6" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+  <text x="200" y="770" text-anchor="middle" font-size="10" font-weight="bold" fill="#004d40">Interface VPC Endpoint</text>
+  <text x="200" y="784" text-anchor="middle" font-size="9" fill="#00695c">→ Prod Endpoint Service (TCP 80)</text>
+  <text x="200" y="797" text-anchor="middle" font-size="8" fill="#00796b">SG: egress TCP 80 only</text>
+
+  <!-- Dev Route Table -->
+  <rect x="64" y="820" width="272" height="42" rx="4" fill="#e3f2fd" stroke="#1565c0" stroke-width="1"/>
+  <text x="200" y="836" text-anchor="middle" font-size="9" fill="#0d47a1">RT: local | 0.0.0.0/0 → TGW</text>
+  <text x="200" y="850" text-anchor="middle" font-size="9" fill="#0d47a1">(No IGW, No NAT — Internet via TGW)</text>
+
+  <text x="200" y="880" text-anchor="middle" font-size="10" fill="#0d47a1" font-style="italic">Spoke — Isolated Private Only</text>
+
+  <!-- ════════════════════════════════════════════════════════════
+       PROD VPC
+  ════════════════════════════════════════════════════════════ -->
+  <rect x="830" y="650" width="340" height="290" rx="12" fill="#fce4ec" stroke="#880e4f" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <text x="1000" y="672" text-anchor="middle" font-size="13" font-weight="bold" fill="#880e4f">Prod VPC  —  10.0.0.0/16</text>
+
+  <!-- Prod Private Subnet -->
+  <rect x="850" y="682" width="300" height="220" rx="8" fill="#f8bbd0" stroke="#c2185b" stroke-width="1.5"/>
+  <text x="1000" y="700" text-anchor="middle" font-size="11" font-weight="bold" fill="#880e4f">Private Subnet  10.0.1.0/24</text>
+
+  <!-- EC2 (httpd service) -->
+  <rect x="864" y="710" width="64" height="28" rx="5" fill="#c2185b" stroke="#880e4f" stroke-width="1"/>
+  <text x="896" y="725" text-anchor="middle" font-size="9" fill="white" font-weight="bold">EC2 httpd</text>
+
+  <!-- TGW attachment -->
+  <rect x="944" y="710" width="192" height="28" rx="5" fill="#e91e63" stroke="#880e4f" stroke-width="1"/>
+  <text x="1040" y="725" text-anchor="middle" font-size="9" fill="white" font-weight="bold">attachment-prod  (10.0.1.0/24)</text>
+
+  <!-- NLB box -->
+  <rect x="864" y="752" width="272" height="28" rx="6" fill="#fce4ec" stroke="#ad1457" stroke-width="1.5"/>
+  <text x="1000" y="771" text-anchor="middle" font-size="10" font-weight="bold" fill="#880e4f">Internal NLB  (prod-internal-nlb)  TCP:80</text>
+
+  <!-- Endpoint Service box -->
+  <rect x="864" y="790" width="272" height="28" rx="6" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+  <text x="1000" y="809" text-anchor="middle" font-size="10" font-weight="bold" fill="#004d40">VPC Endpoint Service  (PrivateLink Provider)</text>
+
+  <!-- Prod Route Table -->
+  <rect x="864" y="830" width="272" height="42" rx="4" fill="#fce4ec" stroke="#880e4f" stroke-width="1"/>
+  <text x="1000" y="846" text-anchor="middle" font-size="9" fill="#880e4f">RT: local | 0.0.0.0/0 → TGW</text>
+  <text x="1000" y="860" text-anchor="middle" font-size="9" fill="#880e4f">(No IGW, No NAT — Internet via TGW)</text>
+
+  <text x="1000" y="880" text-anchor="middle" font-size="10" fill="#880e4f" font-style="italic">Spoke — Isolated Private Only</text>
+
+  <!-- ════════════════════════════════════════════════════════════
+       ARROWS: VPC ↔ TGW
+  ════════════════════════════════════════════════════════════ -->
+  <!-- Dev ↔ TGW -->
+  <line x1="240" y1="650" x2="380" y2="596" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowBlue2)"/>
+  <line x1="370" y1="596" x2="230" y2="650" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowBlue2)"/>
+
+  <!-- Prod ↔ TGW -->
+  <line x1="960" y1="650" x2="820" y2="596" stroke="#c2185b" stroke-width="2" marker-end="url(#arrowPink)"/>
+  <line x1="810" y1="596" x2="950" y2="650" stroke="#c2185b" stroke-width="2" marker-end="url(#arrowPink)"/>
+
+  <!-- ════════════════════════════════════════════════════════════
+       PRIVATELINK ARROW: Dev Interface Endpoint → Prod Endpoint Service
+       Horizontal dashed teal line between the two VPCs
+  ════════════════════════════════════════════════════════════ -->
+  <!-- line from Dev endpoint box right edge → Prod endpoint service left edge -->
+  <line x1="336" y1="780" x2="864" y2="804"
+        stroke="#00796b" stroke-width="2.5" stroke-dasharray="8,4"
+        marker-end="url(#arrowTeal)"/>
+  <!-- label on the PrivateLink line -->
+  <rect x="490" y="768" width="220" height="36" rx="6" fill="#e0f2f1" stroke="#00796b" stroke-width="1.5"/>
+  <text x="600" y="783" text-anchor="middle" font-size="10" font-weight="bold" fill="#004d40">🔒 AWS PrivateLink</text>
+  <text x="600" y="797" text-anchor="middle" font-size="9" fill="#00695c">Dev Interface Endpoint → Prod NLB</text>
+  <text x="600" y="809" text-anchor="middle" font-size="8" fill="#00796b">TCP 80 only  |  No TGW  |  No public network</text>
+
+  <!-- ════════════════════════════════════════════════════════════
+       FLOW LABELS
+  ════════════════════════════════════════════════════════════ -->
+  <!-- Dev → Internet -->
+  <rect x="32" y="596" width="190" height="34" rx="6" fill="#fff9c4" stroke="#f9a825" stroke-width="1"/>
+  <text x="127" y="610" text-anchor="middle" font-size="9" fill="#e65100" font-weight="bold">Dev → Internet</text>
+  <text x="127" y="623" text-anchor="middle" font-size="8" fill="#5d4037">TGW → Security → NAT → IGW</text>
+
+  <!-- Prod → Internet -->
+  <rect x="978" y="596" width="190" height="34" rx="6" fill="#fff9c4" stroke="#f9a825" stroke-width="1"/>
+  <text x="1073" y="610" text-anchor="middle" font-size="9" fill="#e65100" font-weight="bold">Prod → Internet</text>
+  <text x="1073" y="623" text-anchor="middle" font-size="8" fill="#5d4037">TGW → Security → NAT → IGW</text>
+
+  <!-- ════════════════════════════════════════════════════════════
+       BOTTOM SUMMARY BAR
+  ════════════════════════════════════════════════════════════ -->
+  <rect x="30" y="910" width="1140" height="90" rx="8" fill="#ffffff" stroke="#ccc" stroke-width="1"/>
+
+  <!-- Row 1 -->
+  <rect x="44" y="922" width="10" height="10" fill="#00796b" rx="2"/>
+  <text x="60" y="932" font-size="9" fill="#004d40" font-weight="bold">✅ Dev → Prod Service (HTTP:80)</text>
+  <text x="60" y="944" font-size="8" fill="#555">Via PrivateLink: Interface Endpoint → Endpoint Service → NLB → EC2</text>
+
+  <rect x="310" y="922" width="10" height="10" fill="#c62828" rx="2"/>
+  <text x="326" y="932" font-size="9" fill="#c62828" font-weight="bold">❌ Dev → Prod VPC (10.0.0.0/16 network)</text>
+  <text x="326" y="944" font-size="8" fill="#555">TGW Spoke-RT: 10.0.0.0/16 entry REMOVED → DROP</text>
+
+  <rect x="620" y="922" width="10" height="10" fill="#c62828" rx="2"/>
+  <text x="636" y="932" font-size="9" fill="#c62828" font-weight="bold">❌ Prod → Dev (10.1.0.0/16)</text>
+  <text x="636" y="944" font-size="8" fill="#555">TGW Spoke-RT: no 10.1.0.0/16 entry → DROP (unchanged)</text>
+
+  <rect x="880" y="922" width="10" height="10" fill="#e67e22" rx="2"/>
+  <text x="896" y="932" font-size="9" fill="#e65100" font-weight="bold">🌐 Dev / Prod → Internet</text>
+  <text x="896" y="944" font-size="8" fill="#555">Via TGW → Security NAT GW → IGW (unchanged)</text>
+
+  <!-- Row 2 -->
+  <text x="44" y="964" font-size="8" fill="#888">PrivateLink path: Dev EC2 → Endpoint ENI (10.1.x.x) → [AWS backbone] → NLB (10.0.x.x) → EC2 httpd</text>
+  <text x="44" y="976" font-size="8" fill="#888">No TGW involved in PrivateLink path. Traffic never leaves AWS private network. Source IP preserved by NLB.</text>
+  <text x="44" y="988" font-size="8" fill="#888">Prod Endpoint Service: acceptanceRequired=false | allowedPrincipals: same account root only</text>
+
+  <!-- ════════════════════════════════════════════════════════════
+       LEGEND
+  ════════════════════════════════════════════════════════════ -->
+  <rect x="44" y="1002" width="10" height="8" fill="#fff8e1" stroke="#f5a623" stroke-width="1"/>
+  <text x="58" y="1010" font-size="8" fill="#555">Security VPC (Hub)</text>
+  <rect x="160" y="1002" width="10" height="8" fill="#e3f2fd" stroke="#1565c0" stroke-width="1"/>
+  <text x="174" y="1010" font-size="8" fill="#555">Dev VPC (Spoke)</text>
+  <rect x="260" y="1002" width="10" height="8" fill="#fce4ec" stroke="#880e4f" stroke-width="1"/>
+  <text x="274" y="1010" font-size="8" fill="#555">Prod VPC (Spoke)</text>
+  <rect x="360" y="1002" width="10" height="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1"/>
+  <text x="374" y="1010" font-size="8" fill="#555">Transit Gateway</text>
+  <rect x="460" y="1002" width="10" height="8" fill="#e0f2f1" stroke="#00796b" stroke-width="1"/>
+  <text x="474" y="1010" font-size="8" fill="#555">PrivateLink (new)</text>
+  <text x="580" y="1010" font-size="8" fill="#888">★ TGW Attachment uses Private Subnet  |  PrivateLink bypasses TGW entirely</text>
+
+</svg>
