@@ -1,0 +1,224 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 900" width="1100" height="900" font-family="'Segoe UI', Arial, sans-serif">
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Background -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect width="1100" height="900" fill="#f0f4f8" rx="12"/>
+
+  <!-- Title -->
+  <text x="550" y="38" text-anchor="middle" font-size="20" font-weight="bold" fill="#1a2b4a">AWS Transit Gateway — Hub &amp; Spoke Centralized Egress</text>
+  <text x="550" y="58" text-anchor="middle" font-size="12" fill="#5a6a7a">Dev VPC (10.1.0.0/16)  |  Prod VPC (10.0.0.0/16)  |  Security VPC (10.2.0.0/16)</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- INTERNET -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="380" y="72" width="340" height="52" rx="10" fill="#d1e8ff" stroke="#4a90d9" stroke-width="2"/>
+  <text x="550" y="93" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a4a8a">🌐  Internet</text>
+  <text x="550" y="112" text-anchor="middle" font-size="11" fill="#2a5a9a">Public Network</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SECURITY VPC -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="310" y="148" width="480" height="260" rx="12" fill="#fff8e1" stroke="#f5a623" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <text x="550" y="170" text-anchor="middle" font-size="13" font-weight="bold" fill="#b36a00">Security VPC  —  10.2.0.0/16</text>
+
+  <!-- Security Public Subnet -->
+  <rect x="330" y="180" width="200" height="110" rx="8" fill="#ffe0b2" stroke="#e65100" stroke-width="1.5"/>
+  <text x="430" y="198" text-anchor="middle" font-size="11" font-weight="bold" fill="#bf360c">Public Subnet</text>
+  <text x="430" y="213" text-anchor="middle" font-size="10" fill="#6d4c41">10.2.1.0/24</text>
+
+  <!-- IGW icon -->
+  <rect x="345" y="222" width="80" height="30" rx="6" fill="#4a90d9" stroke="#1a5fa8" stroke-width="1"/>
+  <text x="385" y="242" text-anchor="middle" font-size="10" fill="white" font-weight="bold">IGW</text>
+
+  <!-- NAT GW icon -->
+  <rect x="445" y="222" width="70" height="30" rx="6" fill="#e67e22" stroke="#a04000" stroke-width="1"/>
+  <text x="480" y="237" text-anchor="middle" font-size="10" fill="white" font-weight="bold">NAT</text>
+  <text x="480" y="249" text-anchor="middle" font-size="9" fill="white">Gateway</text>
+
+  <!-- Public subnet route table -->
+  <rect x="335" y="260" width="185" height="24" rx="4" fill="#fff3e0" stroke="#e65100" stroke-width="1"/>
+  <text x="427" y="276" text-anchor="middle" font-size="9" fill="#4a2800">RT: 0.0.0.0/0 → IGW</text>
+
+  <!-- Security Private Subnet -->
+  <rect x="560" y="180" width="210" height="110" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.5"/>
+  <text x="665" y="198" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a148c">Private Subnet  ★TGW</text>
+  <text x="665" y="213" text-anchor="middle" font-size="10" fill="#6a1b9a">10.2.2.0/24</text>
+
+  <!-- TGW ENI -->
+  <rect x="580" y="222" width="170" height="30" rx="6" fill="#8e24aa" stroke="#4a148c" stroke-width="1"/>
+  <text x="665" y="237" text-anchor="middle" font-size="10" fill="white" font-weight="bold">TGW Attachment ENI</text>
+  <text x="665" y="249" text-anchor="middle" font-size="9" fill="#e1bee7">attachment-security</text>
+
+  <!-- Private subnet route table -->
+  <rect x="565" y="260" width="195" height="38" rx="4" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1"/>
+  <text x="662" y="274" text-anchor="middle" font-size="9" fill="#4a148c">RT: 0.0.0.0/0 → NAT GW</text>
+  <text x="662" y="288" text-anchor="middle" font-size="9" fill="#4a148c">10.1/16 &amp; 10.0/16 → TGW</text>
+
+  <!-- Security VPC label bottom -->
+  <text x="550" y="395" text-anchor="middle" font-size="10" fill="#b36a00" font-style="italic">Centralized Egress Hub</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Arrow: Internet ↔ IGW -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <line x1="430" y1="124" x2="400" y2="180" stroke="#4a90d9" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <line x1="400" y1="180" x2="430" y2="124" stroke="#4a90d9" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+  <!-- Arrow: NAT ↔ IGW (internal) -->
+  <line x1="445" y1="237" x2="425" y2="237" stroke="#e67e22" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- TRANSIT GATEWAY -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="270" y="440" width="560" height="160" rx="12" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+  <text x="550" y="462" text-anchor="middle" font-size="14" font-weight="bold" fill="#1b5e20">Transit Gateway  (hub-spoke-tgw)</text>
+
+  <!-- Spoke RT box -->
+  <rect x="290" y="472" width="230" height="110" rx="8" fill="#c8e6c9" stroke="#388e3c" stroke-width="1.5"/>
+  <text x="405" y="490" text-anchor="middle" font-size="11" font-weight="bold" fill="#1b5e20">TGW RT: Spoke-RT</text>
+  <text x="405" y="504" text-anchor="middle" font-size="9" fill="#2e7d32">Association: Dev, Prod</text>
+  <line x1="295" y1="510" x2="515" y2="510" stroke="#81c784" stroke-width="1"/>
+  <text x="405" y="523" text-anchor="middle" font-size="9" fill="#1b5e20">0.0.0.0/0  →  attachment-security</text>
+  <text x="405" y="537" text-anchor="middle" font-size="9" fill="#1b5e20">10.2.0.0/16  →  attachment-security</text>
+  <text x="405" y="551" text-anchor="middle" font-size="9" fill="#1b5e20">10.0.0.0/16  →  attachment-prod</text>
+  <text x="405" y="565" text-anchor="middle" font-size="9" fill="#c62828">✗  10.1.0.0/16  →  (no entry = DROP)</text>
+
+  <!-- Security RT box -->
+  <rect x="580" y="472" width="230" height="110" rx="8" fill="#c8e6c9" stroke="#388e3c" stroke-width="1.5"/>
+  <text x="695" y="490" text-anchor="middle" font-size="11" font-weight="bold" fill="#1b5e20">TGW RT: Security-RT</text>
+  <text x="695" y="504" text-anchor="middle" font-size="9" fill="#2e7d32">Association: Security</text>
+  <line x1="585" y1="510" x2="805" y2="510" stroke="#81c784" stroke-width="1"/>
+  <text x="695" y="523" text-anchor="middle" font-size="9" fill="#1b5e20">10.1.0.0/16  →  attachment-dev</text>
+  <text x="695" y="537" text-anchor="middle" font-size="9" fill="#1b5e20">10.0.0.0/16  →  attachment-prod</text>
+  <text x="695" y="551" text-anchor="middle" font-size="9" fill="#888">(no default route needed)</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Arrow: Security Private Subnet ↔ TGW -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <line x1="665" y1="290" x2="665" y2="440" stroke="#8e24aa" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowPurple)"/>
+  <line x1="655" y1="440" x2="655" y2="290" stroke="#8e24aa" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowPurple)"/>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- DEV VPC -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="40" y="660" width="300" height="200" rx="12" fill="#e3f2fd" stroke="#1565c0" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <text x="190" y="682" text-anchor="middle" font-size="13" font-weight="bold" fill="#0d47a1">Dev VPC  —  10.1.0.0/16</text>
+
+  <!-- Dev Private Subnet -->
+  <rect x="60" y="692" width="260" height="80" rx="8" fill="#bbdefb" stroke="#1976d2" stroke-width="1.5"/>
+  <text x="190" y="710" text-anchor="middle" font-size="11" font-weight="bold" fill="#0d47a1">Private Subnet</text>
+  <text x="190" y="725" text-anchor="middle" font-size="10" fill="#1565c0">10.1.1.0/24  (TGW Attachment)</text>
+
+  <!-- EC2 icon -->
+  <rect x="75" y="733" width="60" height="28" rx="5" fill="#1976d2" stroke="#0d47a1" stroke-width="1"/>
+  <text x="105" y="752" text-anchor="middle" font-size="10" fill="white" font-weight="bold">EC2</text>
+
+  <!-- TGW attachment label -->
+  <rect x="155" y="733" width="150" height="28" rx="5" fill="#42a5f5" stroke="#1565c0" stroke-width="1"/>
+  <text x="230" y="748" text-anchor="middle" font-size="9" fill="white" font-weight="bold">attachment-dev</text>
+  <text x="230" y="759" text-anchor="middle" font-size="8" fill="#e3f2fd">subnet: 10.1.1.0/24</text>
+
+  <!-- Dev route table -->
+  <rect x="60" y="780" width="260" height="30" rx="4" fill="#e3f2fd" stroke="#1565c0" stroke-width="1"/>
+  <text x="190" y="794" text-anchor="middle" font-size="9" fill="#0d47a1">RT: local | 0.0.0.0/0 → TGW</text>
+  <text x="190" y="806" text-anchor="middle" font-size="9" fill="#0d47a1">(No IGW, No NAT)</text>
+
+  <!-- Dev label -->
+  <text x="190" y="848" text-anchor="middle" font-size="10" fill="#0d47a1" font-style="italic">Spoke — Isolated Private Only</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PROD VPC -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="760" y="660" width="300" height="200" rx="12" fill="#fce4ec" stroke="#880e4f" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <text x="910" y="682" text-anchor="middle" font-size="13" font-weight="bold" fill="#880e4f">Prod VPC  —  10.0.0.0/16</text>
+
+  <!-- Prod Private Subnet -->
+  <rect x="780" y="692" width="260" height="80" rx="8" fill="#f8bbd0" stroke="#c2185b" stroke-width="1.5"/>
+  <text x="910" y="710" text-anchor="middle" font-size="11" font-weight="bold" fill="#880e4f">Private Subnet</text>
+  <text x="910" y="725" text-anchor="middle" font-size="10" fill="#ad1457">10.0.1.0/24  (TGW Attachment)</text>
+
+  <!-- EC2 icon -->
+  <rect x="795" y="733" width="60" height="28" rx="5" fill="#c2185b" stroke="#880e4f" stroke-width="1"/>
+  <text x="825" y="752" text-anchor="middle" font-size="10" fill="white" font-weight="bold">EC2</text>
+
+  <!-- TGW attachment label -->
+  <rect x="875" y="733" width="150" height="28" rx="5" fill="#e91e63" stroke="#880e4f" stroke-width="1"/>
+  <text x="950" y="748" text-anchor="middle" font-size="9" fill="white" font-weight="bold">attachment-prod</text>
+  <text x="950" y="759" text-anchor="middle" font-size="8" fill="#fce4ec">subnet: 10.0.1.0/24</text>
+
+  <!-- Prod route table -->
+  <rect x="780" y="780" width="260" height="30" rx="4" fill="#fce4ec" stroke="#880e4f" stroke-width="1"/>
+  <text x="910" y="794" text-anchor="middle" font-size="9" fill="#880e4f">RT: local | 0.0.0.0/0 → TGW</text>
+  <text x="910" y="806" text-anchor="middle" font-size="9" fill="#880e4f">(No IGW, No NAT)</text>
+
+  <!-- Prod label -->
+  <text x="910" y="848" text-anchor="middle" font-size="10" fill="#880e4f" font-style="italic">Spoke — Isolated Private Only</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Arrows: VPC ↔ TGW -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Dev ↔ TGW -->
+  <line x1="230" y1="660" x2="380" y2="600" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowBlue2)"/>
+  <line x1="380" y1="600" x2="230" y2="660" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowBlue2)"/>
+
+  <!-- Prod ↔ TGW -->
+  <line x1="870" y1="660" x2="720" y2="600" stroke="#c2185b" stroke-width="2" marker-end="url(#arrowPink)"/>
+  <line x1="720" y1="600" x2="870" y2="660" stroke="#c2185b" stroke-width="2" marker-end="url(#arrowPink)"/>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Flow Labels -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Dev → Internet label -->
+  <rect x="42" y="580" width="180" height="36" rx="6" fill="#fff9c4" stroke="#f9a825" stroke-width="1"/>
+  <text x="132" y="595" text-anchor="middle" font-size="9" fill="#e65100" font-weight="bold">Dev → Internet</text>
+  <text x="132" y="608" text-anchor="middle" font-size="9" fill="#5d4037">→ TGW → Security → NAT → IGW</text>
+
+  <!-- Prod → Internet label -->
+  <rect x="878" y="580" width="180" height="36" rx="6" fill="#fff9c4" stroke="#f9a825" stroke-width="1"/>
+  <text x="968" y="595" text-anchor="middle" font-size="9" fill="#e65100" font-weight="bold">Prod → Internet</text>
+  <text x="968" y="608" text-anchor="middle" font-size="9" fill="#5d4037">→ TGW → Security → NAT → IGW</text>
+
+  <!-- Dev → Prod allowed -->
+  <rect x="390" y="820" width="320" height="36" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+  <text x="550" y="835" text-anchor="middle" font-size="10" fill="#1b5e20" font-weight="bold">✅  Dev → Prod : ALLOWED  (Spoke-RT has 10.0.0.0/16 entry)</text>
+  <text x="550" y="850" text-anchor="middle" font-size="10" fill="#c62828" font-weight="bold">❌  Prod → Dev : BLOCKED  (Spoke-RT has NO 10.1.0.0/16 entry)</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Arrow Markers -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <defs>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4a90d9"/>
+    </marker>
+    <marker id="arrowBlue2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#1565c0"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#e67e22"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#8e24aa"/>
+    </marker>
+    <marker id="arrowPink" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#c2185b"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2e7d32"/>
+    </marker>
+  </defs>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- Legend -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <rect x="40" y="870" width="500" height="22" rx="4" fill="none"/>
+  <rect x="40" y="872" width="12" height="12" fill="#fff8e1" stroke="#f5a623" stroke-width="1.5"/>
+  <text x="58" y="882" font-size="9" fill="#555">Security VPC (Hub)</text>
+  <rect x="140" y="872" width="12" height="12" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="158" y="882" font-size="9" fill="#555">Dev VPC (Spoke)</text>
+  <rect x="240" y="872" width="12" height="12" fill="#fce4ec" stroke="#880e4f" stroke-width="1.5"/>
+  <text x="258" y="882" font-size="9" fill="#555">Prod VPC (Spoke)</text>
+  <rect x="340" y="872" width="12" height="12" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+  <text x="358" y="882" font-size="9" fill="#555">Transit Gateway</text>
+  <text x="440" y="882" font-size="9" fill="#888">★ TGW Attachment uses Private Subnet</text>
+
+</svg>
