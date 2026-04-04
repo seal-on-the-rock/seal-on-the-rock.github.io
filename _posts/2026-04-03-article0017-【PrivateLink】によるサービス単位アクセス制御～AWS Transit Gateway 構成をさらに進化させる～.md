@@ -281,7 +281,7 @@ Prod の Endpoint Service に接続
 
 ##  ③ 直接通信は削除
 
-![0017-2]( /assets/images/0017-2.svg )
+![0017-2]( /assets/images/0017-2.png )
 
 理由：
 
