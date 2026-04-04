@@ -8,9 +8,7 @@ author: Seal
 
 ## ① 全体構築図
 
-```
 ![0016-1]( /assets/images/0016-1.svg )
-```
 
 ---
 
