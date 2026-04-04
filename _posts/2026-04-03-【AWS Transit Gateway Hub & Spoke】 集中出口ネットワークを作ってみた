@@ -1,0 +1,239 @@
+---
+layout: post
+title: "article0012-【AWS Transit Gateway Hub & Spoke】 集中出口ネットワークを作ってみた
+date: 2026-04-03
+author: Seal
+---
+
+# AWS Transit Gateway Hub & Spoke 集中出口ネットワークを作ってみた
+
+## ① 全体構築図
+
+```
+![0016-1]( /assets/images/0016-1.png )
+```
+
+---
+
+## ② 各VPCのサブネット構成
+
+### Dev VPC — 10.1.0.0/16
+
+| サブネット                 | CIDR        | 種別     | 用途                   |
+| --------------------- | ----------- | ------ | -------------------- |
+| dev-private-subnet-1a | 10.1.1.0/24 | プライベート | EC2 + TGW Attachment |
+
+* Internet Gateway：なし
+* NAT Gateway：なし
+* すべてのアウトバウンド通信 → TGW
+
+---
+
+### Prod VPC — 10.0.0.0/16
+
+| サブネット                  | CIDR        | 種別     | 用途                   |
+| ---------------------- | ----------- | ------ | -------------------- |
+| prod-private-subnet-1a | 10.0.1.0/24 | プライベート | EC2 + TGW Attachment |
+
+* Internet Gateway：なし
+* NAT Gateway：なし
+* すべてのアウトバウンド通信 → TGW
+
+---
+
+### Security VPC — 10.2.0.0/16
+
+| サブネット                      | CIDR        | 種別     | 用途                |
+| -------------------------- | ----------- | ------ | ----------------- |
+| security-public-subnet-1a  | 10.2.1.0/24 | パブリック  | NAT Gateway + IGW |
+| security-private-subnet-1a | 10.2.2.0/24 | プライベート | TGW Attachment    |
+
+* Internet Gateway：あり
+* NAT Gateway：パブリックサブネットに配置
+* TGW Attachment：プライベートサブネットに紐付け
+
+---
+
+## ③ 各サブネットのルートテーブル
+
+### Dev VPC
+
+| Destination | Target | 説明      |
+| ----------- | ------ | ------- |
+| 10.1.0.0/16 | local  | VPC内部   |
+| 0.0.0.0/0   | TGW    | すべてTGWへ |
+
+---
+
+### Prod VPC
+
+| Destination | Target | 説明      |
+| ----------- | ------ | ------- |
+| 10.0.0.0/16 | local  | VPC内部   |
+| 0.0.0.0/0   | TGW    | すべてTGWへ |
+
+---
+
+### Security VPC（Private）
+
+| Destination | Target | 説明        |
+| ----------- | ------ | --------- |
+| 10.2.0.0/16 | local  | VPC内部     |
+| 10.0.0.0/16 | TGW    | Prodへの戻り  |
+| 10.1.0.0/16 | TGW    | Devへの戻り   |
+| 0.0.0.0/0   | NAT    | インターネット出口 |
+
+👉 ここが最重要：
+**0.0.0.0/0 → NAT Gateway**
+
+---
+
+### Security VPC（Public）
+
+| Destination | Target | 説明      |
+| ----------- | ------ | ------- |
+| 10.2.0.0/16 | local  | VPC内部   |
+| 0.0.0.0/0   | IGW    | インターネット |
+
+---
+
+## ④ TGWルートテーブル
+
+### Spoke-RT（Dev / Prod 用）
+
+| Destination | Target   | 説明           |
+| ----------- | -------- | ------------ |
+| 10.2.0.0/16 | Security | Security VPC |
+| 0.0.0.0/0   | Security | インターネット      |
+| 10.0.0.0/16 | Prod     | Dev → Prod   |
+
+❗ Prod → Dev は不可（ルートなし）
+
+---
+
+### Security-RT（Security 用）
+
+| Destination | Target | 説明 |
+| ----------- | ------ | -- |
+| 10.1.0.0/16 | Dev    | 戻り |
+| 10.0.0.0/16 | Prod   | 戻り |
+
+---
+
+## ⑤ 通信フロー（ステップ解説）
+
+### 1️⃣ Dev → Internet
+
+```
+Dev EC2 → TGW → Security Private → NAT → IGW → Internet
+```
+
+✔ NATで送信元IPが変換される
+
+---
+
+### 2️⃣ Prod → Internet
+
+```
+Prod EC2 → TGW → Security → NAT → IGW → Internet
+```
+
+---
+
+### 3️⃣ Dev → Prod（許可）
+
+```
+Dev → TGW → Prod
+```
+
+✔ NATなし（VPC間通信）
+
+---
+
+### 4️⃣ Prod → Dev（禁止）
+
+```
+Prod → TGW → ❌ Blackhole
+```
+
+---
+
+### 5️⃣ 戻り通信（Dev例）
+
+```
+Internet → IGW → NAT → TGW → Dev
+```
+
+---
+
+## ⑥ NAT通信まとめ
+
+| 通信              | NAT     |
+| --------------- | ------- |
+| Dev → Internet  | ✅       |
+| Prod → Internet | ✅       |
+| Dev → Prod      | ❌       |
+| Prod → Dev      | ❌（Drop） |
+
+---
+
+## ⑦ なぜSecurity VPCのTGW Attachmentはプライベートサブネット必須なのか？
+
+### 技術的理由
+
+TGW Attachmentは実体としてENI（プライベートIP）です。
+そのため、**所属サブネットのルートテーブルに完全依存**します。
+
+---
+
+### ❌ パブリックサブネットに置いた場合
+
+```
+Dev → TGW → Security Public → IGW
+```
+
+問題：
+
+* NATを通らない
+* プライベートIPが露出
+* 戻り通信不可
+
+👉 アーキテクチャ崩壊
+
+---
+
+### ✅ プライベートサブネットの場合
+
+```
+Dev → TGW → Security Private → NAT → IGW
+```
+
+* NATで正しく変換
+* 戻り通信OK
+
+---
+
+### セキュリティ的理由
+
+* TGW入口が外部非公開
+* すべての通信がNAT経由
+* ログ・FW制御が集中可能
+
+---
+
+## 🔥 まとめ
+
+👉 **集中出口アーキテクチャの本質**
+
+* すべての通信をTGWに集約
+* Security VPCでインターネット出口を一元管理
+* NAT Gatewayで安全に外部通信
+* TGWルートで通信制御（ゼロトラスト的設計も可能）
+
+---
+
+## 🧠 一言で
+
+> **「プライベートサブネット + NAT + TGWルーティング」こそが集中出口の核心」**
+
+
