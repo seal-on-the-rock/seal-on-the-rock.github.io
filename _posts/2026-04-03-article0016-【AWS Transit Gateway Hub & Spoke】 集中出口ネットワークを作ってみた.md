@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "article0016-【AWS Transit Gateway Hub & Spoke】 集中出口ネットワークを作ってみた
+title: "article0016-【AWS Transit Gateway Hub & Spoke】 集中出口ネットワークを作ってみた"
 date: 2026-04-03
 author: Seal
 ---
