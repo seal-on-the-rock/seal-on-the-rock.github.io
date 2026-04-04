@@ -28,21 +28,13 @@ author: Seal
 
 本システムは以下の構成で動作します：
 
-```
-Client 
-→ API Gateway 
-→ Lambda（StartOrder）
-→ Step Functions
-→ 各種Lambda
-→ DynamoDB
-→ SNS
-```
+![0015-2]( /assets/images/0015-2.png )
 
 ### 特徴
 
-- APIは**同期的（HTTP 202）に応答**
-- 実際の処理は**非同期でStep Functionsが実行**
-- 各処理は**個別のLambdaとして分離**
+- APIは**同期的（HTTP 202）に応答**  　　　　　　　→　カウンター
+- 実際の処理は**非同期でStep Functionsが実行**　　　→　　キッチン
+- 各処理は**個別のLambdaとして分離** 　　　　　　　→　　疎結合
 
 ---
 
@@ -96,8 +88,6 @@ Step Functionsを使うことで：
 
 できます。
 
-![0015-2]( /assets/images/0015-2.png )
-
 ---
 
 ## Sagaパターンとは？
@@ -140,6 +130,8 @@ Step Functionsを使うことで：
 ProcessPayment → Catch → Compensation
 ```
 
+![0015-4]( /assets/images/0015-4.png )
+
 ---
 
 ### ② ソフトエラー（業務失敗）
@@ -152,6 +144,8 @@ ProcessPayment → Catch → Compensation
 ```
 status == FAILED → Compensation
 ```
+
+![0015-3]( /assets/images/0015-3.png )
 
 ---
 
@@ -176,6 +170,8 @@ status == FAILED → Compensation
 Retry: 最大3回、指数バックオフ
 ```
 
+![0015-5]( /assets/images/0015-5.png )
+
 ---
 
 ## 非同期処理の設計
@@ -185,6 +181,8 @@ APIは以下のように設計されています：
 ```
 POST /orders → 202 Accepted
 ```
+
+![0015-6]( /assets/images/0015-6.png )
 
 これは：
 
