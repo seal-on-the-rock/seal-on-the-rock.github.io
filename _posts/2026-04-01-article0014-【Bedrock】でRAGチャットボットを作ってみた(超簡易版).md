@@ -2,6 +2,7 @@
 layout: post
 title: "article0014-【Bedrock】でRAGチャットボットを作ってみた(超簡易版)"
 date: 2026-04-01
+tags: [Bedrock, RAGChat, GenerativeAI]
 author: Seal
 ---
 
