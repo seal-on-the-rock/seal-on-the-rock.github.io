@@ -2,7 +2,7 @@
 layout: post
 title: "article0013-【kiroで】ECS + Fargate + CI/CD pipelineのアーキテクチャを構築してみた"
 date: 2026-03-19
-tags: [kiro, ECS, Fargate, CI/CD]
+tags: [Kiro, ECS, Fargate, CI/CD]
 author: Seal
 ---
 
