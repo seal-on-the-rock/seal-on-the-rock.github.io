@@ -2,6 +2,7 @@
 layout: post
 title: "article0007-Route53とCloudFront"
 date: 2025-10-06
+tags: [Route53, CloudFront]
 author: Seal
 ---
 
