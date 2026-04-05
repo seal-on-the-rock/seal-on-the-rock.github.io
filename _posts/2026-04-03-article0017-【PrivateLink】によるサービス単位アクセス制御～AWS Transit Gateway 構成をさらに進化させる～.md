@@ -5,9 +5,7 @@ date: 2026-04-03
 author: Seal
 ---
 
-# 【PrivateLink】によるサービス単位アクセス制御～AWS Transit Gateway 構成をさらに進化させる～
-
-## はじめに
+## Hello ~ 
 
 前回の記事では、AWS Transit Gateway を利用して、
 **全VPCのインターネット出口を Security VPC に集約する構成**を解説しました。
