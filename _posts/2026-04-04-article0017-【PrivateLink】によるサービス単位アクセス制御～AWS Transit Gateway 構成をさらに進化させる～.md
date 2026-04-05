@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "article0017-【PrivateLink】によるサービス単位アクセス制御～AWS Transit Gateway 構成をさらに進化させる～"
-date: 2026-04-03
+date: 2026-04-04
 author: Seal
 ---
 
