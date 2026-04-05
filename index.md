@@ -222,7 +222,7 @@ body {
     <!-- HERO CARD -->
     <div class="section-card hero">
       <img src="/assets/images/logo.png" alt="logo">
-      <p>Cloud / Architecture / Growth</p>
+      <p>Cloud / Architecture / DevOps</p>
     </div>
 
     <!-- ABOUT CARD -->
