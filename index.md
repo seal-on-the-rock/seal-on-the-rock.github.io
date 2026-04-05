@@ -231,7 +231,7 @@ body {
         <p>System Engineer passionate about AWS and architecture design.</p>
       </div>
       <a href="https://www.tenda.co.jp/" target="_blank">
-        <img class="company-logo" src="/assets/images/company-logo.png" alt="company">
+        <img class="company-logo" src="/assets/images/tenda-logo.png" alt="company">
       </a>
     </div>
 
