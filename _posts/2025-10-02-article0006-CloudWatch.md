@@ -2,6 +2,7 @@
 layout: post
 title: "article0006-CloudWatch"
 date: 2025-10-02
+tags: [AWS, CloudWatch]
 author: Seal
 ---
 
