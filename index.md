@@ -90,6 +90,7 @@ body {
   color: white;
   border-radius: 999px;
   font-size: 14px;
+  text-decoration: none;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
