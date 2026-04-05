@@ -2,6 +2,7 @@
 layout: post
 title: "article0015-【AWS Step Functions】で実装するSagaパターンを作ってみた  〜LambdaとDynamoDBを用いた分散トランザクション設計〜"
 date: 2026-04-02
+tags: [StepFunctions, Saga Partern, WorkFlow]
 author: Seal
 ---
 
