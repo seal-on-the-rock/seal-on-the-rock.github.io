@@ -23,10 +23,24 @@ body {
   padding: 40px 20px;
 }
 
-/* LOGO */
+/* COMMON CARD */
+.section-card {
+  background: white;
+  border-radius: 24px;
+  padding: 40px;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.section-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+}
+
+/* HERO */
 .hero {
   text-align: center;
-  margin-bottom: 60px;
 }
 
 .hero img {
@@ -45,16 +59,63 @@ body {
   color: #555;
 }
 
+/* CERTIFICATIONS */
+.cert-section {
+  text-align: center;
+}
+
+.cert-title {
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.cert-link {
+  display: inline-block;
+  margin-bottom: 30px;
+  padding: 8px 16px;
+  background: #111;
+  color: white;
+  border-radius: 999px;
+  font-size: 14px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cert-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 16px;
+}
+
+.cert-grid img {
+  width: 100%;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cert-grid img:hover {
+  transform: scale(1.08);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
 /* ABOUT */
 .about {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 20px;
-  margin-bottom: 50px;
+}
+
+.about-text h3 {
+  margin-bottom: 8px;
 }
 
 .company-logo {
-  width: 60px;
+  width: 70px;
   transition: transform 0.3s;
 }
 
@@ -62,7 +123,7 @@ body {
   transform: scale(1.1);
 }
 
-/* CARDS */
+/* ARTICLE CARDS */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -100,7 +161,7 @@ body {
 /* SOCIAL */
 .social {
   text-align: center;
-  margin-top: 60px;
+  margin-top: 40px;
 }
 
 .social a {
@@ -121,21 +182,41 @@ body {
 
 <div class="container">
 
-  <!-- HERO LOGO -->
-  <div class="hero">
+  <!-- HERO CARD -->
+  <div class="section-card hero">
     <img src="/assets/images/logo.png" alt="logo">
     <p>Cloud / Architecture / Growth</p>
   </div>
 
-  <!-- ABOUT -->
-  <div class="about">
-    <div>
+  <!-- ABOUT CARD -->
+  <div class="section-card about">
+    <div class="about-text">
       <h3>About Me</h3>
       <p>System Engineer passionate about AWS and architecture design.</p>
     </div>
     <a href="https://www.tenda.co.jp/" target="_blank">
       <img class="company-logo" src="/assets/images/company-logo.png" alt="company">
     </a>
+  </div>
+
+  <!-- CERT CARD -->
+  <div class="section-card cert-section">
+    <div class="cert-title">AWS Certifications</div>
+    <a class="cert-link" href="https://www.credly.com/users/wang-haibao/badges#credly" target="_blank">
+      View All Badges
+    </a>
+
+    <div class="cert-grid">
+      <img src="/assets/images/aws-certified-solutions-architect-associate.png">
+      <img src="/assets/images/aws-certified-developer-associate.png">
+      <img src="/assets/images/aws-certified-solutions-architect-professional.png">
+      <img src="/assets/images/aws-certified-devops-engineer-professional.png">
+      <img src="/assets/images/aws-certified-generative-ai-developer-professional.png">
+      <img src="/assets/images/aws-certified-generative-ai-developer-professional-.png">
+      <img src="/assets/images/aws-certified-security-specialty.png">
+      <img src="/assets/images/aws-certified-machine-learning-specialty.png">
+      <img src="/assets/images/aws-certified-advanced-networking-specialty.png">
+    </div>
   </div>
 
   <!-- ARTICLES -->
