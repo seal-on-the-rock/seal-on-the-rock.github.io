@@ -5,42 +5,65 @@ title: Seal on the Rock
 
 <style>
   body {
-    background: #0f172a;
+    background: #0b1220;
     color: #e5e7eb;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
 
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
+  a { text-decoration: none; color: inherit; }
 
-  a:hover {
-    opacity: 0.85;
-  }
-
-  .section {
-    width: 80%;
-    margin: 60px auto;
+  .container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
   }
 
   .card {
     background: #111827;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px;
     padding: 24px;
+    transition: all 0.25s ease;
   }
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
-    gap: 20px;
+  .card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(56,189,248,0.6);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+
+  .hero {
+    grid-column: span 2;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .logo {
+    width: 160px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+  }
+
+  .title {
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  .subtitle {
+    opacity: 0.6;
+    margin-top: 6px;
   }
 
   .btn {
-    padding: 12px 24px;
+    display: inline-block;
+    margin-top: 16px;
+    padding: 10px 18px;
     border-radius: 999px;
-    font-weight: 600;
     border: 1px solid rgba(255,255,255,0.2);
+    font-size: 14px;
   }
 
   .btn-primary {
@@ -49,95 +72,92 @@ title: Seal on the Rock
     border: none;
   }
 
-  .divider {
-    height: 1px;
-    background: rgba(255,255,255,0.1);
-    margin: 40px 0;
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px,1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .cert-grid img {
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  .article-card {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 12px;
+    margin-top: 12px;
   }
 </style>
 
-<!-- HERO -->
-<section style="text-align:center; padding:60px 20px;">
+<div class="container">
 
-  <div style="margin-bottom:30px;">
-    <img src="/assets/images/logo.png" alt="logo"
-         style="max-width:220px; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,0.5);">
-  </div>
+  <!-- HERO CARD -->
+  <div class="card hero">
+    <img src="/assets/images/logo.png" class="logo">
+    <div class="title">Seal on the Rock</div>
+    <div class="subtitle">Cloud Architecture · Systems · Experiments</div>
 
-  <h1 style="font-size:40px; margin-bottom:10px;">Seal on the Rock</h1>
-  <p style="opacity:0.7;">Cloud Architecture · Systems · Experiments</p>
-
-  <div style="margin-top:30px; display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
     <a href="#articles" class="btn btn-primary">Articles</a>
     <a href="#certifications" class="btn">Certifications</a>
   </div>
 
-</section>
-
-<div class="divider"></div>
-
-<!-- ABOUT -->
-<section class="section">
+  <!-- ABOUT CARD -->
   <div class="card">
-    <h2>About</h2>
-    <p>
-      System Engineer based in Japan. Focused on AWS, cloud architecture and infrastructure design.
+    <h3>About</h3>
+    <p style="opacity:0.7; font-size:14px;">
+      System Engineer in Japan focused on AWS, cloud architecture and infrastructure design.
     </p>
 
-    <div style="margin-top:20px; display:flex; align-items:center; gap:12px;">
+    <div style="margin-top:16px; display:flex; align-items:center; gap:10px;">
       <a href="https://www.tenda.co.jp/" target="_blank" style="display:flex; align-items:center; gap:10px;">
-        <img src="/assets/images/tenda-logo.png" style="width:40px; height:40px; border-radius:8px;">
-        <span style="font-weight:600;">株式会社テンダ</span>
+        <img src="/assets/images/tenda-logo.png" style="width:36px; height:36px; border-radius:6px;">
+        <span style="font-size:14px;">株式会社テンダ</span>
       </a>
     </div>
-
   </div>
-</section>
 
-<div class="divider"></div>
+  <!-- CERT CARD -->
+  <div id="certifications" class="card">
+    <h3>Certifications</h3>
 
-<!-- CERTIFICATIONS -->
-<section id="certifications" class="section" style="text-align:center;">
-  <h2>Certifications</h2>
-
-  <div style="margin:20px 0;">
-    <a href="https://www.credly.com/users/wang-haibao/badges#credly" target="_blank" class="btn">
+    <a href="https://www.credly.com/users/wang-haibao/badges#credly" target="_blank" class="btn" style="margin-bottom:12px; display:inline-block;">
       Verify on Credly
     </a>
+
+    <div class="cert-grid">
+      <img src="/assets/images/aws-certified-solutions-architect-associate.png">
+      <img src="/assets/images/aws-certified-developer-associate.png">
+      <img src="/assets/images/aws-certified-solutions-architect-professional.png">
+      <img src="/assets/images/aws-certified-devops-engineer-professional.png">
+      <img src="/assets/images/aws-certified-security-specialty.png">
+      <img src="/assets/images/aws-certified-machine-learning-specialty.png">
+      <img src="/assets/images/aws-certified-advanced-networking-specialty.png">
+    </div>
   </div>
 
-  <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:20px; margin-top:20px;">
-    <img src="/assets/images/aws-certified-solutions-architect-associate.png" style="width:80px;">
-    <img src="/assets/images/aws-certified-developer-associate.png" style="width:80px;">
-    <img src="/assets/images/aws-certified-solutions-architect-professional.png" style="width:80px;">
-    <img src="/assets/images/aws-certified-devops-engineer-professional.png" style="width:80px;">
-    <img src="/assets/images/aws-certified-security-specialty.png" style="width:80px;">
-    <img src="/assets/images/aws-certified-machine-learning-specialty.png" style="width:80px;">
-    <img src="/assets/images/aws-certified-advanced-networking-specialty.png" style="width:80px;">
-  </div>
-</section>
+  <!-- ARTICLES CARD -->
+  <div id="articles" class="card" style="grid-column: span 2;">
+    <h3>Articles</h3>
 
-<div class="divider"></div>
-
-<!-- ARTICLES -->
-<section id="articles" class="section">
-  <h2>Articles</h2>
-
-  <div class="grid">
     {% for post in site.posts %}
-    <div class="card" style="transition:0.2s;">
-      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-      <p style="font-size:14px; opacity:0.5;">{{ post.date | date: "%Y-%m-%d" }}</p>
+    <div class="article-card">
+      <a href="{{ post.url }}">{{ post.title }}</a>
+      <div style="font-size:12px; opacity:0.5;">{{ post.date | date: "%Y-%m-%d" }}</div>
     </div>
     {% endfor %}
+
   </div>
-</section>
 
-<div class="divider"></div>
+  <!-- LINKS CARD -->
+  <div class="card">
+    <h3>Links</h3>
+    <p style="font-size:14px; opacity:0.7; line-height:1.8;">
+      <a href="https://github.com/seal-on-the-rock">GitHub</a><br>
+      <a href="https://www.linkedin.com/in/wanghaibao">LinkedIn</a><br>
+      <a href="https://twitter.com/yourprofile">Twitter</a>
+    </p>
+  </div>
 
-<!-- FOOTER -->
-<section style="text-align:center; margin:60px 0; opacity:0.5;">
-  <a href="https://github.com/seal-on-the-rock">GitHub</a> ·
-  <a href="https://www.linkedin.com/in/wanghaibao">LinkedIn</a> ·
-  <a href="https://twitter.com/yourprofile">Twitter</a>
-</section>
+</div>
