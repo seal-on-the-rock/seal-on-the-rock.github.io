@@ -1,6 +1,7 @@
 ---
 layout: none
 ---
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -169,6 +170,26 @@ body {
 .card-date {
   font-size: 12px;
   color: #777;
+  margin-bottom: 10px;
+}
+
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  font-size: 11px;
+  padding: 4px 8px;
+  background: #eef2f7;
+  border-radius: 999px;
+  color: #555;
+  transition: background 0.2s;
+}
+
+.tag:hover {
+  background: #dbe7ff;
 }
 
 /* SOCIAL */
@@ -245,6 +266,15 @@ body {
         <div class="card-title">{{ post.title }}</div>
         <div class="card-date">{{ post.date | date: "%Y-%m-%d" }}</div>
       </a>
+
+      {% if post.tags %}
+      <div class="tag-container">
+        {% for tag in post.tags %}
+          <div class="tag">{{ tag }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
     </div>
     {% endfor %}
   </div>
