@@ -2,6 +2,7 @@
 layout: post
 title: "article0004-AWS SDK"
 date: 2025-09-16
+tags: [AWS, SDK]
 author: Seal
 ---
 
