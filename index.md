@@ -1,7 +1,6 @@
 ---
 layout: none
 ---
-<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -21,6 +20,20 @@ body {
   max-width: 1100px;
   margin: auto;
   padding: 40px 20px;
+}
+
+/* LAYOUT: HERO + ABOUT SIDE BY SIDE */
+.top-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+  .top-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* COMMON CARD */
@@ -182,21 +195,26 @@ body {
 
 <div class="container">
 
-  <!-- HERO CARD -->
-  <div class="section-card hero">
-    <img src="/assets/images/logo.png" alt="logo">
-    <p>Cloud / Architecture / Growth</p>
-  </div>
+  <!-- TOP SECTION (HERO + ABOUT) -->
+  <div class="top-grid">
 
-  <!-- ABOUT CARD -->
-  <div class="section-card about">
-    <div class="about-text">
-      <h3>About Me</h3>
-      <p>System Engineer passionate about AWS and architecture design.</p>
+    <!-- HERO CARD -->
+    <div class="section-card hero">
+      <img src="/assets/images/logo.png" alt="logo">
+      <p>Cloud / Architecture / Growth</p>
     </div>
-    <a href="https://www.tenda.co.jp/" target="_blank">
-      <img class="company-logo" src="/assets/images/company-logo.png" alt="company">
-    </a>
+
+    <!-- ABOUT CARD -->
+    <div class="section-card about">
+      <div class="about-text">
+        <h3>About Me</h3>
+        <p>System Engineer passionate about AWS and architecture design.</p>
+      </div>
+      <a href="https://www.tenda.co.jp/" target="_blank">
+        <img class="company-logo" src="/assets/images/company-logo.png" alt="company">
+      </a>
+    </div>
+
   </div>
 
   <!-- CERT CARD -->
