@@ -65,6 +65,7 @@ author: Seal
 ## コンセプト
 
 > ❌ VPC同士をつなぐ
+
 > ✅ 必要な「サービス」だけ公開する
 
 ---
@@ -78,11 +79,12 @@ author: Seal
 #  今回の変更って何をしているの？
 
 ここからは「コードがどう変わったか」ではなく、
+
 👉 実際に何を作って、どう振る舞いが変わったのかを整理します。
 
 ## ① Prod VPC：サービスを公開する
 
-コード
+コード：
 
 ```text
 import * as cdk from 'aws-cdk-lib';
@@ -188,15 +190,19 @@ Prod 側では、EC2 をそのまま使うのではなく、
 
 やっていること：
 
-EC2（Webサーバ）を用意
-NLB を前段に配置
-NLB を Endpoint Service として公開
+1. EC2（Webサーバ）を用意
+
+2. NLB を前段に配置
+
+3. NLB を Endpoint Service として公開
 
 つまり Prod 側は：
 
 ✅ 「サービス提供側」として構成を整えている
 
 ## ② Dev VPC：サービスに接続する
+
+コード：
 
 ```text
 import * as cdk from 'aws-cdk-lib';
@@ -270,8 +276,8 @@ Dev 側では、
 
 やっていること：
 
-Interface Endpoint を作成
-Prod の Endpoint Service に接続
+1. Interface Endpoint を作成
+2. Prod の Endpoint Service に接続
 
 つまり Dev 側は：
 
@@ -288,11 +294,13 @@ Prod の Endpoint Service に接続
 結果：
 
 ❌ VPC内の他リソースにはアクセス不可
+
 ✅ 公開されたサービスのみ利用可能
 
 ##  ④ 作成順序の変更
 
 先に Prod を作成
+
 その後 Dev を作成
 
 理由：
@@ -319,6 +327,7 @@ Prod のサービスを Dev から安全に利用できるようにした
 ポイント：
 
 ❌ VPC同士を直接接続しない
+
 ✅ 必要なサービスのみ公開・利用する
 
 👉 これが PrivateLink の基本的な使い方です。
@@ -338,7 +347,9 @@ Dev EC2
 ```
 
 ✔ TGWを通らない
+
 ✔ 公開IP不要
+
 ✔ 特定サービスのみアクセス可能
 
 ---
@@ -350,6 +361,7 @@ Dev → TGW → Security → NAT → IGW → Internet
 ```
 
 ✔ 変更なし
+
 ✔ 集中出口維持
 
 ---
@@ -369,6 +381,7 @@ Dev → TGW → ルートなし → DROP
 ## Before（従来）
 
 * ネットワーク単位の許可
+  
 * Dev → Prod 全体アクセス可能
 
 ---
@@ -376,6 +389,7 @@ Dev → TGW → ルートなし → DROP
 ## After（今回）
 
 * サービス単位の許可
+  
 * Dev → 特定サービスのみ
 
 ---
@@ -383,7 +397,9 @@ Dev → TGW → ルートなし → DROP
 ## 効果
 
 * 最小権限の徹底
+  
 * 横方向移動の防止
+  
 * ゼロトラストに近づく構成
 
 ---
