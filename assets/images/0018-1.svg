@@ -1,0 +1,245 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1020" width="1400" height="1020" font-family="'Segoe UI', Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1a73e8"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e67e00"/>
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#00000022"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1400" height="1020" fill="#f0f4f8"/>
+
+  <!-- Title -->
+  <text x="700" y="38" text-anchor="middle" font-size="22" font-weight="bold" fill="#1a1a2e">Enterprise Multi-Region Network Architecture — Phase 1 &amp; Phase 2</text>
+  <text x="700" y="60" text-anchor="middle" font-size="13" fill="#555">AWS CDK (Python) · Tokyo (ap-northeast-1) + Osaka (ap-northeast-3)</text>
+
+  <!-- ============================================================ -->
+  <!-- INTERNET                                                      -->
+  <!-- ============================================================ -->
+  <rect x="560" y="78" width="280" height="44" rx="22" fill="#e8f0fe" stroke="#1a73e8" stroke-width="2" filter="url(#shadow)"/>
+  <text x="700" y="105" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a73e8">🌐  Internet</text>
+
+  <!-- ============================================================ -->
+  <!-- TOKYO REGION BOX                                             -->
+  <!-- ============================================================ -->
+  <rect x="30" y="148" width="640" height="820" rx="16" fill="#fff8e1" stroke="#f9a825" stroke-width="2.5" stroke-dasharray="8,4" filter="url(#shadow)"/>
+  <rect x="30" y="148" width="640" height="36" rx="16" fill="#f9a825"/>
+  <text x="350" y="172" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">ap-northeast-1 · Tokyo Region</text>
+
+  <!-- ============================================================ -->
+  <!-- TOKYO VPC BOX                                                -->
+  <!-- ============================================================ -->
+  <rect x="50" y="200" width="600" height="580" rx="12" fill="#fffde7" stroke="#fbc02d" stroke-width="2" filter="url(#shadow)"/>
+  <text x="350" y="222" text-anchor="middle" font-size="13" font-weight="bold" fill="#e65100">tokyo-vpc · 10.0.0.0/16</text>
+
+  <!-- IGW Tokyo -->
+  <rect x="270" y="232" width="160" height="38" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+  <text x="350" y="256" text-anchor="middle" font-size="12" font-weight="bold" fill="#bf360c">🔗 Internet Gateway</text>
+
+  <!-- AZ-1a -->
+  <rect x="60" y="284" width="260" height="460" rx="10" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="190" y="302" text-anchor="middle" font-size="11" fill="#795548" font-weight="bold">Availability Zone: ap-northeast-1a</text>
+
+  <!-- AZ-1c -->
+  <rect x="340" y="284" width="260" height="460" rx="10" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="470" y="302" text-anchor="middle" font-size="11" fill="#795548" font-weight="bold">Availability Zone: ap-northeast-1c</text>
+
+  <!-- Tokyo Public Subnet 1a -->
+  <rect x="72" y="312" width="236" height="90" rx="8" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5"/>
+  <text x="190" y="333" text-anchor="middle" font-size="11" font-weight="bold" fill="#1b5e20">Public Subnet</text>
+  <text x="190" y="350" text-anchor="middle" font-size="10" fill="#388e3c">10.0.0.0/24</text>
+  <rect x="130" y="358" width="120" height="34" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.2"/>
+  <text x="190" y="379" text-anchor="middle" font-size="10" font-weight="bold" fill="#bf360c">NAT Gateway</text>
+
+  <!-- Tokyo Public Subnet 1c -->
+  <rect x="352" y="312" width="236" height="90" rx="8" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5"/>
+  <text x="470" y="333" text-anchor="middle" font-size="11" font-weight="bold" fill="#1b5e20">Public Subnet</text>
+  <text x="470" y="350" text-anchor="middle" font-size="10" fill="#388e3c">10.0.1.0/24</text>
+  <rect x="410" y="358" width="120" height="34" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.2"/>
+  <text x="470" y="379" text-anchor="middle" font-size="10" font-weight="bold" fill="#bf360c">NAT Gateway</text>
+
+  <!-- Tokyo Private Subnet 1a -->
+  <rect x="72" y="420" width="236" height="100" rx="8" fill="#e3f2fd" stroke="#1e88e5" stroke-width="1.5"/>
+  <text x="190" y="441" text-anchor="middle" font-size="11" font-weight="bold" fill="#0d47a1">Private Subnet</text>
+  <text x="190" y="458" text-anchor="middle" font-size="10" fill="#1565c0">10.0.2.0/24</text>
+  <text x="190" y="474" text-anchor="middle" font-size="9" fill="#555">Route: 0.0.0.0/0 → NAT GW</text>
+  <text x="190" y="488" text-anchor="middle" font-size="9" fill="#555">Route: 10.1.0.0/16 → TGW</text>
+  <rect x="130" y="494" width="120" height="18" rx="4" fill="#e8eaf6" stroke="#5c6bc0" stroke-width="1"/>
+  <text x="190" y="507" text-anchor="middle" font-size="9" fill="#283593">TGW ENI (Attachment)</text>
+
+  <!-- Tokyo Private Subnet 1c -->
+  <rect x="352" y="420" width="236" height="100" rx="8" fill="#e3f2fd" stroke="#1e88e5" stroke-width="1.5"/>
+  <text x="470" y="441" text-anchor="middle" font-size="11" font-weight="bold" fill="#0d47a1">Private Subnet</text>
+  <text x="470" y="458" text-anchor="middle" font-size="10" fill="#1565c0">10.0.3.0/24</text>
+  <text x="470" y="474" text-anchor="middle" font-size="9" fill="#555">Route: 0.0.0.0/0 → NAT GW</text>
+  <text x="470" y="488" text-anchor="middle" font-size="9" fill="#555">Route: 10.1.0.0/16 → TGW</text>
+  <rect x="410" y="494" width="120" height="18" rx="4" fill="#e8eaf6" stroke="#5c6bc0" stroke-width="1"/>
+  <text x="470" y="507" text-anchor="middle" font-size="9" fill="#283593">TGW ENI (Attachment)</text>
+
+  <!-- Transit Gateway -->
+  <rect x="100" y="548" width="500" height="100" rx="12" fill="#fce4ec" stroke="#e91e63" stroke-width="2" filter="url(#shadow)"/>
+  <text x="350" y="572" text-anchor="middle" font-size="14" font-weight="bold" fill="#880e4f">🔀 Transit Gateway (tokyo-tgw)</text>
+  <text x="350" y="590" text-anchor="middle" font-size="10" fill="#ad1457">DNS Support: ON · VPN ECMP: ON · Multicast: OFF</text>
+
+  <!-- TGW Main Route Table -->
+  <rect x="115" y="598" width="210" height="40" rx="6" fill="#fff" stroke="#e91e63" stroke-width="1.2"/>
+  <text x="220" y="614" text-anchor="middle" font-size="10" font-weight="bold" fill="#880e4f">📋 tgw-main-route-table</text>
+  <text x="220" y="628" text-anchor="middle" font-size="9" fill="#555">10.0.0.0/16 → Tokyo Att.</text>
+
+  <!-- TGW DX Route Table (reserved) -->
+  <rect x="375" y="598" width="210" height="40" rx="6" fill="#f3e5f5" stroke="#9c27b0" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <text x="480" y="614" text-anchor="middle" font-size="10" font-weight="bold" fill="#6a1b9a">📋 tgw-dx-route-table</text>
+  <text x="480" y="628" text-anchor="middle" font-size="9" fill="#888">(Reserved for Phase 3 Direct Connect)</text>
+
+  <!-- TGW route entry for Osaka -->
+  <text x="220" y="642" text-anchor="middle" font-size="9" fill="#555">10.1.0.0/16 → Osaka Att.</text>
+
+  <!-- CDK Stack boundary labels - Tokyo -->
+  <rect x="50" y="668" width="600" height="100" rx="10" fill="none" stroke="#bbb" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="350" y="686" text-anchor="middle" font-size="10" fill="#777">CDK Stack Boundaries</text>
+  <rect x="60" y="694" width="180" height="28" rx="5" fill="#e8f5e9" stroke="#43a047" stroke-width="1"/>
+  <text x="150" y="712" text-anchor="middle" font-size="10" fill="#1b5e20">TokyoNetworkStack</text>
+  <rect x="260" y="694" width="180" height="28" rx="5" fill="#fce4ec" stroke="#e91e63" stroke-width="1"/>
+  <text x="350" y="712" text-anchor="middle" font-size="10" fill="#880e4f">TransitGatewayStack</text>
+  <rect x="460" y="694" width="180" height="28" rx="5" fill="#e8eaf6" stroke="#5c6bc0" stroke-width="1"/>
+  <text x="550" y="712" text-anchor="middle" font-size="10" fill="#283593">TgwPeeringStack</text>
+  <text x="350" y="748" text-anchor="middle" font-size="9" fill="#999">(TgwPeeringStack is deployed in Tokyo Region and manages the cross-region Osaka VPC Attachment)</text>
+
+  <!-- Phase 3 placeholder -->
+  <rect x="50" y="778" width="600" height="72" rx="10" fill="#f3e5f5" stroke="#9c27b0" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="350" y="800" text-anchor="middle" font-size="12" font-weight="bold" fill="#6a1b9a">🔌 Phase 3 Reserved: Direct Connect Gateway</text>
+  <text x="350" y="820" text-anchor="middle" font-size="10" fill="#7b1fa2">DirectConnectStack → DX Gateway → tgw-dx-route-table → TGW</text>
+  <text x="350" y="838" text-anchor="middle" font-size="9" fill="#999">(Placeholder already created in code — uncomment to activate)</text>
+
+  <!-- ============================================================ -->
+  <!-- OSAKA REGION BOX                                             -->
+  <!-- ============================================================ -->
+  <rect x="730" y="148" width="640" height="620" rx="16" fill="#e8f5e9" stroke="#43a047" stroke-width="2.5" stroke-dasharray="8,4" filter="url(#shadow)"/>
+  <rect x="730" y="148" width="640" height="36" rx="16" fill="#43a047"/>
+  <text x="1050" y="172" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">ap-northeast-3 · Osaka Region</text>
+
+  <!-- ============================================================ -->
+  <!-- OSAKA VPC BOX                                                -->
+  <!-- ============================================================ -->
+  <rect x="750" y="200" width="600" height="480" rx="12" fill="#f1f8e9" stroke="#66bb6a" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1050" y="222" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">osaka-vpc · 10.1.0.0/16</text>
+
+  <!-- IGW Osaka -->
+  <rect x="970" y="232" width="160" height="38" rx="8" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+  <text x="1050" y="256" text-anchor="middle" font-size="12" font-weight="bold" fill="#bf360c">🔗 Internet Gateway</text>
+
+  <!-- AZ-3a -->
+  <rect x="760" y="284" width="260" height="370" rx="10" fill="#f9fbe7" stroke="#aed581" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="890" y="302" text-anchor="middle" font-size="11" fill="#558b2f" font-weight="bold">Availability Zone: ap-northeast-3a</text>
+
+  <!-- AZ-3c -->
+  <rect x="1040" y="284" width="260" height="370" rx="10" fill="#f9fbe7" stroke="#aed581" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="1170" y="302" text-anchor="middle" font-size="11" fill="#558b2f" font-weight="bold">Availability Zone: ap-northeast-3c</text>
+
+  <!-- Osaka Public Subnet 3a -->
+  <rect x="772" y="312" width="236" height="90" rx="8" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5"/>
+  <text x="890" y="333" text-anchor="middle" font-size="11" font-weight="bold" fill="#1b5e20">Public Subnet</text>
+  <text x="890" y="350" text-anchor="middle" font-size="10" fill="#388e3c">10.1.0.0/24</text>
+  <rect x="830" y="358" width="120" height="34" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.2"/>
+  <text x="890" y="379" text-anchor="middle" font-size="10" font-weight="bold" fill="#bf360c">NAT Gateway</text>
+
+  <!-- Osaka Public Subnet 3c -->
+  <rect x="1052" y="312" width="236" height="90" rx="8" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5"/>
+  <text x="1170" y="333" text-anchor="middle" font-size="11" font-weight="bold" fill="#1b5e20">Public Subnet</text>
+  <text x="1170" y="350" text-anchor="middle" font-size="10" fill="#388e3c">10.1.1.0/24</text>
+  <rect x="1110" y="358" width="120" height="34" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.2"/>
+  <text x="1170" y="379" text-anchor="middle" font-size="10" font-weight="bold" fill="#bf360c">NAT Gateway</text>
+
+  <!-- Osaka Private Subnet 3a -->
+  <rect x="772" y="420" width="236" height="100" rx="8" fill="#e3f2fd" stroke="#1e88e5" stroke-width="1.5"/>
+  <text x="890" y="441" text-anchor="middle" font-size="11" font-weight="bold" fill="#0d47a1">Private Subnet</text>
+  <text x="890" y="458" text-anchor="middle" font-size="10" fill="#1565c0">10.1.2.0/24</text>
+  <text x="890" y="474" text-anchor="middle" font-size="9" fill="#555">Route: 0.0.0.0/0 → NAT GW</text>
+  <text x="890" y="488" text-anchor="middle" font-size="9" fill="#555">Route: 10.0.0.0/16 → TGW</text>
+  <rect x="830" y="494" width="120" height="18" rx="4" fill="#e8eaf6" stroke="#5c6bc0" stroke-width="1"/>
+  <text x="890" y="507" text-anchor="middle" font-size="9" fill="#283593">TGW ENI (Attachment)</text>
+
+  <!-- Osaka Private Subnet 3c -->
+  <rect x="1052" y="420" width="236" height="100" rx="8" fill="#e3f2fd" stroke="#1e88e5" stroke-width="1.5"/>
+  <text x="1170" y="441" text-anchor="middle" font-size="11" font-weight="bold" fill="#0d47a1">Private Subnet</text>
+  <text x="1170" y="458" text-anchor="middle" font-size="10" fill="#1565c0">10.1.3.0/24</text>
+  <text x="1170" y="474" text-anchor="middle" font-size="9" fill="#555">Route: 0.0.0.0/0 → NAT GW</text>
+  <text x="1170" y="488" text-anchor="middle" font-size="9" fill="#555">Route: 10.0.0.0/16 → TGW</text>
+  <rect x="1110" y="494" width="120" height="18" rx="4" fill="#e8eaf6" stroke="#5c6bc0" stroke-width="1"/>
+  <text x="1170" y="507" text-anchor="middle" font-size="9" fill="#283593">TGW ENI (Attachment)</text>
+
+  <!-- Osaka CDK Stack label -->
+  <rect x="760" y="540" width="580" height="120" rx="10" fill="none" stroke="#bbb" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="1050" y="558" text-anchor="middle" font-size="10" fill="#777">CDK Stack Boundaries</text>
+  <rect x="860" y="566" width="180" height="28" rx="5" fill="#e8f5e9" stroke="#43a047" stroke-width="1"/>
+  <text x="950" y="584" text-anchor="middle" font-size="10" fill="#1b5e20">OsakaNetworkStack</text>
+  <text x="1050" y="618" text-anchor="middle" font-size="9" fill="#999">(OsakaNetworkStack is deployed in Osaka Region)</text>
+  <text x="1050" y="636" text-anchor="middle" font-size="9" fill="#999">(Osaka VPC TGW Attachment is managed by TgwPeeringStack in Tokyo)</text>
+
+  <!-- ============================================================ -->
+  <!-- CONNECTIONS / ARROWS                                         -->
+  <!-- ============================================================ -->
+
+  <!-- Internet → Tokyo IGW -->
+  <line x1="620" y1="122" x2="400" y2="232" stroke="#1a73e8" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arrow-blue)"/>
+  <text x="480" y="178" font-size="9" fill="#1a73e8" transform="rotate(-30,480,178)">Internet Traffic</text>
+
+  <!-- Internet → Osaka IGW -->
+  <line x1="780" y1="122" x2="1000" y2="232" stroke="#1a73e8" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arrow-blue)"/>
+  <text x="920" y="178" font-size="9" fill="#1a73e8" transform="rotate(30,920,178)">Internet Traffic</text>
+
+  <!-- Tokyo IGW → Public Subnets -->
+  <line x1="310" y1="270" x2="190" y2="312" stroke="#ef6c00" stroke-width="1.5" marker-end="url(#arrow-orange)"/>
+  <line x1="390" y1="270" x2="470" y2="312" stroke="#ef6c00" stroke-width="1.5" marker-end="url(#arrow-orange)"/>
+
+  <!-- Osaka IGW → Public Subnets -->
+  <line x1="1010" y1="270" x2="890" y2="312" stroke="#ef6c00" stroke-width="1.5" marker-end="url(#arrow-orange)"/>
+  <line x1="1090" y1="270" x2="1170" y2="312" stroke="#ef6c00" stroke-width="1.5" marker-end="url(#arrow-orange)"/>
+
+  <!-- Tokyo Private → NAT GW -->
+  <line x1="175" y1="420" x2="175" y2="402" stroke="#ef6c00" stroke-width="1.2" stroke-dasharray="3,2" marker-end="url(#arrow-orange)"/>
+  <line x1="455" y1="420" x2="455" y2="402" stroke="#ef6c00" stroke-width="1.2" stroke-dasharray="3,2" marker-end="url(#arrow-orange)"/>
+
+  <!-- Osaka Private → NAT GW -->
+  <line x1="875" y1="420" x2="875" y2="402" stroke="#ef6c00" stroke-width="1.2" stroke-dasharray="3,2" marker-end="url(#arrow-orange)"/>
+  <line x1="1155" y1="420" x2="1155" y2="402" stroke="#ef6c00" stroke-width="1.2" stroke-dasharray="3,2" marker-end="url(#arrow-orange)"/>
+
+  <!-- Tokyo Private Subnets → TGW -->
+  <line x1="190" y1="520" x2="220" y2="548" stroke="#e91e63" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="470" y1="520" x2="400" y2="548" stroke="#e91e63" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <!-- TGW → Osaka Cross-Region Attachment -->
+  <line x1="600" y1="598" x2="772" y2="503" stroke="#e91e63" stroke-width="2.5" stroke-dasharray="8,4" marker-end="url(#arrow)"/>
+  <line x1="600" y1="598" x2="1052" y2="503" stroke="#e91e63" stroke-width="2.5" stroke-dasharray="8,4" marker-end="url(#arrow)"/>
+
+  <!-- Cross-region label -->
+  <rect x="640" y="530" width="200" height="28" rx="6" fill="#fce4ec" stroke="#e91e63" stroke-width="1.5"/>
+  <text x="740" y="548" text-anchor="middle" font-size="10" font-weight="bold" fill="#880e4f">Cross-Region VPC Attachment</text>
+
+  <!-- ============================================================ -->
+  <!-- LEGEND                                                       -->
+  <!-- ============================================================ -->
+  <rect x="30" y="980" width="1340" height="32" rx="8" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <line x1="50" y1="996" x2="90" y2="996" stroke="#1a73e8" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="96" y="1000" font-size="10" fill="#333">Internet Traffic</text>
+  <line x1="210" y1="996" x2="250" y2="996" stroke="#ef6c00" stroke-width="2"/>
+  <text x="256" y="1000" font-size="10" fill="#333">IGW / NAT Routing</text>
+  <line x1="390" y1="996" x2="430" y2="996" stroke="#e91e63" stroke-width="2.5" stroke-dasharray="8,4"/>
+  <text x="436" y="1000" font-size="10" fill="#333">TGW Attachment (Cross-Region)</text>
+  <rect x="640" y="988" width="14" height="14" rx="3" fill="#e8f5e9" stroke="#43a047" stroke-width="1"/>
+  <text x="660" y="1000" font-size="10" fill="#333">Public Subnet</text>
+  <rect x="760" y="988" width="14" height="14" rx="3" fill="#e3f2fd" stroke="#1e88e5" stroke-width="1"/>
+  <text x="780" y="1000" font-size="10" fill="#333">Private Subnet</text>
+  <rect x="880" y="988" width="14" height="14" rx="3" fill="#f3e5f5" stroke="#9c27b0" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="900" y="1000" font-size="10" fill="#333">Phase 3 Reserved (Direct Connect)</text>
+  <rect x="1110" y="988" width="14" height="14" rx="3" fill="#fce4ec" stroke="#e91e63" stroke-width="1"/>
+  <text x="1130" y="1000" font-size="10" fill="#333">Transit Gateway</text>
+</svg>
