@@ -55,6 +55,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      flex: 1; /* ✅ 关键：填满 a，而不是用 height */
       height: 100%; /* ✅ 关键：填满父容器 */
       flex-wrap: wrap;
       font-size: 14px;
@@ -135,8 +136,7 @@
 
     /* 关键修复：让 a 参与高度拉伸 */
     .grid > a {
-      display: block;
-      height: 100%;
+      display: flex;
     }
 
     .card {
