@@ -26,28 +26,44 @@
       align-items: center;
       padding: 20px 40px;
       font-size: 14px;
-      color: #666;
+      background: #ffffff;
+      border-bottom: 1px solid #eee;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     .nav-left a {
       margin-right: 20px;
       color: #666;
+      position: relative;
+      font-weight: 500;
     }
 
     .nav-left a:hover {
-      color: #007cf0;
+      color: #111;
     }
 
-    /* ---------- 主体布局 ---------- */
+    .nav-left a.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 100%;
+      height: 2px;
+      background: #111;
+      border-radius: 2px;
+    }
+
+    /* ---------- 主体 ---------- */
     .container {
       max-width: 900px;
       margin: 0 auto;
-      padding: 10px 20px 60px;
+      padding: 20px 20px 60px;
     }
 
-    /* ---------- 标题区域 ---------- */
+    /* ---------- 标题 ---------- */
     .post-header {
-      margin-top: 20px;
       margin-bottom: 40px;
     }
 
@@ -109,7 +125,7 @@
       margin: 20px 0;
     }
 
-    /* ---------- 代码块（重点优化） ---------- */
+    /* ---------- 代码块 ---------- */
     pre {
       background: #0f172a;
       color: #e2e8f0;
@@ -194,14 +210,14 @@
   <!-- 顶部导航 -->
   <div class="top-nav">
     <div class="nav-left">
-      <a href="{{ '/' | relative_url }}">🏠 Home</a>
-      <a href="{{ '/all-articles/' | relative_url }}">📝 Articles</a>
+      <a href="{{ '/' | relative_url }}" class="{% if page.url == '/' %}active{% endif %}">Home</a>
+      <a href="{{ '/all-articles/' | relative_url }}" class="{% if page.url contains 'all-articles' %}active{% endif %}">Articles</a>
     </div>
   </div>
 
   <div class="container">
 
-    <!-- 标题区域 -->
+    <!-- 标题 -->
     <div class="post-header">
       <div class="post-title">{{ page.title }}</div>
 
@@ -231,7 +247,7 @@
       <div>© {{ page.author }}</div>
       <div>
         <a href="{{ '/' | relative_url }}">Home</a>
-        <a href="{{ '/all-articles/' | relative_url }}">All</a>
+        <a href="{{ '/all-articles/' | relative_url }}">Articles</a>
       </div>
     </div>
 
