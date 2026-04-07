@@ -62,7 +62,7 @@
 
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      gap: 10px; /* 🔥 统一间距核心 */
       flex: 1;
     }
 
@@ -74,7 +74,6 @@
     .post-title {
       font-size: 16px;
       font-weight: 600;
-      margin-bottom: 12px;
       line-height: 1.4;
     }
 
@@ -84,7 +83,6 @@
     }
 
     .tags {
-      margin-top: auto; /* 🔥 把 tags 推到底部，实现日期在上、tags在下 */
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
