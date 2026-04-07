@@ -2,7 +2,7 @@
 layout: post
 title: "article0017-【PrivateLink】によるサービス単位アクセス制御～AWS Transit Gateway 構成をさらに進化させる～"
 date: 2026-04-04
-tags: [PrivateLink, TransitGateway, Zero Trust]
+tags: [PrivateLink, Transit Gateway, Zero Trust]
 author: Seal
 ---
 
