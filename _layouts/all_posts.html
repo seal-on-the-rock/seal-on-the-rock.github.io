@@ -174,7 +174,7 @@
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 24px;
       align-items: stretch;
-      grid-auto-rows: 1fr;
+      /* ❌ 删除 grid-auto-rows: 1fr，避免全局统一高度 */
     }
 
     .card {
@@ -186,11 +186,10 @@
       position: relative;
       overflow: hidden;
 
-      /* 关键：统一高度 */
+      /* ✅ 关键：只做结构，不强行统一高度 */
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      height: 100%;
     }
 
     .card::after {
@@ -288,7 +287,7 @@
       {% endfor %}
     </div>
 
-    <a href="{{ '/' | relative_url }}" class="back">← Back to Home</a>
+    <a href="{{ '/' | relative_url }}" class="back">Back to Home</a>
 
   </div>
 </body>
