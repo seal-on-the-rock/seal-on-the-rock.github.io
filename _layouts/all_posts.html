@@ -44,7 +44,7 @@
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 28px; /* 🔥 稍微加大，防止 hover 覆盖 */
+      gap: 28px;
     }
 
     .grid > a {
@@ -81,11 +81,10 @@
     .post-date {
       font-size: 13px;
       color: #888;
-      margin-top: auto;
     }
 
     .tags {
-      margin-top: 10px;
+      margin-top: auto; /* 🔥 把 tags 推到底部，实现日期在上、tags在下 */
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
@@ -131,6 +130,8 @@
         <div class="card">
           <div class="post-title">{{ post.title }}</div>
           
+          <div class="post-date">{{ post.date | date: "%Y-%m-%d" }}</div>
+
           {% if post.tags %}
           <div class="tags">
             {% for tag in post.tags %}
@@ -138,8 +139,6 @@
             {% endfor %}
           </div>
           {% endif %}
-
-          <div class="post-date">{{ post.date | date: "%Y-%m-%d" }}</div>
         </div>
       </a>
       {% endfor %}
