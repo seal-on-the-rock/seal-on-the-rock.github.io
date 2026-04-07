@@ -45,60 +45,17 @@
     /* 主卡片 */
     .card {
       background: white;
-      border-radius: 20px;
-      padding: 40px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      animation: fadeIn 0.6s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .post-title {
-      font-size: 2.2em;
-      margin-bottom: 10px;
-    }
-
-    .post-meta {
-      color: #888;
-      font-size: 14px;
-      margin-bottom: 30px;
-    }
-
-    .content img {
-      width: 100%;
-      border-radius: 12px;
-      margin: 20px 0;
-    }
-
-    .content pre {
-      background: #0f172a;
-      color: #e2e8f0;
-      padding: 16px;
-      border-radius: 12px;
-      overflow-x: auto;
+      padding: 22px;
+      border-radius: 18px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+      transition: all 0.25s ease;
       position: relative;
-    }
+      overflow: hidden;
 
-    .copy-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: #2563eb;
-      color: white;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 12px;
-    }
-
-    .post-footer {
-      margin-top: 40px;
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
+      height: 100%; /* ✅ 关键：填满父容器 */
       flex-wrap: wrap;
       font-size: 14px;
       color: #666;
@@ -174,7 +131,12 @@
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 24px;
       align-items: stretch;
-      /* ❌ 删除 grid-auto-rows: 1fr，避免全局统一高度 */
+    }
+
+    /* 关键修复：让 a 参与高度拉伸 */
+    .grid > a {
+      display: block;
+      height: 100%;
     }
 
     .card {
