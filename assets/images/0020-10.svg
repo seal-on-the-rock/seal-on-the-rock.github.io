@@ -1,0 +1,143 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" width="1000" height="720" font-family="'Segoe UI',Arial,sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,9 3,0 6" fill="#555"/></marker>
+    <marker id="arr-o" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,9 3,0 6" fill="#e67e22"/></marker>
+    <marker id="arr-g" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,9 3,0 6" fill="#27ae60"/></marker>
+    <filter id="sh"><feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#00000028"/></filter>
+  </defs>
+
+  <rect width="1000" height="720" fill="#f5f7fa"/>
+  <rect x="0" y="0" width="1000" height="48" fill="#1a252f"/>
+  <text x="500" y="31" text-anchor="middle" font-size="18" font-weight="bold" fill="white">⑩ CDK Bootstrap — What Does It Do and Why Is It Required?</text>
+
+  <!-- ══ ANALOGY ══ -->
+  <rect x="30" y="58" width="940" height="70" rx="10" fill="#fff3cd" stroke="#f39c12" stroke-width="1.5"/>
+  <text x="500" y="78" text-anchor="middle" font-size="12" font-weight="bold" fill="#856404">💡 Analogy: Bootstrap is like setting up a construction site before building a house</text>
+  <text x="500" y="96" text-anchor="middle" font-size="10" fill="#856404">Before CDK can deploy your stacks, it needs a "staging area" in each AWS account — a place to store templates, assets, and deployment roles.</text>
+  <text x="500" y="112" text-anchor="middle" font-size="10" fill="#856404">Without bootstrap, CDK has nowhere to upload your Lambda code or CloudFormation templates. The deploy will fail immediately.</text>
+
+  <!-- ══ BEFORE BOOTSTRAP ══ -->
+  <rect x="30" y="140" width="440" height="260" rx="12" fill="#fde8e8" stroke="#c0392b" stroke-width="2" filter="url(#sh)"/>
+  <rect x="30" y="140" width="440" height="32" rx="12" fill="#c0392b"/>
+  <rect x="30" y="158" width="440" height="14" fill="#c0392b"/>
+  <text x="250" y="162" text-anchor="middle" font-size="13" font-weight="bold" fill="white">❌  Before Bootstrap — cdk deploy fails</text>
+
+  <rect x="50" y="184" width="400" height="196" rx="8" fill="#922b21"/>
+  <text x="250" y="204" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffd700">AWS Account (222 — Dev)</text>
+  <text x="250" y="224" text-anchor="middle" font-size="10" fill="#fde8e8">Empty — no CDK infrastructure</text>
+
+  <rect x="70" y="234" width="360" height="130" rx="6" fill="#7b241c" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="250" y="254" text-anchor="middle" font-size="10" fill="#f1948a">❓ Where does CDK upload</text>
+  <text x="250" y="270" text-anchor="middle" font-size="10" fill="#f1948a">   Lambda zip files?  → No S3 bucket!</text>
+  <text x="250" y="290" text-anchor="middle" font-size="10" fill="#f1948a">❓ Where does CloudFormation</text>
+  <text x="250" y="306" text-anchor="middle" font-size="10" fill="#f1948a">   get the template?  → No staging bucket!</text>
+  <text x="250" y="326" text-anchor="middle" font-size="10" fill="#f1948a">❓ What role does Pipeline use</text>
+  <text x="250" y="342" text-anchor="middle" font-size="10" fill="#f1948a">   to deploy?  → No deploy role!</text>
+  <text x="250" y="362" text-anchor="middle" font-size="9" fill="#e74c3c">💥 Error: This stack uses assets, so the toolkit stack must be deployed</text>
+
+  <!-- ══ AFTER BOOTSTRAP ══ -->
+  <rect x="530" y="140" width="440" height="260" rx="12" fill="#d5f5e3" stroke="#27ae60" stroke-width="2" filter="url(#sh)"/>
+  <rect x="530" y="140" width="440" height="32" rx="12" fill="#27ae60"/>
+  <rect x="530" y="158" width="440" height="14" fill="#27ae60"/>
+  <text x="750" y="162" text-anchor="middle" font-size="13" font-weight="bold" fill="white">✅  After Bootstrap — cdk deploy works</text>
+
+  <rect x="550" y="184" width="400" height="196" rx="8" fill="#1e8449"/>
+  <text x="750" y="204" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffd700">AWS Account (222 — Dev)</text>
+  <text x="750" y="224" text-anchor="middle" font-size="10" fill="#d5f5e3">CDKToolkit stack deployed</text>
+
+  <rect x="570" y="234" width="168" height="56" rx="6" fill="#1a6faf"/>
+  <text x="654" y="254" text-anchor="middle" font-size="10" font-weight="bold" fill="white">S3 Staging Bucket</text>
+  <text x="654" y="270" text-anchor="middle" font-size="9" fill="#cce5ff">cdk-hnb659fds-assets</text>
+  <text x="654" y="284" text-anchor="middle" font-size="9" fill="#cce5ff">-222222222222-ap-ne-1</text>
+
+  <rect x="752" y="234" width="168" height="56" rx="6" fill="#8e44ad"/>
+  <text x="836" y="254" text-anchor="middle" font-size="10" font-weight="bold" fill="white">ECR Repository</text>
+  <text x="836" y="270" text-anchor="middle" font-size="9" fill="#e8d5f5">cdk-hnb659fds-container</text>
+  <text x="836" y="284" text-anchor="middle" font-size="9" fill="#e8d5f5">-assets-222-ap-ne-1</text>
+
+  <rect x="570" y="300" width="168" height="56" rx="6" fill="#f39c12"/>
+  <text x="654" y="320" text-anchor="middle" font-size="10" font-weight="bold" fill="white">Deploy Role</text>
+  <text x="654" y="336" text-anchor="middle" font-size="9" fill="#fef9e7">cdk-hnb659fds-deploy</text>
+  <text x="654" y="350" text-anchor="middle" font-size="9" fill="#fef9e7">-role-222-ap-ne-1</text>
+
+  <rect x="752" y="300" width="168" height="56" rx="6" fill="#e67e22"/>
+  <text x="836" y="320" text-anchor="middle" font-size="10" font-weight="bold" fill="white">CFN Exec Role</text>
+  <text x="836" y="336" text-anchor="middle" font-size="9" fill="#fde8c8">cdk-hnb659fds-cfn-exec</text>
+  <text x="836" y="350" text-anchor="middle" font-size="9" fill="#fde8c8">-role-222-ap-ne-1</text>
+
+  <!-- ══ BOOTSTRAP COMMAND ══ -->
+  <rect x="30" y="416" width="940" height="100" rx="10" fill="#1a252f" filter="url(#sh)"/>
+  <text x="500" y="436" text-anchor="middle" font-size="11" font-weight="bold" fill="#e67e22">Bootstrap Commands — Run once per account per region</text>
+  <rect x="50" y="444" width="440" height="58" rx="6" fill="#0d1117"/>
+  <text x="270" y="462" text-anchor="middle" font-size="10" fill="#7f8c8d" font-family="monospace"># Bootstrap Dev account, trust Core account (111) as pipeline</text>
+  <text x="270" y="478" text-anchor="middle" font-size="10" fill="#27ae60" font-family="monospace">npx cdk bootstrap aws://222222222222/ap-northeast-1 \</text>
+  <text x="270" y="494" text-anchor="middle" font-size="10" fill="#27ae60" font-family="monospace">  --trust 111111111111</text>
+  <rect x="510" y="444" width="440" height="58" rx="6" fill="#0d1117"/>
+  <text x="730" y="462" text-anchor="middle" font-size="10" fill="#7f8c8d" font-family="monospace"># The --trust flag means: allow account 111 to</text>
+  <text x="730" y="478" text-anchor="middle" font-size="10" fill="#aaa" font-family="monospace"># assume the cdk-deploy-role in this account.</text>
+  <text x="730" y="494" text-anchor="middle" font-size="10" fill="#aaa" font-family="monospace"># This is what lets CodePipeline deploy cross-account.</text>
+
+  <!-- ══ DEPLOY FLOW ══ -->
+  <rect x="30" y="530" width="940" height="160" rx="10" fill="white" stroke="#1a6faf" stroke-width="1.5" filter="url(#sh)"/>
+  <rect x="30" y="530" width="940" height="26" rx="10" fill="#1a6faf"/>
+  <text x="500" y="548" text-anchor="middle" font-size="12" font-weight="bold" fill="white">What Happens During cdk deploy — Step by Step</text>
+
+  <rect x="50" y="564" width="130" height="108" rx="8" fill="#2c3e50"/>
+  <text x="115" y="582" text-anchor="middle" font-size="10" font-weight="bold" fill="white">① CDK CLI</text>
+  <text x="115" y="598" text-anchor="middle" font-size="9" fill="#aaa">Synthesizes</text>
+  <text x="115" y="612" text-anchor="middle" font-size="9" fill="#aaa">CloudFormation</text>
+  <text x="115" y="626" text-anchor="middle" font-size="9" fill="#aaa">template JSON</text>
+  <text x="115" y="642" text-anchor="middle" font-size="9" fill="#aaa">+ asset bundles</text>
+  <text x="115" y="656" text-anchor="middle" font-size="9" fill="#aaa">(Lambda zips)</text>
+
+  <path d="M 180 618 L 210 618" stroke="#e67e22" stroke-width="2" fill="none" marker-end="url(#arr-o)"/>
+
+  <rect x="210" y="564" width="130" height="108" rx="8" fill="#1a6faf"/>
+  <text x="275" y="582" text-anchor="middle" font-size="10" font-weight="bold" fill="white">② Upload Assets</text>
+  <text x="275" y="598" text-anchor="middle" font-size="9" fill="#cce5ff">Lambda zip →</text>
+  <text x="275" y="612" text-anchor="middle" font-size="9" fill="#cce5ff">S3 staging bucket</text>
+  <text x="275" y="628" text-anchor="middle" font-size="9" fill="#cce5ff">Template JSON →</text>
+  <text x="275" y="642" text-anchor="middle" font-size="9" fill="#cce5ff">S3 staging bucket</text>
+  <text x="275" y="658" text-anchor="middle" font-size="9" fill="#aad4f5">(bootstrap bucket)</text>
+
+  <path d="M 340 618 L 370 618" stroke="#e67e22" stroke-width="2" fill="none" marker-end="url(#arr-o)"/>
+
+  <rect x="370" y="564" width="130" height="108" rx="8" fill="#f39c12"/>
+  <text x="435" y="582" text-anchor="middle" font-size="10" font-weight="bold" fill="white">③ Assume Role</text>
+  <text x="435" y="598" text-anchor="middle" font-size="9" fill="#fef9e7">CDK assumes</text>
+  <text x="435" y="612" text-anchor="middle" font-size="9" fill="#fef9e7">cdk-deploy-role</text>
+  <text x="435" y="628" text-anchor="middle" font-size="9" fill="#fef9e7">in target account</text>
+  <text x="435" y="644" text-anchor="middle" font-size="9" fill="#fef9e7">via STS</text>
+  <text x="435" y="658" text-anchor="middle" font-size="9" fill="#fde8c8">(cross-account)</text>
+
+  <path d="M 500 618 L 530 618" stroke="#e67e22" stroke-width="2" fill="none" marker-end="url(#arr-o)"/>
+
+  <rect x="530" y="564" width="130" height="108" rx="8" fill="#8e44ad"/>
+  <text x="595" y="582" text-anchor="middle" font-size="10" font-weight="bold" fill="white">④ Create Stack</text>
+  <text x="595" y="598" text-anchor="middle" font-size="9" fill="#e8d5f5">CloudFormation</text>
+  <text x="595" y="612" text-anchor="middle" font-size="9" fill="#e8d5f5">CreateChangeSet</text>
+  <text x="595" y="628" text-anchor="middle" font-size="9" fill="#e8d5f5">ExecuteChangeSet</text>
+  <text x="595" y="644" text-anchor="middle" font-size="9" fill="#e8d5f5">using cfn-exec-role</text>
+  <text x="595" y="658" text-anchor="middle" font-size="9" fill="#c39bd3">to create resources</text>
+
+  <path d="M 660 618 L 690 618" stroke="#e67e22" stroke-width="2" fill="none" marker-end="url(#arr-o)"/>
+
+  <rect x="690" y="564" width="130" height="108" rx="8" fill="#27ae60"/>
+  <text x="755" y="582" text-anchor="middle" font-size="10" font-weight="bold" fill="white">⑤ Resources</text>
+  <text x="755" y="598" text-anchor="middle" font-size="9" fill="#d5f5e3">Lambda created</text>
+  <text x="755" y="612" text-anchor="middle" font-size="9" fill="#d5f5e3">S3 bucket created</text>
+  <text x="755" y="626" text-anchor="middle" font-size="9" fill="#d5f5e3">IAM roles created</text>
+  <text x="755" y="640" text-anchor="middle" font-size="9" fill="#d5f5e3">VPC created</text>
+  <text x="755" y="656" text-anchor="middle" font-size="9" fill="#a9dfbf">Stack = COMPLETE</text>
+
+  <rect x="840" y="564" width="110" height="108" rx="8" fill="#1a252f" stroke="#27ae60" stroke-width="1"/>
+  <text x="895" y="584" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">Done!</text>
+  <text x="895" y="602" text-anchor="middle" font-size="9" fill="#aaa">All infra</text>
+  <text x="895" y="618" text-anchor="middle" font-size="9" fill="#aaa">deployed as</text>
+  <text x="895" y="634" text-anchor="middle" font-size="9" fill="#aaa">code. Repeatable</text>
+  <text x="895" y="650" text-anchor="middle" font-size="9" fill="#aaa">and auditable.</text>
+  <text x="895" y="666" text-anchor="middle" font-size="9" fill="#27ae60">IaC ✓</text>
+
+  <rect x="0" y="698" width="1000" height="22" fill="#1a252f"/>
+  <text x="500" y="714" text-anchor="middle" font-size="10" fill="#7f8c8d">Diagram 10/10 — CDK Bootstrap Explained</text>
+</svg>
