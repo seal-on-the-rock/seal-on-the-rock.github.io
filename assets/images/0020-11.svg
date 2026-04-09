@@ -1,0 +1,456 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2600 2000" width="2600" height="2000" font-family="'Segoe UI',Arial,sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#555"/></marker>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#1a6faf"/></marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#c0392b"/></marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#27ae60"/></marker>
+    <marker id="arrow-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#e67e22"/></marker>
+    <marker id="arrow-purple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#8e44ad"/></marker>
+    <filter id="shadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#00000033"/>
+    </filter>
+  </defs>
+
+  <!-- BACKGROUND -->
+  <rect width="2600" height="2000" fill="#f0f2f5"/>
+
+  <!-- TITLE BAR -->
+  <rect x="0" y="0" width="2600" height="52" fill="#1a252f"/>
+  <text x="1300" y="34" text-anchor="middle" font-size="22" font-weight="bold" fill="white">Enterprise Multi-Account AWS Architecture  Eap-northeast-1</text>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- LEGEND -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <rect x="30" y="62" width="340" height="230" rx="8" fill="white" stroke="#ccc" stroke-width="1" filter="url(#shadow)"/>
+  <text x="200" y="84" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Legend</text>
+  <rect x="46" y="94"  width="16" height="10" fill="#d5e8f7" stroke="#1a6faf" stroke-width="1"/><text x="70" y="104" font-size="11" fill="#333">Core / Security Account</text>
+  <rect x="46" y="112" width="16" height="10" fill="#d5f5e3" stroke="#27ae60" stroke-width="1"/><text x="70" y="122" font-size="11" fill="#333">Development Account</text>
+  <rect x="46" y="130" width="16" height="10" fill="#fef9e7" stroke="#f39c12" stroke-width="1"/><text x="70" y="140" font-size="11" fill="#333">Staging Account</text>
+  <rect x="46" y="148" width="16" height="10" fill="#fde8e8" stroke="#c0392b" stroke-width="1"/><text x="70" y="158" font-size="11" fill="#333">Production Account</text>
+  <line x1="46" y1="172" x2="62" y2="172" stroke="#555"    stroke-width="2"   marker-end="url(#arrow)"/>        <text x="70" y="176" font-size="11" fill="#333">IAM sts:AssumeRole</text>
+  <line x1="46" y1="190" x2="62" y2="190" stroke="#27ae60" stroke-width="2"   stroke-dasharray="5,3" marker-end="url(#arrow-green)"/>  <text x="70" y="194" font-size="11" fill="#333">S3 Cross-Account Access</text>
+  <line x1="46" y1="208" x2="62" y2="208" stroke="#8e44ad" stroke-width="2"   stroke-dasharray="4,3" marker-end="url(#arrow-purple)"/> <text x="70" y="212" font-size="11" fill="#333">Security / Monitoring</text>
+  <line x1="46" y1="226" x2="62" y2="226" stroke="#e67e22" stroke-width="2.5" marker-end="url(#arrow-orange)"/> <text x="70" y="230" font-size="11" fill="#333">CI/CD Pipeline Flow</text>
+  <line x1="46" y1="244" x2="62" y2="244" stroke="#1a6faf" stroke-width="2"   marker-end="url(#arrow-blue)"/>   <text x="70" y="248" font-size="11" fill="#333">Lambda ↁES3 / API GW</text>
+  <line x1="46" y1="262" x2="62" y2="262" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrow-red)"/>    <text x="70" y="266" font-size="11" fill="#333">Transit Gateway Peering</text>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- TRANSIT GATEWAY -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <rect x="980" y="910" width="440" height="68" rx="12" fill="#2c3e50" filter="url(#shadow)"/>
+  <text x="1200" y="936" text-anchor="middle" font-size="14" font-weight="bold" fill="white">Transit Gateway</text>
+  <text x="1200" y="954" text-anchor="middle" font-size="11" fill="#aaa">tgw-enterprise-ap-northeast-1</text>
+  <text x="1200" y="970" text-anchor="middle" font-size="10" fill="#7f8c8d">Cross-Account Network Hub</text>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- ACCOUNT 1: CORE / SECURITY  (top-left) -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <rect x="30" y="300" width="1100" height="580" rx="14" fill="#d5e8f7" stroke="#1a6faf" stroke-width="2.5" filter="url(#shadow)"/>
+  <rect x="30" y="300" width="1100" height="36"  rx="14" fill="#1a6faf"/>
+  <rect x="30" y="322" width="1100" height="14"  fill="#1a6faf"/>
+  <text x="580" y="324" text-anchor="middle" font-size="15" font-weight="bold" fill="white">Core / Security / Shared Services  E111111111111</text>
+
+  <!-- VPC border -->
+  <rect x="50" y="348" width="1060" height="510" rx="10" fill="#eaf4fb" stroke="#2980b9" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="580" y="368" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a6faf">VPC: core-vpc  CIDR: 10.0.0.0/16</text>
+
+  <!-- IGW + NAT -->
+  <rect x="70"  y="378" width="120" height="36" rx="6" fill="#2980b9"/>
+  <text x="130" y="393" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Internet GW</text>
+  <text x="130" y="407" text-anchor="middle" font-size="10" fill="#ddd">(IGW)</text>
+  <rect x="210" y="378" width="130" height="36" rx="6" fill="#2980b9"/>
+  <text x="275" y="393" text-anchor="middle" font-size="11" font-weight="bold" fill="white">NAT Gateway</text>
+  <text x="275" y="407" text-anchor="middle" font-size="10" fill="#ddd">10.0.0.x AZ-a</text>
+
+  <!-- Subnets -->
+  <rect x="70"  y="428" width="300" height="76" rx="8" fill="#aed6f1" stroke="#2980b9" stroke-width="1"/>
+  <text x="220" y="446" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a3a5c">Public Subnet</text>
+  <text x="220" y="460" text-anchor="middle" font-size="10" fill="#1a3a5c">10.0.0.0/24 (AZ-a)  10.0.1.0/24 (AZ-b)</text>
+  <text x="220" y="474" text-anchor="middle" font-size="10" fill="#555">Route: 0.0.0.0/0 ↁEIGW</text>
+
+  <rect x="390" y="428" width="300" height="76" rx="8" fill="#85c1e9" stroke="#2980b9" stroke-width="1"/>
+  <text x="540" y="446" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a3a5c">Private Subnet</text>
+  <text x="540" y="460" text-anchor="middle" font-size="10" fill="#1a3a5c">10.0.2.0/24 (AZ-a)  10.0.3.0/24 (AZ-b)</text>
+  <text x="540" y="474" text-anchor="middle" font-size="10" fill="#555">Route: 0.0.0.0/0 ↁENAT</text>
+
+  <rect x="710" y="428" width="300" height="76" rx="8" fill="#5dade2" stroke="#2980b9" stroke-width="1"/>
+  <text x="860" y="446" text-anchor="middle" font-size="11" font-weight="bold" fill="white">DB Subnet (Isolated)</text>
+  <text x="860" y="460" text-anchor="middle" font-size="10" fill="white">10.0.4.0/28 (AZ-a)  10.0.5.0/28 (AZ-b)</text>
+  <text x="860" y="474" text-anchor="middle" font-size="10" fill="#ddd">No internet route</text>
+
+  <!-- Services row 1 -->
+  <rect x="70"  y="522" width="200" height="72" rx="8" fill="#1a6faf" filter="url(#shadow)"/>
+  <text x="170" y="542" text-anchor="middle" font-size="12" font-weight="bold" fill="white">S3 Bucket</text>
+  <text x="170" y="557" text-anchor="middle" font-size="9"  fill="#cce5ff">111111111111-ap-northeast-1</text>
+  <text x="170" y="570" text-anchor="middle" font-size="9"  fill="#cce5ff">-core-shared</text>
+  <text x="170" y="583" text-anchor="middle" font-size="9"  fill="#aad4f5">R/W: 222 / 333 / 444</text>
+
+  <rect x="290" y="522" width="200" height="72" rx="8" fill="#1a6faf" filter="url(#shadow)"/>
+  <text x="390" y="542" text-anchor="middle" font-size="12" font-weight="bold" fill="white">S3 Bucket</text>
+  <text x="390" y="557" text-anchor="middle" font-size="9"  fill="#cce5ff">111111111111-ap-northeast-1</text>
+  <text x="390" y="570" text-anchor="middle" font-size="9"  fill="#cce5ff">-cloudtrail</text>
+  <text x="390" y="583" text-anchor="middle" font-size="9"  fill="#aad4f5">CloudTrail logs only</text>
+
+  <rect x="510" y="522" width="200" height="72" rx="8" fill="#e67e22" filter="url(#shadow)"/>
+  <text x="610" y="542" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Lambda</text>
+  <text x="610" y="557" text-anchor="middle" font-size="10" fill="white">core-management-fn</text>
+  <text x="610" y="570" text-anchor="middle" font-size="9"  fill="#fde8c8">Python 3.12 | 256 MB</text>
+  <text x="610" y="583" text-anchor="middle" font-size="9"  fill="#fde8c8">X-Ray Tracing ON</text>
+
+  <rect x="730" y="522" width="180" height="72" rx="8" fill="#8e44ad" filter="url(#shadow)"/>
+  <text x="820" y="542" text-anchor="middle" font-size="12" font-weight="bold" fill="white">API Gateway</text>
+  <text x="820" y="557" text-anchor="middle" font-size="10" fill="white">core-management-fn-api</text>
+  <text x="820" y="570" text-anchor="middle" font-size="9"  fill="#e8d5f5">REST /v1  ANY+Proxy</text>
+
+  <!-- Services row 2 -->
+  <rect x="70"  y="612" width="280" height="72" rx="8" fill="#f39c12" filter="url(#shadow)"/>
+  <text x="210" y="630" text-anchor="middle" font-size="11" font-weight="bold" fill="white">IAM: CoreCrossAccountRole</text>
+  <text x="210" y="645" text-anchor="middle" font-size="9"  fill="white">Trusted by: 222 / 333 / 444</text>
+  <text x="210" y="658" text-anchor="middle" font-size="9"  fill="white">s3:GetObject, s3:ListBucket</text>
+  <text x="210" y="671" text-anchor="middle" font-size="9"  fill="#fef9e7">cloudwatch:PutMetricData</text>
+
+  <rect x="370" y="612" width="720" height="72" rx="8" fill="#2c3e50" filter="url(#shadow)"/>
+  <text x="730" y="630" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Security Services</text>
+  <text x="490" y="648" text-anchor="middle" font-size="10" fill="#e67e22">CloudTrail</text>
+  <text x="490" y="661" text-anchor="middle" font-size="9"  fill="#aaa">enterprise-org-trail</text>
+  <text x="490" y="674" text-anchor="middle" font-size="9"  fill="#7f8c8d">Multi-Region | All Events</text>
+  <text x="660" y="648" text-anchor="middle" font-size="10" fill="#e67e22">GuardDuty</text>
+  <text x="660" y="661" text-anchor="middle" font-size="9"  fill="#aaa">Detector: ENABLED</text>
+  <text x="660" y="674" text-anchor="middle" font-size="9"  fill="#7f8c8d">15 min publish</text>
+  <text x="830" y="648" text-anchor="middle" font-size="10" fill="#e67e22">AWS Config</text>
+  <text x="830" y="661" text-anchor="middle" font-size="9"  fill="#aaa">ALL resources</text>
+  <text x="830" y="674" text-anchor="middle" font-size="9"  fill="#7f8c8d">24h snapshot</text>
+  <text x="990" y="648" text-anchor="middle" font-size="10" fill="#e67e22">CloudWatch</text>
+  <text x="990" y="661" text-anchor="middle" font-size="9"  fill="#aaa">EnterpriseDashboard</text>
+  <text x="990" y="674" text-anchor="middle" font-size="9"  fill="#7f8c8d">Cross-Acct Metrics</text>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- CI/CD PIPELINE BAR -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <rect x="30" y="900" width="930" height="110" rx="12" fill="#1a252f" stroke="#e67e22" stroke-width="2" filter="url(#shadow)"/>
+  <text x="495" y="920" text-anchor="middle" font-size="12" font-weight="bold" fill="#e67e22">CI/CD Pipeline  ECore Account 111111111111</text>
+
+  <rect x="50"  y="928" width="150" height="68" rx="8" fill="#2c3e50" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="125" y="948" text-anchor="middle" font-size="11" font-weight="bold" fill="#e67e22">SOURCE</text>
+  <text x="125" y="963" text-anchor="middle" font-size="10" fill="white">CodeCommit</text>
+  <text x="125" y="977" text-anchor="middle" font-size="9"  fill="#aaa">enterprise-cdk-repo</text>
+  <text x="125" y="989" text-anchor="middle" font-size="9"  fill="#aaa">Branch: main</text>
+
+  <line x1="200" y1="962" x2="225" y2="962" stroke="#e67e22" stroke-width="2.5" marker-end="url(#arrow-orange)"/>
+
+  <rect x="225" y="928" width="150" height="68" rx="8" fill="#2c3e50" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="300" y="948" text-anchor="middle" font-size="11" font-weight="bold" fill="#e67e22">BUILD</text>
+  <text x="300" y="963" text-anchor="middle" font-size="10" fill="white">CodeBuild</text>
+  <text x="300" y="977" text-anchor="middle" font-size="9"  fill="#aaa">npm ci + tsc</text>
+  <text x="300" y="989" text-anchor="middle" font-size="9"  fill="#aaa">cdk synth</text>
+
+  <line x1="375" y1="962" x2="400" y2="962" stroke="#e67e22" stroke-width="2.5" marker-end="url(#arrow-orange)"/>
+
+  <rect x="400" y="928" width="150" height="68" rx="8" fill="#2c3e50" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="475" y="948" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">DEPLOY DEV</text>
+  <text x="475" y="963" text-anchor="middle" font-size="10" fill="white">CloudFormation</text>
+  <text x="475" y="977" text-anchor="middle" font-size="9"  fill="#aaa">DevAccountStack</text>
+  <text x="475" y="989" text-anchor="middle" font-size="9"  fill="#aaa">222222222222</text>
+
+  <line x1="550" y1="962" x2="575" y2="962" stroke="#e67e22" stroke-width="2.5" marker-end="url(#arrow-orange)"/>
+
+  <rect x="575" y="928" width="150" height="68" rx="8" fill="#2c3e50" stroke="#f39c12" stroke-width="1.5"/>
+  <text x="650" y="948" text-anchor="middle" font-size="11" font-weight="bold" fill="#f39c12">DEPLOY STAGING</text>
+  <text x="650" y="963" text-anchor="middle" font-size="10" fill="white">CloudFormation</text>
+  <text x="650" y="977" text-anchor="middle" font-size="9"  fill="#aaa">StagingAccountStack</text>
+  <text x="650" y="989" text-anchor="middle" font-size="9"  fill="#aaa">333333333333</text>
+
+  <line x1="725" y1="962" x2="750" y2="962" stroke="#e67e22" stroke-width="2.5" marker-end="url(#arrow-orange)"/>
+
+  <rect x="750" y="928" width="150" height="68" rx="8" fill="#2c3e50" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="825" y="948" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">DEPLOY PROD</text>
+  <text x="825" y="963" text-anchor="middle" font-size="10" fill="white">CloudFormation</text>
+  <text x="825" y="977" text-anchor="middle" font-size="9"  fill="#aaa">ProdAccountStack</text>
+  <text x="825" y="989" text-anchor="middle" font-size="9"  fill="#aaa">444444444444</text>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- ACCOUNT 2: DEVELOPMENT  (bottom-left) -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <rect x="30" y="1040" width="1100" height="430" rx="14" fill="#d5f5e3" stroke="#27ae60" stroke-width="2.5" filter="url(#shadow)"/>
+  <rect x="30" y="1040" width="1100" height="36"  rx="14" fill="#27ae60"/>
+  <rect x="30" y="1062" width="1100" height="14"  fill="#27ae60"/>
+  <text x="580" y="1064" text-anchor="middle" font-size="15" font-weight="bold" fill="white">Development Account  E222222222222</text>
+
+  <rect x="50" y="1088" width="1060" height="360" rx="10" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="580" y="1108" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">VPC: dev-vpc  CIDR: 10.1.0.0/16</text>
+
+  <rect x="70"  y="1118" width="120" height="36" rx="6" fill="#27ae60"/>
+  <text x="130" y="1133" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Internet GW</text>
+  <text x="130" y="1147" text-anchor="middle" font-size="10" fill="#ddd">(IGW)</text>
+  <rect x="210" y="1118" width="130" height="36" rx="6" fill="#27ae60"/>
+  <text x="275" y="1133" text-anchor="middle" font-size="11" font-weight="bold" fill="white">NAT Gateway</text>
+  <text x="275" y="1147" text-anchor="middle" font-size="10" fill="#ddd">10.1.0.x AZ-a</text>
+
+  <rect x="70"  y="1168" width="300" height="66" rx="8" fill="#a9dfbf" stroke="#27ae60" stroke-width="1"/>
+  <text x="220" y="1186" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a3a2c">Public Subnet</text>
+  <text x="220" y="1200" text-anchor="middle" font-size="10" fill="#1a3a2c">10.1.0.0/24 (AZ-a)  10.1.1.0/24 (AZ-b)</text>
+  <text x="220" y="1214" text-anchor="middle" font-size="10" fill="#555">Route: 0.0.0.0/0 ↁEIGW</text>
+
+  <rect x="390" y="1168" width="300" height="66" rx="8" fill="#82e0aa" stroke="#27ae60" stroke-width="1"/>
+  <text x="540" y="1186" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a3a2c">Private Subnet</text>
+  <text x="540" y="1200" text-anchor="middle" font-size="10" fill="#1a3a2c">10.1.2.0/24 (AZ-a)  10.1.3.0/24 (AZ-b)</text>
+  <text x="540" y="1214" text-anchor="middle" font-size="10" fill="#555">Route: 0.0.0.0/0 ↁENAT</text>
+
+  <rect x="710" y="1168" width="300" height="66" rx="8" fill="#1e8449" stroke="#27ae60" stroke-width="1"/>
+  <text x="860" y="1186" text-anchor="middle" font-size="11" font-weight="bold" fill="white">DB Subnet (Isolated)</text>
+  <text x="860" y="1200" text-anchor="middle" font-size="10" fill="white">10.1.4.0/28 (AZ-a)  10.1.5.0/28 (AZ-b)</text>
+  <text x="860" y="1214" text-anchor="middle" font-size="10" fill="#ddd">No internet route</text>
+
+  <rect x="70"  y="1252" width="200" height="72" rx="8" fill="#1a6faf" filter="url(#shadow)"/>
+  <text x="170" y="1272" text-anchor="middle" font-size="12" font-weight="bold" fill="white">S3 Bucket</text>
+  <text x="170" y="1287" text-anchor="middle" font-size="9"  fill="#cce5ff">222222222222-ap-northeast-1</text>
+  <text x="170" y="1300" text-anchor="middle" font-size="9"  fill="#cce5ff">-dev-app</text>
+  <text x="170" y="1313" text-anchor="middle" font-size="9"  fill="#aad4f5">Read: 111111111111</text>
+
+  <rect x="290" y="1252" width="200" height="72" rx="8" fill="#e67e22" filter="url(#shadow)"/>
+  <text x="390" y="1272" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Lambda</text>
+  <text x="390" y="1287" text-anchor="middle" font-size="10" fill="white">dev-app-fn</text>
+  <text x="390" y="1300" text-anchor="middle" font-size="9"  fill="#fde8c8">Python 3.12 | 256 MB</text>
+  <text x="390" y="1313" text-anchor="middle" font-size="9"  fill="#fde8c8">X-Ray Tracing ON</text>
+
+  <rect x="510" y="1252" width="180" height="72" rx="8" fill="#8e44ad" filter="url(#shadow)"/>
+  <text x="600" y="1272" text-anchor="middle" font-size="12" font-weight="bold" fill="white">API Gateway</text>
+  <text x="600" y="1287" text-anchor="middle" font-size="10" fill="white">dev-app-fn-api</text>
+  <text x="600" y="1300" text-anchor="middle" font-size="9"  fill="#e8d5f5">REST /v1  ANY+Proxy</text>
+
+  <rect x="710" y="1252" width="300" height="72" rx="8" fill="#f39c12" filter="url(#shadow)"/>
+  <text x="860" y="1270" text-anchor="middle" font-size="11" font-weight="bold" fill="white">IAM: DevCrossAccountRole</text>
+  <text x="860" y="1285" text-anchor="middle" font-size="9"  fill="white">Trusted by: 111111111111, 444444444444</text>
+  <text x="860" y="1298" text-anchor="middle" font-size="9"  fill="white">s3:GetObject/PutObject/ListBucket</text>
+  <text x="860" y="1311" text-anchor="middle" font-size="9"  fill="#fef9e7">lambda:InvokeFunction, cw:PutMetricData</text>
+
+  <rect x="70" y="1342" width="200" height="48" rx="8" fill="#2c3e50" filter="url(#shadow)"/>
+  <text x="170" y="1362" text-anchor="middle" font-size="11" font-weight="bold" fill="white">GuardDuty</text>
+  <text x="170" y="1378" text-anchor="middle" font-size="9"  fill="#aaa">ENABLED | 15 min publish</text>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- ACCOUNT 3: STAGING  (top-right) -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <rect x="1470" y="300" width="1100" height="430" rx="14" fill="#fef9e7" stroke="#f39c12" stroke-width="2.5" filter="url(#shadow)"/>
+  <rect x="1470" y="300" width="1100" height="36"  rx="14" fill="#f39c12"/>
+  <rect x="1470" y="322" width="1100" height="14"  fill="#f39c12"/>
+  <text x="2020" y="324" text-anchor="middle" font-size="15" font-weight="bold" fill="white">Staging Account  E333333333333</text>
+
+  <rect x="1490" y="348" width="1060" height="360" rx="10" fill="#fdfaf0" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="2020" y="368" text-anchor="middle" font-size="12" font-weight="bold" fill="#f39c12">VPC: staging-vpc  CIDR: 10.2.0.0/16</text>
+
+  <rect x="1510" y="378" width="120" height="36" rx="6" fill="#f39c12"/>
+  <text x="1570" y="393" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Internet GW</text>
+  <text x="1570" y="407" text-anchor="middle" font-size="10" fill="#333">(IGW)</text>
+  <rect x="1650" y="378" width="130" height="36" rx="6" fill="#f39c12"/>
+  <text x="1715" y="393" text-anchor="middle" font-size="11" font-weight="bold" fill="white">NAT Gateway</text>
+  <text x="1715" y="407" text-anchor="middle" font-size="10" fill="#333">10.2.0.x AZ-a</text>
+
+  <rect x="1510" y="428" width="300" height="66" rx="8" fill="#fdebd0" stroke="#f39c12" stroke-width="1"/>
+  <text x="1660" y="446" text-anchor="middle" font-size="11" font-weight="bold" fill="#5d3a00">Public Subnet</text>
+  <text x="1660" y="460" text-anchor="middle" font-size="10" fill="#5d3a00">10.2.0.0/24 (AZ-a)  10.2.1.0/24 (AZ-b)</text>
+  <text x="1660" y="474" text-anchor="middle" font-size="10" fill="#555">Route: 0.0.0.0/0 ↁEIGW</text>
+
+  <rect x="1830" y="428" width="300" height="66" rx="8" fill="#f8c471" stroke="#f39c12" stroke-width="1"/>
+  <text x="1980" y="446" text-anchor="middle" font-size="11" font-weight="bold" fill="#5d3a00">Private Subnet</text>
+  <text x="1980" y="460" text-anchor="middle" font-size="10" fill="#5d3a00">10.2.2.0/24 (AZ-a)  10.2.3.0/24 (AZ-b)</text>
+  <text x="1980" y="474" text-anchor="middle" font-size="10" fill="#555">Route: 0.0.0.0/0 ↁENAT</text>
+
+  <rect x="2150" y="428" width="300" height="66" rx="8" fill="#e67e22" stroke="#f39c12" stroke-width="1"/>
+  <text x="2300" y="446" text-anchor="middle" font-size="11" font-weight="bold" fill="white">DB Subnet (Isolated)</text>
+  <text x="2300" y="460" text-anchor="middle" font-size="10" fill="white">10.2.4.0/28 (AZ-a)  10.2.5.0/28 (AZ-b)</text>
+  <text x="2300" y="474" text-anchor="middle" font-size="10" fill="#fde8c8">No internet route</text>
+
+  <rect x="1510" y="512" width="200" height="72" rx="8" fill="#1a6faf" filter="url(#shadow)"/>
+  <text x="1610" y="532" text-anchor="middle" font-size="12" font-weight="bold" fill="white">S3 Bucket</text>
+  <text x="1610" y="547" text-anchor="middle" font-size="9"  fill="#cce5ff">333333333333-ap-northeast-1</text>
+  <text x="1610" y="560" text-anchor="middle" font-size="9"  fill="#cce5ff">-staging-app</text>
+  <text x="1610" y="573" text-anchor="middle" font-size="9"  fill="#aad4f5">Read: 111111111111, 444444444444</text>
+
+  <rect x="1730" y="512" width="200" height="72" rx="8" fill="#e67e22" filter="url(#shadow)"/>
+  <text x="1830" y="532" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Lambda</text>
+  <text x="1830" y="547" text-anchor="middle" font-size="10" fill="white">staging-app-fn</text>
+  <text x="1830" y="560" text-anchor="middle" font-size="9"  fill="#fde8c8">Python 3.12 | 256 MB</text>
+  <text x="1830" y="573" text-anchor="middle" font-size="9"  fill="#fde8c8">X-Ray Tracing ON</text>
+
+  <rect x="1950" y="512" width="180" height="72" rx="8" fill="#8e44ad" filter="url(#shadow)"/>
+  <text x="2040" y="532" text-anchor="middle" font-size="12" font-weight="bold" fill="white">API Gateway</text>
+  <text x="2040" y="547" text-anchor="middle" font-size="10" fill="white">staging-app-fn-api</text>
+  <text x="2040" y="560" text-anchor="middle" font-size="9"  fill="#e8d5f5">REST /v1  ANY+Proxy</text>
+
+  <rect x="2150" y="512" width="300" height="72" rx="8" fill="#f39c12" filter="url(#shadow)"/>
+  <text x="2300" y="530" text-anchor="middle" font-size="11" font-weight="bold" fill="white">IAM: StagingCrossAccountRole</text>
+  <text x="2300" y="545" text-anchor="middle" font-size="9"  fill="white">Trusted by: 111111111111, 444444444444</text>
+  <text x="2300" y="558" text-anchor="middle" font-size="9"  fill="white">s3:GetObject/PutObject/ListBucket</text>
+  <text x="2300" y="571" text-anchor="middle" font-size="9"  fill="#fef9e7">lambda:InvokeFunction, cw:PutMetricData</text>
+
+  <rect x="1510" y="602" width="200" height="48" rx="8" fill="#2c3e50" filter="url(#shadow)"/>
+  <text x="1610" y="622" text-anchor="middle" font-size="11" font-weight="bold" fill="white">GuardDuty</text>
+  <text x="1610" y="638" text-anchor="middle" font-size="9"  fill="#aaa">ENABLED | 15 min publish</text>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- ACCOUNT 4: PRODUCTION  (bottom-right) -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <rect x="1470" y="760" width="1100" height="470" rx="14" fill="#fde8e8" stroke="#c0392b" stroke-width="2.5" filter="url(#shadow)"/>
+  <rect x="1470" y="760" width="1100" height="36"  rx="14" fill="#c0392b"/>
+  <rect x="1470" y="782" width="1100" height="14"  fill="#c0392b"/>
+  <text x="2020" y="784" text-anchor="middle" font-size="15" font-weight="bold" fill="white">Production Account  E444444444444</text>
+
+  <rect x="1490" y="808" width="1060" height="400" rx="10" fill="#fdf2f2" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="2020" y="828" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">VPC: prod-vpc  CIDR: 10.3.0.0/16  (3 AZs for HA)</text>
+
+  <rect x="1510" y="838" width="120" height="36" rx="6" fill="#c0392b"/>
+  <text x="1570" y="853" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Internet GW</text>
+  <text x="1570" y="867" text-anchor="middle" font-size="10" fill="#fde8e8">(IGW)</text>
+  <rect x="1650" y="838" width="130" height="36" rx="6" fill="#c0392b"/>
+  <text x="1715" y="853" text-anchor="middle" font-size="11" font-weight="bold" fill="white">NAT Gateway</text>
+  <text x="1715" y="867" text-anchor="middle" font-size="10" fill="#fde8e8">10.3.0.x AZ-a/b/c</text>
+
+  <rect x="1510" y="888" width="300" height="76" rx="8" fill="#f1948a" stroke="#c0392b" stroke-width="1"/>
+  <text x="1660" y="906" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Public Subnet</text>
+  <text x="1660" y="920" text-anchor="middle" font-size="10" fill="white">10.3.0.0/24 (AZ-a)  10.3.1.0/24 (AZ-b)</text>
+  <text x="1660" y="934" text-anchor="middle" font-size="10" fill="white">10.3.2.0/24 (AZ-c)</text>
+  <text x="1660" y="948" text-anchor="middle" font-size="10" fill="#fde8e8">Route: 0.0.0.0/0 ↁEIGW</text>
+
+  <rect x="1830" y="888" width="300" height="76" rx="8" fill="#e74c3c" stroke="#c0392b" stroke-width="1"/>
+  <text x="1980" y="906" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Private Subnet</text>
+  <text x="1980" y="920" text-anchor="middle" font-size="10" fill="white">10.3.3.0/24 (AZ-a)  10.3.4.0/24 (AZ-b)</text>
+  <text x="1980" y="934" text-anchor="middle" font-size="10" fill="white">10.3.5.0/24 (AZ-c)</text>
+  <text x="1980" y="948" text-anchor="middle" font-size="10" fill="#fde8e8">Route: 0.0.0.0/0 ↁENAT</text>
+
+  <rect x="2150" y="888" width="300" height="76" rx="8" fill="#922b21" stroke="#c0392b" stroke-width="1"/>
+  <text x="2300" y="906" text-anchor="middle" font-size="11" font-weight="bold" fill="white">DB Subnet (Isolated)</text>
+  <text x="2300" y="920" text-anchor="middle" font-size="10" fill="white">10.3.6.0/28 (AZ-a)  10.3.7.0/28 (AZ-b)</text>
+  <text x="2300" y="934" text-anchor="middle" font-size="10" fill="white">10.3.8.0/28 (AZ-c)</text>
+  <text x="2300" y="948" text-anchor="middle" font-size="10" fill="#fde8e8">No internet route</text>
+
+  <rect x="1510" y="982" width="200" height="72" rx="8" fill="#1a6faf" filter="url(#shadow)"/>
+  <text x="1610" y="1002" text-anchor="middle" font-size="12" font-weight="bold" fill="white">S3 Bucket</text>
+  <text x="1610" y="1017" text-anchor="middle" font-size="9"  fill="#cce5ff">444444444444-ap-northeast-1</text>
+  <text x="1610" y="1030" text-anchor="middle" font-size="9"  fill="#cce5ff">-prod-app</text>
+  <text x="1610" y="1043" text-anchor="middle" font-size="9"  fill="#aad4f5">Read: 111111111111 ONLY</text>
+
+  <rect x="1730" y="982" width="200" height="72" rx="8" fill="#e67e22" filter="url(#shadow)"/>
+  <text x="1830" y="1002" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Lambda</text>
+  <text x="1830" y="1017" text-anchor="middle" font-size="10" fill="white">prod-app-fn</text>
+  <text x="1830" y="1030" text-anchor="middle" font-size="9"  fill="#fde8c8">Python 3.12 | 512 MB | 60s</text>
+  <text x="1830" y="1043" text-anchor="middle" font-size="9"  fill="#fde8c8">X-Ray Tracing ON</text>
+
+  <rect x="1950" y="982" width="180" height="72" rx="8" fill="#8e44ad" filter="url(#shadow)"/>
+  <text x="2040" y="1002" text-anchor="middle" font-size="12" font-weight="bold" fill="white">API Gateway</text>
+  <text x="2040" y="1017" text-anchor="middle" font-size="10" fill="white">prod-app-fn-api</text>
+  <text x="2040" y="1030" text-anchor="middle" font-size="9"  fill="#e8d5f5">REST /v1  ANY+Proxy</text>
+
+  <rect x="2150" y="982" width="300" height="72" rx="8" fill="#f39c12" filter="url(#shadow)"/>
+  <text x="2300" y="1000" text-anchor="middle" font-size="11" font-weight="bold" fill="white">IAM: ProdCrossAccountRole</text>
+  <text x="2300" y="1015" text-anchor="middle" font-size="9"  fill="white">Trusted by: 111111111111 ONLY</text>
+  <text x="2300" y="1028" text-anchor="middle" font-size="9"  fill="white">s3:GetObject, s3:ListBucket</text>
+  <text x="2300" y="1041" text-anchor="middle" font-size="9"  fill="#fef9e7">cloudwatch:PutMetricData (least-priv)</text>
+
+  <rect x="1510" y="1072" width="460" height="56" rx="8" fill="#2c3e50" filter="url(#shadow)"/>
+  <text x="1740" y="1092" text-anchor="middle" font-size="11" font-weight="bold" fill="white">CloudWatch Alarms (Production)</text>
+  <text x="1740" y="1107" text-anchor="middle" font-size="9"  fill="#e74c3c">ProdLambdaErrorAlarm: threshold=1  |  ProdLambdaThrottleAlarm: threshold=10</text>
+  <text x="1740" y="1120" text-anchor="middle" font-size="9"  fill="#aaa">ProdDashboard: Invocations + Duration</text>
+
+  <rect x="1990" y="1072" width="200" height="56" rx="8" fill="#2c3e50" filter="url(#shadow)"/>
+  <text x="2090" y="1092" text-anchor="middle" font-size="11" font-weight="bold" fill="white">GuardDuty</text>
+  <text x="2090" y="1107" text-anchor="middle" font-size="9"  fill="#aaa">ENABLED | 15 min publish</text>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- CROSS-ACCOUNT CONNECTIONS -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+
+  <!-- TGW attachments (red dashed) -->
+  <path d="M 580 878 Q 700 910 980 944" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="7,4" fill="none" marker-end="url(#arrow-red)"/>
+  <text x="720" y="900" font-size="9" fill="#c0392b">TGW Attach (Core Private Subnets)</text>
+
+  <path d="M 580 1088 Q 700 1040 980 960" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="7,4" fill="none" marker-end="url(#arrow-red)"/>
+  <text x="660" y="1040" font-size="9" fill="#c0392b">TGW Attach (Dev)</text>
+
+  <path d="M 2020 730 Q 1700 800 1420 935" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="7,4" fill="none" marker-end="url(#arrow-red)"/>
+  <text x="1680" y="800" font-size="9" fill="#c0392b">TGW Attach (Staging)</text>
+
+  <path d="M 2020 1230 Q 1700 1100 1420 968" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="7,4" fill="none" marker-end="url(#arrow-red)"/>
+  <text x="1680" y="1110" font-size="9" fill="#c0392b">TGW Attach (Prod)</text>
+
+  <!-- Lambda ↁES3 same account (blue) -->
+  <line x1="510" y1="558" x2="270" y2="558" stroke="#1a6faf" stroke-width="1.8" marker-end="url(#arrow-blue)"/>
+  <text x="340" y="550" font-size="9" fill="#1a6faf">s3:GetObject/PutObject</text>
+
+  <line x1="290" y1="1288" x2="270" y2="1288" stroke="#1a6faf" stroke-width="1.8" marker-end="url(#arrow-blue)"/>
+  <text x="155" y="1280" font-size="9" fill="#1a6faf">s3:R/W</text>
+
+  <line x1="1530" y1="548" x2="1510" y2="548" stroke="#1a6faf" stroke-width="1.8" marker-end="url(#arrow-blue)"/>
+  <text x="1615" y="540" font-size="9" fill="#1a6faf">s3:R/W</text>
+
+  <line x1="1530" y1="1018" x2="1510" y2="1018" stroke="#1a6faf" stroke-width="1.8" marker-end="url(#arrow-blue)"/>
+  <text x="1615" y="1010" font-size="9" fill="#1a6faf">s3:R/W</text>
+
+  <!-- API GW ↁELambda (blue) -->
+  <line x1="730" y1="558" x2="710" y2="558" stroke="#1a6faf" stroke-width="1.8" marker-end="url(#arrow-blue)"/>
+  <text x="714" y="550" font-size="9" fill="#1a6faf">invoke</text>
+
+  <line x1="510" y1="1288" x2="490" y2="1288" stroke="#1a6faf" stroke-width="1.8" marker-end="url(#arrow-blue)"/>
+  <text x="494" y="1280" font-size="9" fill="#1a6faf">invoke</text>
+
+  <line x1="1750" y1="548" x2="1730" y2="548" stroke="#1a6faf" stroke-width="1.8" marker-end="url(#arrow-blue)"/>
+  <text x="1934" y="540" font-size="9" fill="#1a6faf">invoke</text>
+
+  <line x1="1750" y1="1018" x2="1730" y2="1018" stroke="#1a6faf" stroke-width="1.8" marker-end="url(#arrow-blue)"/>
+  <text x="1934" y="1010" font-size="9" fill="#1a6faf">invoke</text>
+
+  <!-- sts:AssumeRole ↁECoreCrossAccountRole (gray) -->
+  <path d="M 390 1252 Q 300 1100 210 684" stroke="#555" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+  <text x="240" y="980" font-size="9" fill="#555" transform="rotate(-80,240,980)">sts:AssumeRole ↁECoreCrossAccountRole</text>
+
+  <path d="M 1830 512 Q 1200 460 700 650" stroke="#555" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+  <text x="1100" y="470" font-size="9" fill="#555">sts:AssumeRole ↁECoreCrossAccountRole (Staging)</text>
+
+  <path d="M 1830 982 Q 1100 880 700 660" stroke="#555" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+  <text x="1060" y="800" font-size="9" fill="#555" transform="rotate(-18,1060,800)">sts:AssumeRole ↁECoreCrossAccountRole (Prod)</text>
+
+  <!-- S3 cross-account read (green dashed) -->
+  <path d="M 170 594 L 170 1252" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow-green)"/>
+  <text x="60" y="940" font-size="9" fill="#27ae60" transform="rotate(90,60,940)">s3:GetObject (111ↁE22)</text>
+
+  <path d="M 270 522 Q 800 380 1610 512" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow-green)"/>
+  <text x="820" y="400" font-size="9" fill="#27ae60">s3:GetObject (111ↁE33)</text>
+
+  <path d="M 270 522 Q 800 680 1610 982" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow-green)"/>
+  <text x="760" y="740" font-size="9" fill="#27ae60">s3:GetObject (111ↁE44)</text>
+
+  <path d="M 1610 584 Q 1610 720 1610 982" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow-green)"/>
+  <text x="1490" y="790" font-size="9" fill="#27ae60">s3:GetObject (333ↁE44)</text>
+
+  <!-- Security / monitoring (purple dashed) -->
+  <path d="M 490 594 L 490 1252" stroke="#8e44ad" stroke-width="1.2" stroke-dasharray="4,3" fill="none" marker-end="url(#arrow-purple)"/>
+  <text x="380" y="940" font-size="9" fill="#8e44ad" transform="rotate(90,380,940)">CloudTrail logs (111ↁE22)</text>
+
+  <path d="M 500 594 Q 1000 560 1610 602" stroke="#8e44ad" stroke-width="1.2" stroke-dasharray="4,3" fill="none" marker-end="url(#arrow-purple)"/>
+  <text x="900" y="555" font-size="9" fill="#8e44ad">CloudTrail (111ↁE33)</text>
+
+  <path d="M 500 594 Q 1000 740 1610 1072" stroke="#8e44ad" stroke-width="1.2" stroke-dasharray="4,3" fill="none" marker-end="url(#arrow-purple)"/>
+  <text x="900" y="810" font-size="9" fill="#8e44ad">CloudTrail (111ↁE44)</text>
+
+  <path d="M 990 684 Q 1300 820 1740 1072" stroke="#8e44ad" stroke-width="1.2" stroke-dasharray="4,3" fill="none" marker-end="url(#arrow-purple)"/>
+  <text x="1200" y="860" font-size="9" fill="#8e44ad">CW Dashboard cross-acct metrics</text>
+
+  <!-- CI/CD deploy arrows (orange) -->
+  <path d="M 475 996 Q 475 1060 390 1252" stroke="#e67e22" stroke-width="2" fill="none" marker-end="url(#arrow-orange)"/>
+  <text x="400" y="1140" font-size="9" fill="#e67e22" transform="rotate(-75,400,1140)">cdk deploy DevAccountStack</text>
+
+  <path d="M 650 996 Q 1100 1020 1830 584" stroke="#e67e22" stroke-width="2" fill="none" marker-end="url(#arrow-orange)"/>
+  <text x="1050" y="1010" font-size="9" fill="#e67e22">cdk deploy StagingAccountStack</text>
+
+  <path d="M 825 996 Q 1200 1040 1830 1054" stroke="#e67e22" stroke-width="2" fill="none" marker-end="url(#arrow-orange)"/>
+  <text x="1150" y="1060" font-size="9" fill="#e67e22">cdk deploy ProdAccountStack</text>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- FOOTER -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <rect x="0" y="1960" width="2600" height="40" fill="#1a252f"/>
+  <text x="1300" y="1985" text-anchor="middle" font-size="11" fill="#7f8c8d">
+    AWS CDK TypeScript  ERegion: ap-northeast-1  EAccounts: 111111111111 | 222222222222 | 333333333333 | 444444444444
+  </text>
+
+</svg>
