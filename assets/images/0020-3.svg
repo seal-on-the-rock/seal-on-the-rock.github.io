@@ -1,0 +1,143 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 680" width="960" height="680" font-family="'Segoe UI',Arial,sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,9 3,0 6" fill="#555"/></marker>
+    <marker id="arr-g" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,9 3,0 6" fill="#27ae60"/></marker>
+    <marker id="arr-r" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,9 3,0 6" fill="#c0392b"/></marker>
+    <filter id="sh"><feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#00000025"/></filter>
+  </defs>
+
+  <rect width="960" height="680" fill="#f5f7fa"/>
+  <rect x="0" y="0" width="960" height="48" fill="#1a252f"/>
+  <text x="480" y="31" text-anchor="middle" font-size="18" font-weight="bold" fill="white">⑥ IAM Cross-Account Access (sts:AssumeRole)</text>
+
+  <!-- Step labels -->
+  <rect x="30" y="58" width="900" height="28" rx="6" fill="#2c3e50"/>
+  <text x="130" y="77" text-anchor="middle" font-size="11" fill="#e67e22" font-weight="bold">Step 1: Lambda Initiates Request</text>
+  <text x="370" y="77" text-anchor="middle" font-size="11" fill="#e67e22" font-weight="bold">Step 2: STS Validates &amp; Issues Temp Credentials</text>
+  <text x="640" y="77" text-anchor="middle" font-size="11" fill="#e67e22" font-weight="bold">Step 3: Access Resource with Temp Credentials</text>
+  <text x="870" y="77" text-anchor="middle" font-size="11" fill="#7f8c8d">Step 4: Credentials Expire</text>
+
+  <!-- ── Caller: Dev Lambda ── -->
+  <rect x="30" y="100" width="200" height="130" rx="12" fill="#27ae60" filter="url(#sh)"/>
+  <text x="130" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Dev Account</text>
+  <text x="130" y="138" text-anchor="middle" font-size="10" fill="#d5f5e3">222222222222</text>
+  <rect x="46" y="148" width="168" height="68" rx="8" fill="#1e8449"/>
+  <text x="130" y="166" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Lambda</text>
+  <text x="130" y="181" text-anchor="middle" font-size="10" fill="#a9dfbf">dev-app-fn</text>
+  <text x="130" y="196" text-anchor="middle" font-size="9" fill="#a9dfbf">Has sts:AssumeRole permission</text>
+  <text x="130" y="209" text-anchor="middle" font-size="9" fill="#a9dfbf">IAM Execution Role</text>
+
+  <!-- ── STS Service ── -->
+  <rect x="290" y="100" width="200" height="130" rx="12" fill="#8e44ad" filter="url(#sh)"/>
+  <text x="390" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="white">AWS STS</text>
+  <text x="390" y="138" text-anchor="middle" font-size="10" fill="#e8d5f5">Security Token Service</text>
+  <rect x="306" y="148" width="168" height="68" rx="8" fill="#6c3483"/>
+  <text x="390" y="168" text-anchor="middle" font-size="10" fill="white">Verify caller identity</text>
+  <text x="390" y="184" text-anchor="middle" font-size="10" fill="#e8d5f5">Check Trust Policy</text>
+  <text x="390" y="200" text-anchor="middle" font-size="10" fill="#e8d5f5">Issue temporary credentials</text>
+  <text x="390" y="214" text-anchor="middle" font-size="9" fill="#c39bd3">AccessKey + SecretKey + Token</text>
+
+  <!-- ── Core Role ── -->
+  <rect x="550" y="100" width="200" height="130" rx="12" fill="#f39c12" filter="url(#sh)"/>
+  <text x="650" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Core Account</text>
+  <text x="650" y="138" text-anchor="middle" font-size="10" fill="#fef9e7">111111111111</text>
+  <rect x="566" y="148" width="168" height="68" rx="8" fill="#d68910"/>
+  <text x="650" y="166" text-anchor="middle" font-size="11" font-weight="bold" fill="white">CoreCrossAccountRole</text>
+  <text x="650" y="181" text-anchor="middle" font-size="9" fill="#fef9e7">Trust Policy:</text>
+  <text x="650" y="194" text-anchor="middle" font-size="9" fill="#fef9e7">Principal: 222, 333, 444</text>
+  <text x="650" y="207" text-anchor="middle" font-size="9" fill="#fef9e7">MaxSession: 4h</text>
+
+  <!-- ── Resource ── -->
+  <rect x="810" y="100" width="120" height="130" rx="12" fill="#1a6faf" filter="url(#sh)"/>
+  <text x="870" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Core S3</text>
+  <text x="870" y="138" text-anchor="middle" font-size="9" fill="#cce5ff">core-shared</text>
+  <rect x="826" y="148" width="88" height="68" rx="8" fill="#1557a0"/>
+  <text x="870" y="168" text-anchor="middle" font-size="9" fill="white">s3:GetObject</text>
+  <text x="870" y="182" text-anchor="middle" font-size="9" fill="white">s3:ListBucket</text>
+  <text x="870" y="196" text-anchor="middle" font-size="9" fill="#aad4f5">Bucket Policy</text>
+  <text x="870" y="210" text-anchor="middle" font-size="9" fill="#aad4f5">Allow Account 111</text>
+
+  <!-- Flow arrows -->
+  <path d="M 230 165 Q 260 165 290 165" stroke="#555" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="260" y="158" text-anchor="middle" font-size="9" fill="#555">AssumeRole</text>
+  <text x="260" y="170" text-anchor="middle" font-size="9" fill="#555">Request</text>
+
+  <path d="M 490 165 Q 520 165 550 165" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-g)"/>
+  <text x="520" y="158" text-anchor="middle" font-size="9" fill="#27ae60">Temp Credentials</text>
+  <text x="520" y="170" text-anchor="middle" font-size="9" fill="#27ae60">Returned</text>
+
+  <path d="M 750 165 Q 780 165 810 165" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-g)"/>
+  <text x="780" y="158" text-anchor="middle" font-size="9" fill="#27ae60">Use Credentials</text>
+  <text x="780" y="170" text-anchor="middle" font-size="9" fill="#27ae60">Access</text>
+
+  <!-- ── Trust Policy detail ── -->
+  <rect x="30" y="260" width="420" height="180" rx="10" fill="white" stroke="#f39c12" stroke-width="1.5" filter="url(#sh)"/>
+  <rect x="30" y="260" width="420" height="28" rx="10" fill="#f39c12"/>
+  <text x="240" y="279" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Trust Policy — CoreCrossAccountRole</text>
+  <text x="46" y="308" font-size="10" fill="#333" font-family="monospace">{</text>
+  <text x="60" y="324" font-size="10" fill="#333" font-family="monospace">  "Effect": "Allow",</text>
+  <text x="60" y="340" font-size="10" fill="#8e44ad" font-family="monospace">  "Principal": {</text>
+  <text x="74" y="356" font-size="10" fill="#8e44ad" font-family="monospace">    "AWS": [</text>
+  <text x="88" y="372" font-size="10" fill="#c0392b" font-family="monospace">      "arn:aws:iam::222222222222:root",</text>
+  <text x="88" y="388" font-size="10" fill="#f39c12" font-family="monospace">      "arn:aws:iam::333333333333:root",</text>
+  <text x="88" y="404" font-size="10" fill="#c0392b" font-family="monospace">      "arn:aws:iam::444444444444:root"</text>
+  <text x="74" y="420" font-size="10" fill="#8e44ad" font-family="monospace">    ]},</text>
+  <text x="60" y="436" font-size="10" fill="#27ae60" font-family="monospace">  "Action": "sts:AssumeRole"</text>
+
+  <!-- ── Permission Policy detail ── -->
+  <rect x="510" y="260" width="420" height="180" rx="10" fill="white" stroke="#1a6faf" stroke-width="1.5" filter="url(#sh)"/>
+  <rect x="510" y="260" width="420" height="28" rx="10" fill="#1a6faf"/>
+  <text x="720" y="279" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Permission Policy — Least Privilege Example</text>
+  <text x="526" y="308" font-size="10" fill="#333" font-family="monospace">{</text>
+  <text x="540" y="324" font-size="10" fill="#333" font-family="monospace">  "Effect": "Allow",</text>
+  <text x="540" y="340" font-size="10" fill="#27ae60" font-family="monospace">  "Action": [</text>
+  <text x="554" y="356" font-size="10" fill="#27ae60" font-family="monospace">    "s3:GetObject",</text>
+  <text x="554" y="372" font-size="10" fill="#27ae60" font-family="monospace">    "s3:ListBucket",</text>
+  <text x="554" y="388" font-size="10" fill="#27ae60" font-family="monospace">    "cloudwatch:PutMetricData"</text>
+  <text x="540" y="404" font-size="10" fill="#27ae60" font-family="monospace">  ],</text>
+  <text x="540" y="420" font-size="10" fill="#1a6faf" font-family="monospace">  "Resource": "*"</text>
+  <text x="526" y="436" font-size="10" fill="#333" font-family="monospace">}</text>
+
+  <!-- ── Role matrix ── -->
+  <rect x="30" y="460" width="900" height="180" rx="10" fill="white" stroke="#ccc" stroke-width="1" filter="url(#sh)"/>
+  <rect x="30" y="460" width="900" height="28" rx="10" fill="#2c3e50"/>
+  <text x="480" y="479" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Cross-Account Role Trust Matrix — Who Can AssumeRole Whom</text>
+
+  <!-- Header row -->
+  <rect x="30" y="488" width="180" height="24" fill="#ecf0f1"/><text x="120" y="504" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Role Account ↓  Caller →</text>
+  <rect x="210" y="488" width="180" height="24" fill="#d5e8f7"/><text x="300" y="504" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a6faf">Core (111)</text>
+  <rect x="390" y="488" width="180" height="24" fill="#d5f5e3"/><text x="480" y="504" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">Dev (222)</text>
+  <rect x="570" y="488" width="180" height="24" fill="#fef9e7"/><text x="660" y="504" text-anchor="middle" font-size="10" font-weight="bold" fill="#f39c12">Staging (333)</text>
+  <rect x="750" y="488" width="180" height="24" fill="#fde8e8"/><text x="840" y="504" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Prod (444)</text>
+
+  <!-- Row: CoreCrossAccountRole -->
+  <rect x="30" y="512" width="180" height="32" fill="#d5e8f7"/><text x="120" y="532" text-anchor="middle" font-size="10" fill="#1a6faf">CoreCrossAccountRole</text>
+  <rect x="210" y="512" width="180" height="32" fill="#f8f9fa"/><text x="300" y="532" text-anchor="middle" font-size="12" fill="#888">—</text>
+  <rect x="390" y="512" width="180" height="32" fill="#d5f5e3"/><text x="480" y="532" text-anchor="middle" font-size="12" fill="#27ae60">✓</text>
+  <rect x="570" y="512" width="180" height="32" fill="#fef9e7"/><text x="660" y="532" text-anchor="middle" font-size="12" fill="#f39c12">✓</text>
+  <rect x="750" y="512" width="180" height="32" fill="#fde8e8"/><text x="840" y="532" text-anchor="middle" font-size="12" fill="#c0392b">✓</text>
+
+  <!-- Row: DevCrossAccountRole -->
+  <rect x="30" y="544" width="180" height="32" fill="#d5f5e3"/><text x="120" y="564" text-anchor="middle" font-size="10" fill="#27ae60">DevCrossAccountRole</text>
+  <rect x="210" y="544" width="180" height="32" fill="#d5e8f7"/><text x="300" y="564" text-anchor="middle" font-size="12" fill="#1a6faf">✓</text>
+  <rect x="390" y="544" width="180" height="32" fill="#f8f9fa"/><text x="480" y="564" text-anchor="middle" font-size="12" fill="#888">—</text>
+  <rect x="570" y="544" width="180" height="32" fill="#f8f9fa"/><text x="660" y="564" text-anchor="middle" font-size="12" fill="#888">—</text>
+  <rect x="750" y="544" width="180" height="32" fill="#fde8e8"/><text x="840" y="564" text-anchor="middle" font-size="12" fill="#c0392b">✓</text>
+
+  <!-- Row: ProdCrossAccountRole -->
+  <rect x="30" y="576" width="180" height="32" fill="#fde8e8"/><text x="120" y="596" text-anchor="middle" font-size="10" fill="#c0392b">ProdCrossAccountRole</text>
+  <rect x="210" y="576" width="180" height="32" fill="#d5e8f7"/><text x="300" y="596" text-anchor="middle" font-size="12" fill="#1a6faf">✓</text>
+  <rect x="390" y="576" width="180" height="32" fill="#f8f9fa"/><text x="480" y="596" text-anchor="middle" font-size="12" fill="#888">✗</text>
+  <rect x="570" y="576" width="180" height="32" fill="#f8f9fa"/><text x="660" y="596" text-anchor="middle" font-size="12" fill="#888">✗</text>
+  <rect x="750" y="576" width="180" height="32" fill="#f8f9fa"/><text x="840" y="596" text-anchor="middle" font-size="12" fill="#888">—</text>
+
+  <!-- Row: StagingCrossAccountRole -->
+  <rect x="30" y="608" width="180" height="32" fill="#fef9e7"/><text x="120" y="628" text-anchor="middle" font-size="10" fill="#f39c12">StagingCrossAccountRole</text>
+  <rect x="210" y="608" width="180" height="32" fill="#d5e8f7"/><text x="300" y="628" text-anchor="middle" font-size="12" fill="#1a6faf">✓</text>
+  <rect x="390" y="608" width="180" height="32" fill="#f8f9fa"/><text x="480" y="628" text-anchor="middle" font-size="12" fill="#888">—</text>
+  <rect x="570" y="608" width="180" height="32" fill="#f8f9fa"/><text x="660" y="628" text-anchor="middle" font-size="12" fill="#888">—</text>
+  <rect x="750" y="608" width="180" height="32" fill="#fde8e8"/><text x="840" y="628" text-anchor="middle" font-size="12" fill="#c0392b">✓</text>
+
+  <rect x="0" y="660" width="960" height="20" fill="#1a252f"/>
+  <text x="480" y="674" text-anchor="middle" font-size="10" fill="#7f8c8d">Diagram 6/10 — IAM Cross-Account Role</text>
+</svg>
