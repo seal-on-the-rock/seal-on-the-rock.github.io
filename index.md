@@ -246,6 +246,7 @@ body {
     </a>
 
     <div class="cert-grid">
+      <img src="/assets/images/aws-certified-cloud-practitioner.png">
       <img src="/assets/images/aws-certified-solutions-architect-associate.png">
       <img src="/assets/images/aws-certified-developer-associate.png">
       <img src="/assets/images/aws-certified-solutions-architect-professional.png">
