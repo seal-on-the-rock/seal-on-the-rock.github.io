@@ -221,7 +221,7 @@ body {
 
     <!-- HERO CARD -->
     <div class="section-card hero">
-      <img src="/assets/images/logo.png" alt="logo">
+      <img src="/assets/images/logo_1.png" alt="logo">
       <p>Cloud / Architecture / DevOps</p>
     </div>
 
