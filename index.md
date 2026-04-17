@@ -250,6 +250,7 @@ body {
       <img src="/assets/images/aws-certified-ai-practitioner.png">
       <img src="/assets/images/aws-certified-solutions-architect-associate.png">
       <img src="/assets/images/aws-certified-developer-associate.png">
+      <img src="/assets/images/aws-certified-cloudops-engineer-associate.png">
       <img src="/assets/images/aws-certified-solutions-architect-professional.png">
       <img src="/assets/images/aws-certified-devops-engineer-professional.png">
       <img src="/assets/images/aws-certified-generative-ai-developer-professional.png">
